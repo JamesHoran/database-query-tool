@@ -1,0 +1,40 @@
+module.exports = {
+  apps: [
+    {
+      name: 'database-query-tool-dev',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'dev',
+      cwd: './',
+      instances: 1,
+      exec_mode: 'fork',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      env: {
+        NODE_ENV: 'development',
+      },
+      error_file: './logs/dev-error.log',
+      out_file: './logs/dev-out.log',
+      log_file: './logs/dev-combined.log',
+      time: true,
+    },
+    {
+      name: 'database-query-tool-prod',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start',
+      cwd: './',
+      instances: 1,
+      exec_mode: 'fork',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      env: {
+        NODE_ENV: 'production',
+      },
+      error_file: './logs/prod-error.log',
+      out_file: './logs/prod-out.log',
+      log_file: './logs/prod-combined.log',
+      time: true,
+    },
+  ],
+};
