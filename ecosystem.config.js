@@ -1,17 +1,19 @@
 module.exports = {
   apps: [
     {
-      name: 'database-query-tool-dev',
+      name: 'dev',
       script: 'node_modules/next/dist/bin/next',
-      args: 'dev',
+      args: 'dev --webpack',
       cwd: './',
       instances: 1,
       exec_mode: 'fork',
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
+      description: 'Next.js dev server on port 3000',
       env: {
         NODE_ENV: 'development',
+        PORT: 3000,
       },
       error_file: './logs/dev-error.log',
       out_file: './logs/dev-out.log',
@@ -19,7 +21,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'database-query-tool-prod',
+      name: 'prod',
       script: 'node_modules/next/dist/bin/next',
       args: 'start',
       cwd: './',
@@ -28,8 +30,10 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
+      description: 'Next.js prod server on port 3000',
       env: {
         NODE_ENV: 'production',
+        PORT: 3000,
       },
       error_file: './logs/prod-error.log',
       out_file: './logs/prod-out.log',
