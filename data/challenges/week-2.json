@@ -1,0 +1,677 @@
+[
+  {
+    "id": "w2-d1-c1",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 1,
+    "order": 1,
+    "title": "Introduction to GROUP BY",
+    "description": "Learn how to group rows for aggregation.",
+    "instructions": "Count the number of employees in each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT department, COUNT(*) FROM employees GROUP BY department",
+    "hints": [
+      "GROUP BY groups rows with the same value",
+      "Use aggregate functions like COUNT with each group",
+      "Format: SELECT column, COUNT(*) FROM table GROUP BY column"
+    ],
+    "tests": [
+      {
+        "description": "Query must use GROUP BY",
+        "mustContain": ["SELECT", "FROM", "GROUP BY"],
+        "expectedColumns": ["department", "COUNT(*)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d1-c2",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 1,
+    "order": 2,
+    "title": "SUM with GROUP BY",
+    "description": "Learn how to calculate sums for each group.",
+    "instructions": "Calculate the total salary for each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT department, SUM(salary) FROM employees GROUP BY department",
+    "hints": [
+      "Combine SUM with GROUP BY",
+      "Each group gets its own sum",
+      "Non-aggregated columns must be in GROUP BY"
+    ],
+    "tests": [
+      {
+        "description": "Query must use SUM with GROUP BY",
+        "mustContain": ["SELECT", "SUM", "GROUP BY"],
+        "expectedColumns": ["department", "SUM(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d1-c3",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 1,
+    "order": 3,
+    "title": "AVG with GROUP BY",
+    "description": "Learn how to calculate averages for each group.",
+    "instructions": "Find the average salary for each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "hints": [
+      "AVG with GROUP BY gives average per group",
+      "Result has one row per unique group value",
+      "Use AS to name the aggregate column"
+    ],
+    "tests": [
+      {
+        "description": "Query must use AVG with GROUP BY",
+        "mustContain": ["SELECT", "AVG", "GROUP BY"],
+        "expectedColumns": ["department", "AVG(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d1-c4",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 1,
+    "order": 4,
+    "title": "Multiple Aggregates",
+    "description": "Learn how to use multiple aggregate functions at once.",
+    "instructions": "For each department, show the count, average salary, and total salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT department, COUNT(*), AVG(salary), SUM(salary) FROM employees GROUP BY department",
+    "hints": [
+      "You can use multiple aggregate functions",
+      "Separate each aggregate with a comma",
+      "All aggregates apply to each group"
+    ],
+    "tests": [
+      {
+        "description": "Query must use multiple aggregates",
+        "mustContain": ["SELECT", "COUNT", "AVG", "SUM", "GROUP BY"],
+        "expectedColumns": ["department", "COUNT(*)", "AVG(salary)", "SUM(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d1-c5",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 1,
+    "order": 5,
+    "title": "MIN and MAX with GROUP BY",
+    "description": "Learn how to find extremes within each group.",
+    "instructions": "Find the lowest and highest salary in each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT department, MIN(salary), MAX(salary) FROM employees GROUP BY department",
+    "hints": [
+      "MIN and MAX work with GROUP BY",
+      "Each group gets its own min and max",
+      "Useful for understanding range per group"
+    ],
+    "tests": [
+      {
+        "description": "Query must use MIN/MAX with GROUP BY",
+        "mustContain": ["SELECT", "MIN", "MAX", "GROUP BY"],
+        "expectedColumns": ["department", "MIN(salary)", "MAX(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d2-c1",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 2,
+    "order": 1,
+    "title": "Filtering Groups with HAVING",
+    "description": "Learn how to filter groups using HAVING.",
+    "instructions": "Find departments that have more than 1 employee.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, COUNT(*) FROM employees GROUP BY department",
+    "solution": "SELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 1",
+    "hints": [
+      "HAVING filters groups after aggregation",
+      "WHERE filters rows before grouping",
+      "HAVING comes after GROUP BY"
+    ],
+    "tests": [
+      {
+        "description": "Query must use HAVING clause",
+        "mustContain": ["SELECT", "GROUP BY", "HAVING"],
+        "expectedColumns": ["department", "COUNT(*)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d2-c2",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 2,
+    "order": 2,
+    "title": "HAVING with Aggregate Conditions",
+    "description": "Learn how to filter groups by aggregate values.",
+    "instructions": "Find departments where the average salary is greater than 80000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, AVG(salary) FROM employees GROUP BY department HAVING AVG(salary) > 80000",
+    "hints": [
+      "Use aggregates in HAVING condition",
+      "Cannot use column aliases in HAVING",
+      "HAVING evaluates after GROUP BY"
+    ],
+    "tests": [
+      {
+        "description": "Query must use HAVING with AVG",
+        "mustContain": ["SELECT", "GROUP BY", "HAVING", "AVG"],
+        "expectedColumns": ["department", "AVG(salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d2-c3",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 2,
+    "order": 3,
+    "title": "Combining WHERE and HAVING",
+    "description": "Learn how to use both WHERE and HAVING in the same query.",
+    "instructions": "Find departments (with salary > 70000 employees) where average salary > 80000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, AVG(salary) FROM employees WHERE salary > 70000 GROUP BY department HAVING AVG(salary) > 80000",
+    "hints": [
+      "WHERE filters before grouping",
+      "HAVING filters after grouping",
+      "Order: WHERE -> GROUP BY -> HAVING"
+    ],
+    "tests": [
+      {
+        "description": "Query must use WHERE and HAVING",
+        "mustContain": ["SELECT", "WHERE", "GROUP BY", "HAVING"],
+        "expectedColumns": ["department", "AVG(salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d2-c4",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 2,
+    "order": 4,
+    "title": "HAVING with SUM",
+    "description": "Learn how to filter groups by total values.",
+    "instructions": "Find departments where total salary exceeds 150000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, SUM(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, SUM(salary) FROM employees GROUP BY department HAVING SUM(salary) > 150000",
+    "hints": [
+      "Use SUM in HAVING to filter by totals",
+      "This finds high-budget departments",
+      "HAVING can use any aggregate function"
+    ],
+    "tests": [
+      {
+        "description": "Query must use HAVING with SUM",
+        "mustContain": ["SELECT", "GROUP BY", "HAVING", "SUM"],
+        "expectedColumns": ["department", "SUM(salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d2-c5",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 2,
+    "order": 5,
+    "title": "Multiple HAVING Conditions",
+    "description": "Learn how to use multiple conditions in HAVING.",
+    "instructions": "Find departments with 2+ employees AND average salary > 70000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, COUNT(*), AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, COUNT(*), AVG(salary) FROM employees GROUP BY department HAVING COUNT(*) >= 2 AND AVG(salary) > 70000",
+    "hints": [
+      "Combine conditions with AND/OR in HAVING",
+      "Both conditions must be satisfied",
+      "Use parentheses for complex logic"
+    ],
+    "tests": [
+      {
+        "description": "Query must use multiple HAVING conditions",
+        "mustContain": ["SELECT", "GROUP BY", "HAVING", "AND"],
+        "expectedColumns": ["department", "COUNT(*)", "AVG(salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d3-c1",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 3,
+    "order": 1,
+    "title": "GROUP BY with ORDER BY",
+    "description": "Learn how to sort grouped results.",
+    "instructions": "Count employees per department, sorted by count (highest first).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28'),\\n  (6, 'Diana Prince', 'Sales', 72000, '2020-08-15');",
+    "starterCode": "SELECT department, COUNT(*) FROM employees GROUP BY department",
+    "solution": "SELECT department, COUNT(*) FROM employees GROUP BY department ORDER BY COUNT(*) DESC",
+    "hints": [
+      "ORDER BY goes after GROUP BY",
+      "Can order by aggregate results",
+      "Use DESC for descending order"
+    ],
+    "tests": [
+      {
+        "description": "Query must use GROUP BY with ORDER BY",
+        "mustContain": ["SELECT", "GROUP BY", "ORDER BY"],
+        "expectedColumns": ["department", "COUNT(*)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d3-c2",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 3,
+    "order": 2,
+    "title": "Sorting by Multiple Columns with Groups",
+    "description": "Learn how to sort by group column then aggregate.",
+    "instructions": "Show department averages sorted by department name, then by average.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, AVG(salary) FROM employees GROUP BY department ORDER BY department, AVG(salary) DESC",
+    "hints": [
+      "Can sort by grouped column or aggregate",
+      "Multiple sort columns separated by commas",
+      "Each column can have ASC or DESC"
+    ],
+    "tests": [
+      {
+        "description": "Query must sort groups by multiple columns",
+        "mustContain": ["SELECT", "GROUP BY", "ORDER BY"],
+        "expectedColumns": ["department", "AVG(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d3-c3",
+    "title": "Top N Groups",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 3,
+    "order": 3,
+    "description": "Learn how to get the top N groups.",
+    "instructions": "Show the top 2 departments by total salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28'),\\n  (6, 'Diana Prince', 'Sales', 72000, '2020-08-15');",
+    "starterCode": "SELECT department, SUM(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, SUM(salary) FROM employees GROUP BY department ORDER BY SUM(salary) DESC LIMIT 2",
+    "hints": [
+      "Combine ORDER BY with LIMIT",
+      "Sort groups first, then limit",
+      "LIMIT applies to grouped results"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LIMIT with groups",
+        "mustContain": ["SELECT", "GROUP BY", "ORDER BY", "LIMIT"],
+        "expectedColumns": ["department", "SUM(salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d3-c4",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 3,
+    "order": 4,
+    "title": "Complete Grouping Query",
+    "description": "Combine WHERE, GROUP BY, HAVING, and ORDER BY.",
+    "instructions": "Find departments with avg salary > 70000 (for employees earning > 65000), sorted by average.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28'),\\n  (6, 'Eve Davis', 'Marketing', 62000, '2021-01-10');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, AVG(salary) FROM employees WHERE salary > 65000 GROUP BY department HAVING AVG(salary) > 70000 ORDER BY AVG(salary) DESC",
+    "hints": [
+      "Order: SELECT -> WHERE -> GROUP BY -> HAVING -> ORDER BY",
+      "Each clause has a specific purpose",
+      "Take it step by step"
+    ],
+    "tests": [
+      {
+        "description": "Query must use all clauses",
+        "mustContain": ["SELECT", "WHERE", "GROUP BY", "HAVING", "ORDER BY"],
+        "expectedColumns": ["department", "AVG(salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w2-d3-c5",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 3,
+    "order": 5,
+    "title": "Named Aggregates with Sorting",
+    "description": "Use column aliases with grouped results.",
+    "instructions": "Show department name and average salary (as 'avg_sal'), sorted by the alias.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, AVG(salary) AS avg_sal FROM employees GROUP BY department ORDER BY avg_sal DESC",
+    "hints": [
+      "You can use aliases in ORDER BY",
+      "Aliases make queries more readable",
+      "Alias must be defined before used in ORDER BY"
+    ],
+    "tests": [
+      {
+        "description": "Query must use alias in ORDER BY",
+        "mustContain": ["SELECT", "AS", "GROUP BY", "ORDER BY"],
+        "expectedColumns": ["department", "avg_sal"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d4-c1",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 4,
+    "order": 1,
+    "title": "GROUP BY with Rounding",
+    "description": "Learn how to round aggregate results.",
+    "instructions": "Show average salary rounded to the nearest whole number for each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, ROUND(AVG(salary)) FROM employees GROUP BY department",
+    "hints": [
+      "Use ROUND to round numeric results",
+      "ROUND rounds to the nearest integer by default",
+      "Format: ROUND(column) or ROUND(column, decimals)"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ROUND with aggregate",
+        "mustContain": ["SELECT", "ROUND", "GROUP BY"],
+        "expectedColumns": ["department", "ROUND(AVG(salary))"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d4-c2",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 4,
+    "order": 2,
+    "title": "Rounding to Specific Decimals",
+    "description": "Learn how to round to specific decimal places.",
+    "instructions": "Show average salary rounded to 1 decimal place for each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, ROUND(AVG(salary)) FROM employees GROUP BY department",
+    "solution": "SELECT department, ROUND(AVG(salary), 1) FROM employees GROUP BY department",
+    "hints": [
+      "Second parameter specifies decimal places",
+      "ROUND(value, 1) gives 1 decimal",
+      "ROUND(value, 2) gives 2 decimals"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ROUND with decimal parameter",
+        "mustContain": ["SELECT", "ROUND", "GROUP BY"],
+        "expectedColumns": ["department", "ROUND(AVG(salary), 1)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d4-c3",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 4,
+    "order": 3,
+    "title": "ABS - Absolute Value",
+    "description": "Learn how to use the ABS function.",
+    "instructions": "Calculate the absolute difference between max and min salary per department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, MAX(salary), MIN(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, ABS(MAX(salary) - MIN(salary)) FROM employees GROUP BY department",
+    "hints": [
+      "ABS returns absolute (positive) value",
+      "Useful for calculating differences",
+      "ABS(-5) returns 5"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ABS function",
+        "mustContain": ["SELECT", "ABS", "GROUP BY"],
+        "expectedColumns": ["department", "ABS(MAX(salary) - MIN(salary))"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w2-d4-c4",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 4,
+    "order": 4,
+    "title": "LENGTH with GROUP BY",
+    "description": "Learn how to use string functions with grouping.",
+    "instructions": "Show department names and the length of each department name.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10');",
+    "starterCode": "SELECT department FROM employees GROUP BY department",
+    "solution": "SELECT department, LENGTH(department) FROM employees GROUP BY department",
+    "hints": [
+      "LENGTH returns character count",
+      "Works on text columns",
+      "Can be used with grouped columns"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LENGTH function",
+        "mustContain": ["SELECT", "LENGTH", "GROUP BY"],
+        "expectedColumns": ["department", "LENGTH(department)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d4-c5",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 4,
+    "order": 5,
+    "title": "UPPER/LOWER with GROUP BY",
+    "description": "Learn how to change text case with grouping.",
+    "instructions": "Show department names in uppercase with employee count.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, COUNT(*) FROM employees GROUP BY department",
+    "solution": "SELECT UPPER(department), COUNT(*) FROM employees GROUP BY department",
+    "hints": [
+      "UPPER converts to uppercase",
+      "LOWER converts to lowercase",
+      "Does not change the original data"
+    ],
+    "tests": [
+      {
+        "description": "Query must use UPPER function",
+        "mustContain": ["SELECT", "UPPER", "GROUP BY"],
+        "expectedColumns": ["UPPER(department)", "COUNT(*)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d5-c1",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 5,
+    "order": 1,
+    "title": "COUNT with DISTINCT",
+    "description": "Learn how to count unique values.",
+    "instructions": "Count how many different departments exist in the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT COUNT(*) FROM employees",
+    "solution": "SELECT COUNT(DISTINCT department) FROM employees",
+    "hints": [
+      "COUNT(DISTINCT column) counts unique values",
+      "Ignores duplicates in the count",
+      "Useful for counting categories"
+    ],
+    "tests": [
+      {
+        "description": "Query must use COUNT with DISTINCT",
+        "mustContain": ["SELECT", "COUNT", "DISTINCT"],
+        "expectedColumns": ["COUNT(DISTINCT department)"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w2-d5-c2",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 5,
+    "order": 2,
+    "title": "COUNT DISTINCT with GROUP BY",
+    "description": "Learn how to count unique values per group.",
+    "instructions": "Count the number of unique salary values in each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 95000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees GROUP BY department",
+    "solution": "SELECT department, COUNT(DISTINCT salary) FROM employees GROUP BY department",
+    "hints": [
+      "Combine DISTINCT with aggregate in groups",
+      "Shows unique values per category",
+      "Useful for finding duplicate patterns"
+    ],
+    "tests": [
+      {
+        "description": "Query must use COUNT DISTINCT with GROUP BY",
+        "mustContain": ["SELECT", "COUNT", "DISTINCT", "GROUP BY"],
+        "expectedColumns": ["department", "COUNT(DISTINCT salary)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w2-d5-c3",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 5,
+    "order": 3,
+    "title": "CASE with Aggregation",
+    "description": "Learn how to use conditional logic in aggregation.",
+    "instructions": "Count employees with salary above 80000 as 'high', others as 'normal'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT COUNT(*) FROM employees",
+    "solution": "SELECT SUM(CASE WHEN salary > 80000 THEN 1 ELSE 0 END) as high_count, SUM(CASE WHEN salary <= 80000 THEN 1 ELSE 0 END) as normal_count FROM employees",
+    "hints": [
+      "CASE lets you create conditional values",
+      "SUM of CASE creates conditional counting",
+      "Format: CASE WHEN condition THEN value ELSE default END"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CASE with aggregation",
+        "mustContain": ["SELECT", "CASE", "WHEN", "SUM"],
+        "expectedColumns": ["high_count", "normal_count"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w2-d5-c4",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 5,
+    "order": 4,
+    "title": "CASE with GROUP BY",
+    "description": "Create custom categories with CASE and GROUP BY.",
+    "instructions": "Categorize departments by avg salary: 'high' if > 90000, 'medium' if > 70000, else 'low'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, AVG(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, CASE WHEN AVG(salary) > 90000 THEN 'high' WHEN AVG(salary) > 70000 THEN 'medium' ELSE 'low' END as salary_level FROM employees GROUP BY department",
+    "hints": [
+      "Can use multiple WHEN clauses in CASE",
+      "ELSE catches unmatched cases",
+      "Can group by CASE expressions"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CASE with GROUP BY",
+        "mustContain": ["SELECT", "CASE", "WHEN", "GROUP BY"],
+        "expectedColumns": ["department", "salary_level"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w2-d5-c5",
+    "module": "group-by-aggregation",
+    "week": 2,
+    "day": 5,
+    "order": 5,
+    "title": "Percent of Total",
+    "description": "Learn how to calculate percentages using aggregation.",
+    "instructions": "Show each department's total salary as a percentage of all salaries.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department, SUM(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, ROUND(SUM(salary) * 100.0 / (SELECT SUM(salary) FROM employees), 1) as percent FROM employees GROUP BY department",
+    "hints": [
+      "Use subquery to get total",
+      "Multiply by 100 for percentage",
+      "Divide group sum by total sum"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate percentage",
+        "mustContain": ["SELECT", "SUM", "GROUP BY"],
+        "expectedColumns": ["department", "percent"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  }
+]

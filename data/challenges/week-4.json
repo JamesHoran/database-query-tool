@@ -1,0 +1,677 @@
+[
+  {
+    "id": "w4-d1-c1",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 1,
+    "order": 1,
+    "title": "Introduction to CTEs",
+    "description": "Learn how to use Common Table Expressions for readable queries.",
+    "instructions": "Use a CTE to find employees earning more than average salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT * FROM employees WHERE salary",
+    "solution": "WITH avg_salary AS (SELECT AVG(salary) as avg FROM employees) SELECT * FROM employees, avg_salary WHERE employees.salary > avg_salary.avg",
+    "hints": [
+      "CTE starts with WITH keyword",
+      "Give the CTE a name followed by AS",
+      "Reference the CTE in the main query"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CTE (WITH)",
+        "mustContain": ["WITH", "SELECT", "FROM"],
+        "expectedColumns": ["id", "name", "salary"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d1-c2",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 1,
+    "order": 2,
+    "title": "CTE for Aggregation",
+    "description": "Learn how CTEs simplify working with aggregated data.",
+    "instructions": "Use a CTE to calculate department averages, then join back to employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "WITH dept_avg AS (SELECT department_id, AVG(salary) as avg_sal FROM employees GROUP BY department_id) SELECT e.name, e.salary, d.avg_sal FROM employees e INNER JOIN dept_avg d ON e.department_id = d.department_id",
+    "hints": [
+      "CTE groups and aggregates first",
+      "Main query joins with CTE result",
+      "More readable than subquery in FROM"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CTE with aggregation",
+        "mustContain": ["WITH", "GROUP BY", "SELECT", "JOIN"],
+        "expectedColumns": ["name", "salary", "avg_sal"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d1-c3",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 1,
+    "order": 3,
+    "title": "Multiple CTEs",
+    "description": "Learn how to chain multiple CTEs together.",
+    "instructions": "Use two CTEs: one for department counts, one for high salary departments.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000),\\n  (4, 'Alice', 2, 95000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "WITH dept_counts AS (SELECT department_id, COUNT(*) as cnt FROM employees GROUP BY department_id), high_sal_depts AS (SELECT DISTINCT department_id FROM employees WHERE salary > 85000) SELECT * FROM dept_counts WHERE department_id IN (SELECT department_id FROM high_sal_depts)",
+    "hints": [
+      "Separate CTEs with commas",
+      "Each CTE can reference previous CTEs",
+      "End with a main query"
+    ],
+    "tests": [
+      {
+        "description": "Query must use multiple CTEs",
+        "mustContain": ["WITH", "SELECT"],
+        "expectedColumns": ["department_id", "cnt"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w4-d1-c4",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 1,
+    "order": 4,
+    "title": "Recursive CTE Basics",
+    "description": "Learn how recursive CTEs work for hierarchical data.",
+    "instructions": "Generate a sequence of numbers from 1 to 5 using a recursive CTE.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane');",
+    "starterCode": "WITH RECURSIVE",
+    "solution": "WITH RECURSIVE counter(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM counter WHERE n < 5) SELECT n FROM counter",
+    "hints": [
+      "Use RECURSIVE keyword",
+      "Anchor member selects starting value",
+      "Recursive member references the CTE itself"
+    ],
+    "tests": [
+      {
+        "description": "Query must use recursive CTE",
+        "mustContain": ["WITH", "RECURSIVE", "SELECT"],
+        "expectedColumns": ["n"],
+        "expectedRowCount": 5
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w4-d1-c5",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 1,
+    "order": 5,
+    "title": "CTE for Readability",
+    "description": "Use CTEs to make complex queries more readable.",
+    "instructions": "Break down a complex query: find departments with avg salary > 75000 having 2+ employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000),\\n  (4, 'Alice', 2, 72000);",
+    "starterCode": "SELECT department_id FROM employees GROUP BY department_id HAVING COUNT(*) >= 2 AND AVG(salary) > 75000",
+    "solution": "WITH dept_stats AS (SELECT department_id, COUNT(*) as emp_count, AVG(salary) as avg_sal FROM employees GROUP BY department_id) SELECT department_id FROM dept_stats WHERE emp_count >= 2 AND avg_sal > 75000",
+    "hints": [
+      "CTE name should describe its purpose",
+      "Calculate aggregations in CTE",
+      "Filter in main query for clarity"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CTE for readability",
+        "mustContain": ["WITH", "GROUP BY", "SELECT"],
+        "expectedColumns": ["department_id"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d2-c1",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 2,
+    "order": 1,
+    "title": "ROW_NUMBER Window Function",
+    "description": "Learn how to number rows using ROW_NUMBER().",
+    "instructions": "Assign a unique sequential number to each employee based on salary order.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, salary, ROW_NUMBER() OVER (ORDER BY salary DESC) as row_num FROM employees",
+    "hints": [
+      "ROW_NUMBER() assigns unique sequential numbers",
+      "OVER clause defines the window",
+      "ORDER BY in OVER determines numbering order"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ROW_NUMBER",
+        "mustContain": ["SELECT", "ROW_NUMBER", "OVER"],
+        "expectedColumns": ["name", "salary", "row_num"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d2-c2",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 2,
+    "order": 2,
+    "title": "RANK Window Function",
+    "description": "Learn how to rank rows with ties using RANK().",
+    "instructions": "Rank employees by salary (ties get same rank, gaps in numbering).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 90000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, salary, RANK() OVER (ORDER BY salary DESC) as rank_num FROM employees",
+    "hints": [
+      "RANK() assigns same rank to ties",
+      "Leaves gaps in numbering after ties",
+      "Two employees at rank 1, next is rank 3"
+    ],
+    "tests": [
+      {
+        "description": "Query must use RANK",
+        "mustContain": ["SELECT", "RANK", "OVER"],
+        "expectedColumns": ["name", "salary", "rank_num"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d2-c3",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 2,
+    "order": 3,
+    "title": "DENSE_RANK Window Function",
+    "description": "Learn how DENSE_RANK differs from RANK.",
+    "instructions": "Rank employees by salary without gaps in numbering.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 90000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, salary, DENSE_RANK() OVER (ORDER BY salary DESC) as dense_rank FROM employees",
+    "hints": [
+      "DENSE_RANK doesn't leave gaps",
+      "Ties get same rank, next is consecutive",
+      "Two at rank 1, next is rank 2"
+    ],
+    "tests": [
+      {
+        "description": "Query must use DENSE_RANK",
+        "mustContain": ["SELECT", "DENSE_RANK", "OVER"],
+        "expectedColumns": ["name", "salary", "dense_rank"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d2-c4",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 2,
+    "order": 4,
+    "title": "PARTITION BY with Window Functions",
+    "description": "Learn how to create separate rankings per group.",
+    "instructions": "Rank employees within each department by salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 95000),\\n  (4, 'Alice', 2, 85000);",
+    "starterCode": "SELECT name, department_id, salary FROM employees",
+    "solution": "SELECT name, department_id, salary, RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) as dept_rank FROM employees",
+    "hints": [
+      "PARTITION BY creates separate groups",
+      "Ranking restarts for each partition",
+      "Each department gets its own ranking"
+    ],
+    "tests": [
+      {
+        "description": "Query must use PARTITION BY",
+        "mustContain": ["SELECT", "RANK", "OVER", "PARTITION BY"],
+        "expectedColumns": ["name", "department_id", "salary", "dept_rank"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d2-c5",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 2,
+    "order": 5,
+    "title": "NTILE - Percentile Groups",
+    "description": "Learn how to divide rows into equal groups using NTILE.",
+    "instructions": "Divide employees into 2 salary groups (quartiles based on salary).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, salary, NTILE(2) OVER (ORDER BY salary DESC) as salary_group FROM employees",
+    "hints": [
+      "NTILE(n) divides rows into n groups",
+      "Groups are as equal in size as possible",
+      "Useful for percentiles and quartiles"
+    ],
+    "tests": [
+      {
+        "description": "Query must use NTILE",
+        "mustContain": ["SELECT", "NTILE", "OVER"],
+        "expectedColumns": ["name", "salary", "salary_group"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d3-c1",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 3,
+    "order": 1,
+    "title": "LAG - Access Previous Row",
+    "description": "Learn how to access values from the previous row.",
+    "instructions": "Show each employee's salary and the previous employee's salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000);",
+    "starterCode": "SELECT name, salary FROM employees ORDER BY salary DESC",
+    "solution": "SELECT name, salary, LAG(salary) OVER (ORDER BY salary DESC) as prev_salary FROM employees",
+    "hints": [
+      "LAG accesses value from previous row",
+      "NULL for first row (no previous)",
+      "OVER defines the ordering"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LAG",
+        "mustContain": ["SELECT", "LAG", "OVER"],
+        "expectedColumns": ["name", "salary", "prev_salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d3-c2",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 3,
+    "order": 2,
+    "title": "LEAD - Access Next Row",
+    "description": "Learn how to access values from the next row.",
+    "instructions": "Show each employee's salary and the next employee's salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000);",
+    "starterCode": "SELECT name, salary FROM employees ORDER BY salary DESC",
+    "solution": "SELECT name, salary, LEAD(salary) OVER (ORDER BY salary DESC) as next_salary FROM employees",
+    "hints": [
+      "LEAD accesses value from next row",
+      "NULL for last row (no next)",
+      "Opposite of LAG function"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LEAD",
+        "mustContain": ["SELECT", "LEAD", "OVER"],
+        "expectedColumns": ["name", "salary", "next_salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d3-c3",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 3,
+    "order": 3,
+    "title": "FIRST_VALUE and LAST_VALUE",
+    "description": "Learn how to access first and last values in a window.",
+    "instructions": "Show each employee's salary with the highest salary in the table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, salary, FIRST_VALUE(salary) OVER (ORDER BY salary DESC) as highest_salary FROM employees",
+    "hints": [
+      "FIRST_VALUE gets first value in window",
+      "LAST_VALUE gets last value in window",
+      "Combine with ORDER BY for meaningful results"
+    ],
+    "tests": [
+      {
+        "description": "Query must use FIRST_VALUE",
+        "mustContain": ["SELECT", "FIRST_VALUE", "OVER"],
+        "expectedColumns": ["name", "salary", "highest_salary"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d3-c4",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 3,
+    "order": 4,
+    "title": "Window Frame - ROWS BETWEEN",
+    "description": "Learn how to define specific window frames.",
+    "instructions": "Calculate moving average including current row and one row before.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT name, salary FROM employees ORDER BY id",
+    "solution": "SELECT name, salary, AVG(salary) OVER (ORDER BY id ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) as moving_avg FROM employees",
+    "hints": [
+      "ROWS BETWEEN defines window frame",
+      "PRECEDING refers to rows before",
+      "FOLLOWING refers to rows after"
+    ],
+    "tests": [
+      {
+        "description": "Query must use window frame",
+        "mustContain": ["SELECT", "OVER", "ROWS BETWEEN"],
+        "expectedColumns": ["name", "salary", "moving_avg"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w4-d3-c5",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 3,
+    "order": 5,
+    "title": "Running Total with Window Functions",
+    "description": "Learn how to calculate running totals.",
+    "instructions": "Calculate the running total of salaries ordered by employee ID.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000);",
+    "starterCode": "SELECT name, salary FROM employees ORDER BY id",
+    "solution": "SELECT name, salary, SUM(salary) OVER (ORDER BY id) as running_total FROM employees",
+    "hints": [
+      "SUM with OVER creates running total",
+      "Default frame is UNBOUNDED PRECEDING",
+      "Each row adds to the cumulative sum"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate running total",
+        "mustContain": ["SELECT", "SUM", "OVER"],
+        "expectedColumns": ["name", "salary", "running_total"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d4-c1",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 4,
+    "order": 1,
+    "title": "COALESCE - Handle NULL Values",
+    "description": "Learn how to provide default values for NULL.",
+    "instructions": "Show employee name and commission, use 0 if commission is NULL.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  commission INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 5000),\\n  (2, 'Jane', NULL),\\n  (3, 'Bob', 3000);",
+    "starterCode": "SELECT name, commission FROM employees",
+    "solution": "SELECT name, COALESCE(commission, 0) as commission FROM employees",
+    "hints": [
+      "COALESCE returns first non-NULL value",
+      "Can list multiple alternatives",
+      "Useful for providing defaults"
+    ],
+    "tests": [
+      {
+        "description": "Query must use COALESCE",
+        "mustContain": ["SELECT", "COALESCE"],
+        "expectedColumns": ["name", "commission"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d4-c2",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 4,
+    "order": 2,
+    "title": "NULLIF - Prevent Division by Zero",
+    "description": "Learn how to use NULLIF to avoid errors.",
+    "instructions": "Calculate salary per hour, returning NULL if hours is 0.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER,\\n  hours INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 50000, 40),\\n  (2, 'Jane', 60000, 0);",
+    "starterCode": "SELECT name, salary/hours FROM employees",
+    "solution": "SELECT name, salary / NULLIF(hours, 0) as hourly_rate FROM employees",
+    "hints": [
+      "NULLIF returns NULL if values are equal",
+      "NULL divided by anything is NULL",
+      "Prevents division by zero errors"
+    ],
+    "tests": [
+      {
+        "description": "Query must use NULLIF",
+        "mustContain": ["SELECT", "NULLIF"],
+        "expectedColumns": ["name", "hourly_rate"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d4-c3",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 4,
+    "order": 3,
+    "title": "IFNULL - Simple NULL Replacement",
+    "description": "Learn how to use IFNULL for NULL replacement.",
+    "instructions": "Replace NULL department names with 'Unassigned'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 'Engineering'),\\n  (2, 'Jane', NULL),\\n  (3, 'Bob', 'Sales');",
+    "starterCode": "SELECT name, department FROM employees",
+    "solution": "SELECT name, IFNULL(department, 'Unassigned') as department FROM employees",
+    "hints": [
+      "IFNULL is specific to SQLite",
+      "Returns second arg if first is NULL",
+      "Simple alternative to COALESCE"
+    ],
+    "tests": [
+      {
+        "description": "Query must use IFNULL",
+        "mustContain": ["SELECT", "IFNULL"],
+        "expectedColumns": ["name", "department"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w4-d4-c4",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 4,
+    "order": 4,
+    "title": "CAST - Convert Data Types",
+    "description": "Learn how to convert values between data types.",
+    "instructions": "Convert salary to text and concatenate with a dollar sign.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000);",
+    "starterCode": "SELECT name, salary FROM employees",
+    "solution": "SELECT name, '$' || CAST(salary AS TEXT) as salary_text FROM employees",
+    "hints": [
+      "CAST converts data types",
+      "Format: CAST(value AS type)",
+      "Common types: INTEGER, TEXT, REAL"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CAST",
+        "mustContain": ["SELECT", "CAST"],
+        "expectedColumns": ["name", "salary_text"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d4-c5",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 4,
+    "order": 5,
+    "title": "Date Functions - DATE and strftime",
+    "description": "Learn how to work with dates in SQLite.",
+    "instructions": "Extract the year from each employee's hire date.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', '2020-05-15'),\\n  (2, 'Jane', '2019-03-20'),\\n  (3, 'Bob', '2021-11-01');",
+    "starterCode": "SELECT name, hire_date FROM employees",
+    "solution": "SELECT name, CAST(strftime('%Y', hire_date) AS INTEGER) as hire_year FROM employees",
+    "hints": [
+      "strftime extracts date parts",
+      "%Y gives the year",
+      "Cast result to INTEGER for numeric operations"
+    ],
+    "tests": [
+      {
+        "description": "Query must use strftime",
+        "mustContain": ["SELECT", "strftime"],
+        "expectedColumns": ["name", "hire_year"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d5-c1",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 5,
+    "order": 1,
+    "title": "INSERT - Add New Records",
+    "description": "Learn how to insert new records into a table.",
+    "instructions": "Insert a new employee 'Dave' in 'Engineering' with salary 85000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 'Engineering', 90000),\\n  (2, 'Jane', 'Marketing', 80000);",
+    "starterCode": "-- Write your INSERT statement below",
+    "solution": "INSERT INTO employees (name, department, salary) VALUES ('Dave', 'Engineering', 85000)",
+    "hints": [
+      "Specify columns after INSERT INTO",
+      "Use VALUES for the data",
+      "Match column order with value order"
+    ],
+    "tests": [
+      {
+        "description": "Query must use INSERT",
+        "mustContain": ["INSERT INTO", "VALUES"],
+        "expectedColumns": ["name", "department", "salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w4-d5-c2",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 5,
+    "order": 2,
+    "title": "INSERT with SELECT",
+    "description": "Learn how to insert data from a query.",
+    "instructions": "Insert employees from a temp_employees table into employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS temp_employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nCREATE TABLE temp_employees (\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 'Engineering', 90000);\\nINSERT INTO temp_employees VALUES\\n  ('Jane', 'Marketing', 80000),\\n  ('Bob', 'Sales', 75000);",
+    "starterCode": "-- Write INSERT with SELECT",
+    "solution": "INSERT INTO employees (name, department, salary) SELECT name, department, salary FROM temp_employees",
+    "hints": [
+      "Use SELECT instead of VALUES",
+      "Columns must match in type and order",
+      "Can filter with WHERE in SELECT"
+    ],
+    "tests": [
+      {
+        "description": "Query must use INSERT with SELECT",
+        "mustContain": ["INSERT INTO", "SELECT"],
+        "expectedColumns": ["id", "name", "department", "salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w4-d5-c3",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 5,
+    "order": 3,
+    "title": "UPDATE - Modify Records",
+    "description": "Learn how to update existing records.",
+    "instructions": "Give all Engineering employees a 10% salary increase.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 'Engineering', 90000),\\n  (2, 'Jane', 'Engineering', 80000),\\n  (3, 'Bob', 'Sales', 75000);",
+    "starterCode": "-- Write your UPDATE statement",
+    "solution": "UPDATE employees SET salary = salary * 1.1 WHERE department = 'Engineering'",
+    "hints": [
+      "SET specifies columns to update",
+      "Use WHERE to limit which rows",
+      "Always include WHERE (or all rows update!)"
+    ],
+    "tests": [
+      {
+        "description": "Query must use UPDATE",
+        "mustContain": ["UPDATE", "SET", "WHERE"],
+        "expectedColumns": ["id", "name", "department", "salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w4-d5-c4",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 5,
+    "order": 4,
+    "title": "DELETE - Remove Records",
+    "description": "Learn how to delete records from a table.",
+    "instructions": "Delete all employees in the 'Sales' department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 'Engineering', 90000),\\n  (2, 'Jane', 'Sales', 80000),\\n  (3, 'Bob', 'Sales', 75000);",
+    "starterCode": "-- Write your DELETE statement",
+    "solution": "DELETE FROM employees WHERE department = 'Sales'",
+    "hints": [
+      "Always use WHERE with DELETE",
+      "Without WHERE, all rows are deleted",
+      "Can rollback if in transaction"
+    ],
+    "tests": [
+      {
+        "description": "Query must use DELETE",
+        "mustContain": ["DELETE FROM", "WHERE"],
+        "expectedColumns": ["id", "name", "department", "salary"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w4-d5-c5",
+    "module": "cte-window-functions",
+    "week": 4,
+    "day": 5,
+    "order": 5,
+    "title": "CREATE TABLE - Define New Tables",
+    "description": "Learn how to create new tables.",
+    "instructions": "Create a projects table with id, name, and status columns.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John');",
+    "starterCode": "-- Write CREATE TABLE statement",
+    "solution": "CREATE TABLE projects (id INTEGER PRIMARY KEY, name TEXT NOT NULL, status TEXT)",
+    "hints": [
+      "Specify column names and types",
+      "Use PRIMARY KEY for unique identifier",
+      "NOT NULL prevents empty values"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CREATE TABLE",
+        "mustContain": ["CREATE TABLE"],
+        "expectedColumns": ["id", "name", "status"],
+        "expectedRowCount": 0
+      }
+    ],
+    "difficulty": "beginner"
+  }
+]

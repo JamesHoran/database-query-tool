@@ -1,0 +1,677 @@
+[
+  {
+    "id": "w1-d1-c1",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 1,
+    "order": 1,
+    "title": "Your First SELECT Query",
+    "description": "Learn the basics of retrieving data from a database using SELECT and FROM.",
+    "instructions": "Write a query to select all columns from the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10');",
+    "starterCode": "-- Write your query below",
+    "solution": "SELECT * FROM employees",
+    "hints": [
+      "Use SELECT * to select all columns",
+      "Use FROM to specify the table name",
+      "The format is: SELECT * FROM table_name"
+    ],
+    "tests": [
+      {
+        "description": "Query must use SELECT and FROM",
+        "mustContain": ["SELECT", "FROM"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d1-c2",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 1,
+    "order": 2,
+    "title": "Selecting Specific Columns",
+    "description": "Learn how to select specific columns instead of all columns.",
+    "instructions": "Write a query to select only the name and salary columns from the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT name, salary FROM employees",
+    "hints": [
+      "Replace the * with specific column names",
+      "Separate column names with commas",
+      "Format: SELECT column1, column2 FROM table_name"
+    ],
+    "tests": [
+      {
+        "description": "Query must select only name and salary",
+        "mustContain": ["SELECT", "FROM", "name", "salary"],
+        "expectedColumns": ["name", "salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d1-c3",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 1,
+    "order": 3,
+    "title": "Using Column Aliases",
+    "description": "Learn how to rename columns in your results using aliases.",
+    "instructions": "Select the name column and rename it to 'employee_name' in the results.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10');",
+    "starterCode": "SELECT name FROM employees",
+    "solution": "SELECT name AS employee_name FROM employees",
+    "hints": [
+      "Use the AS keyword to create column aliases",
+      "Format: SELECT column_name AS alias FROM table",
+      "The AS keyword is optional but recommended for readability"
+    ],
+    "tests": [
+      {
+        "description": "Query must use alias for name column",
+        "mustContain": ["SELECT", "AS", "employee_name"],
+        "expectedColumns": ["employee_name"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d1-c4",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 1,
+    "order": 4,
+    "title": "Removing Duplicates",
+    "description": "Learn how to get unique values using DISTINCT.",
+    "instructions": "Write a query to get all unique departments from the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT department FROM employees",
+    "solution": "SELECT DISTINCT department FROM employees",
+    "hints": [
+      "Use DISTINCT before the column name",
+      "DISTINCT removes duplicate rows from results",
+      "Format: SELECT DISTINCT column FROM table"
+    ],
+    "tests": [
+      {
+        "description": "Query must use DISTINCT",
+        "mustContain": ["SELECT", "DISTINCT", "department"],
+        "expectedColumns": ["department"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d1-c5",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 1,
+    "order": 5,
+    "title": "Basic Limit",
+    "description": "Learn how to limit the number of rows returned.",
+    "instructions": "Write a query to select only the first 2 employees from the table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees LIMIT 2",
+    "hints": [
+      "Use LIMIT at the end of your query",
+      "LIMIT specifies the maximum number of rows to return",
+      "Format: SELECT * FROM table LIMIT n"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LIMIT",
+        "mustContain": ["SELECT", "FROM", "LIMIT"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d2-c1",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 2,
+    "order": 1,
+    "title": "Basic WHERE Clause",
+    "description": "Learn how to filter rows using the WHERE clause.",
+    "instructions": "Write a query to select all employees who work in the 'Engineering' department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE department = 'Engineering'",
+    "hints": [
+      "Use WHERE after the table name",
+      "Text values must be in single quotes",
+      "Format: SELECT * FROM table WHERE column = 'value'"
+    ],
+    "tests": [
+      {
+        "description": "Query must filter by Engineering department",
+        "mustContain": ["SELECT", "FROM", "WHERE", "department"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d2-c2",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 2,
+    "order": 2,
+    "title": "Numeric Comparisons",
+    "description": "Learn how to filter with numeric comparison operators.",
+    "instructions": "Write a query to find all employees with a salary greater than 80000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE salary > 80000",
+    "hints": [
+      "Use the > operator for greater than",
+      "You can also use >=, <, <= for comparisons",
+      "Numeric values don't need quotes"
+    ],
+    "tests": [
+      {
+        "description": "Query must filter by salary > 80000",
+        "mustContain": ["SELECT", "FROM", "WHERE", "salary"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d2-c3",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 2,
+    "order": 3,
+    "title": "Multiple Conditions with AND",
+    "description": "Learn how to combine multiple conditions using AND.",
+    "instructions": "Find all employees in Engineering with salary greater than 100000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees WHERE department = 'Engineering'",
+    "solution": "SELECT * FROM employees WHERE department = 'Engineering' AND salary > 100000",
+    "hints": [
+      "Use AND to combine conditions",
+      "Both conditions must be true for a row to be included",
+      "Format: WHERE condition1 AND condition2"
+    ],
+    "tests": [
+      {
+        "description": "Query must use AND for both conditions",
+        "mustContain": ["SELECT", "FROM", "WHERE", "AND"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d2-c4",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 2,
+    "order": 4,
+    "title": "Using OR Logic",
+    "description": "Learn how to use OR to match any of multiple conditions.",
+    "instructions": "Find all employees in either 'Engineering' or 'Marketing' departments.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE department = 'Engineering' OR department = 'Marketing'",
+    "hints": [
+      "Use OR to match any condition",
+      "At least one condition must be true",
+      "You can combine AND and OR with parentheses"
+    ],
+    "tests": [
+      {
+        "description": "Query must use OR for departments",
+        "mustContain": ["SELECT", "FROM", "WHERE", "OR"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d2-c5",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 2,
+    "order": 5,
+    "title": "Using IN Operator",
+    "description": "Learn how to use IN for cleaner multiple value matching.",
+    "instructions": "Rewrite the previous query using IN to find employees in 'Engineering' or 'Marketing'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees WHERE department = 'Engineering' OR department = 'Marketing'",
+    "solution": "SELECT * FROM employees WHERE department IN ('Engineering', 'Marketing')",
+    "hints": [
+      "IN allows you to specify multiple values in a list",
+      "Values are in parentheses separated by commas",
+      "Format: WHERE column IN (value1, value2, ...)"
+    ],
+    "tests": [
+      {
+        "description": "Query must use IN operator",
+        "mustContain": ["SELECT", "FROM", "WHERE", "IN"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d3-c1",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 3,
+    "order": 1,
+    "title": "Pattern Matching with LIKE",
+    "description": "Learn how to search for patterns using LIKE.",
+    "instructions": "Find all employees whose name starts with 'J'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees WHERE name",
+    "solution": "SELECT * FROM employees WHERE name LIKE 'J%'",
+    "hints": [
+      "Use % as a wildcard for any characters",
+      "J% means starts with J, followed by anything",
+      "Use %J% to find J anywhere in the text"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LIKE with pattern",
+        "mustContain": ["SELECT", "FROM", "WHERE", "LIKE"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d3-c2",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 3,
+    "order": 2,
+    "title": "Ending Pattern Match",
+    "description": "Learn how to find text ending with a specific pattern.",
+    "instructions": "Find all employees whose name ends with 'son'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Carl Thompson', 'Sales', 72000, '2020-07-22');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE name LIKE '%son'",
+    "hints": [
+      "Use % before the text to match ending",
+      "%son means ends with 'son'",
+      "The % can match zero or more characters"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LIKE for ending pattern",
+        "mustContain": ["SELECT", "FROM", "WHERE", "LIKE"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d3-c3",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 3,
+    "order": 3,
+    "title": "NULL Values - IS NULL",
+    "description": "Learn how to find NULL values using IS NULL.",
+    "instructions": "Find all employees who don't have a hire_date recorded.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, NULL),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, NULL);",
+    "starterCode": "SELECT * FROM employees WHERE hire_date = NULL",
+    "solution": "SELECT * FROM employees WHERE hire_date IS NULL",
+    "hints": [
+      "You cannot use = with NULL",
+      "Always use IS NULL or IS NOT NULL",
+      "NULL represents missing or unknown data"
+    ],
+    "tests": [
+      {
+        "description": "Query must use IS NULL",
+        "mustContain": ["SELECT", "FROM", "WHERE", "IS NULL"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d3-c4",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 3,
+    "order": 4,
+    "title": "NOT NULL Values",
+    "description": "Learn how to find non-NULL values using IS NOT NULL.",
+    "instructions": "Find all employees who have a hire_date recorded.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, NULL),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, NULL);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE hire_date IS NOT NULL",
+    "hints": [
+      "Use IS NOT NULL to find rows with values",
+      "This is the opposite of IS NULL",
+      "Useful for finding complete records"
+    ],
+    "tests": [
+      {
+        "description": "Query must use IS NOT NULL",
+        "mustContain": ["SELECT", "FROM", "WHERE", "IS NOT NULL"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d3-c5",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 3,
+    "order": 5,
+    "title": "BETWEEN Operator",
+    "description": "Learn how to use BETWEEN for range filtering.",
+    "instructions": "Find all employees with salary between 70000 and 90000 (inclusive).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees WHERE salary >= 70000 AND salary <= 90000",
+    "solution": "SELECT * FROM employees WHERE salary BETWEEN 70000 AND 90000",
+    "hints": [
+      "BETWEEN includes both endpoints",
+      "BETWEEN is inclusive, not exclusive",
+      "Format: WHERE column BETWEEN low AND high"
+    ],
+    "tests": [
+      {
+        "description": "Query must use BETWEEN",
+        "mustContain": ["SELECT", "FROM", "WHERE", "BETWEEN"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d4-c1",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 4,
+    "order": 1,
+    "title": "Basic Sorting - ORDER BY",
+    "description": "Learn how to sort results using ORDER BY.",
+    "instructions": "Select all employees and sort them by name alphabetically.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees ORDER BY name",
+    "hints": [
+      "ORDER BY goes at the end of your query",
+      "Default sort is ascending (A-Z)",
+      "Numbers sort from lowest to highest by default"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ORDER BY",
+        "mustContain": ["SELECT", "FROM", "ORDER BY"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d4-c2",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 4,
+    "order": 2,
+    "title": "Descending Order",
+    "description": "Learn how to sort in descending order.",
+    "instructions": "Select all employees and sort them by salary from highest to lowest.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees ORDER BY salary",
+    "solution": "SELECT * FROM employees ORDER BY salary DESC",
+    "hints": [
+      "Use DESC for descending order",
+      "Use ASC for ascending order (explicit)",
+      "DESC comes after the column name"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ORDER BY DESC",
+        "mustContain": ["SELECT", "FROM", "ORDER BY", "DESC"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d4-c3",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 4,
+    "order": 3,
+    "title": "Sorting by Multiple Columns",
+    "description": "Learn how to sort by multiple columns.",
+    "instructions": "Sort employees by department (ascending), then by salary (descending) within each department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees ORDER BY department",
+    "solution": "SELECT * FROM employees ORDER BY department ASC, salary DESC",
+    "hints": [
+      "List columns separated by commas",
+      "Each column can have its own sort direction",
+      "Sorting is applied left to right"
+    ],
+    "tests": [
+      {
+        "description": "Query must sort by multiple columns",
+        "mustContain": ["SELECT", "FROM", "ORDER BY"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 5
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d4-c4",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 4,
+    "order": 4,
+    "title": "Combining WHERE and ORDER BY",
+    "description": "Learn how to filter and sort in the same query.",
+    "instructions": "Find all Engineering employees and sort them by salary from highest to lowest.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28');",
+    "starterCode": "SELECT * FROM employees WHERE department = 'Engineering'",
+    "solution": "SELECT * FROM employees WHERE department = 'Engineering' ORDER BY salary DESC",
+    "hints": [
+      "WHERE comes before ORDER BY",
+      "The order is: SELECT -> FROM -> WHERE -> ORDER BY",
+      "Filtering happens first, then sorting"
+    ],
+    "tests": [
+      {
+        "description": "Query must use both WHERE and ORDER BY",
+        "mustContain": ["SELECT", "FROM", "WHERE", "ORDER BY"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d4-c5",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 4,
+    "order": 5,
+    "title": "Top N with Limit and Order",
+    "description": "Learn how to get the top N records based on sorting.",
+    "instructions": "Get the top 3 highest paid employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05'),\\n  (5, 'Charlie Brown', 'Marketing', 68000, '2022-02-28'),\\n  (6, 'Diana Prince', 'Engineering', 105000, '2019-09-01');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees ORDER BY salary DESC LIMIT 3",
+    "hints": [
+      "First sort by salary descending",
+      "Then use LIMIT to get only the top 3",
+      "ORDER BY must come before LIMIT"
+    ],
+    "tests": [
+      {
+        "description": "Query must use ORDER BY and LIMIT",
+        "mustContain": ["SELECT", "FROM", "ORDER BY", "LIMIT"],
+        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w1-d5-c1",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 5,
+    "order": 1,
+    "title": "COUNT - Counting Rows",
+    "description": "Learn how to count rows using the COUNT aggregate function.",
+    "instructions": "Count the total number of employees in the table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT COUNT(*) FROM employees",
+    "hints": [
+      "COUNT(*) counts all rows",
+      "You can also use COUNT(column_name)",
+      "The result is a single number"
+    ],
+    "tests": [
+      {
+        "description": "Query must use COUNT",
+        "mustContain": ["SELECT", "COUNT", "FROM"],
+        "expectedColumns": ["COUNT(*)"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d5-c2",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 5,
+    "order": 2,
+    "title": "SUM - Adding Values",
+    "description": "Learn how to sum values using SUM.",
+    "instructions": "Calculate the total salary of all employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT salary FROM employees",
+    "solution": "SELECT SUM(salary) FROM employees",
+    "hints": [
+      "SUM adds up all values in a column",
+      "SUM only works on numeric columns",
+      "NULL values are ignored in SUM"
+    ],
+    "tests": [
+      {
+        "description": "Query must use SUM",
+        "mustContain": ["SELECT", "SUM", "FROM"],
+        "expectedColumns": ["SUM(salary)"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d5-c3",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 5,
+    "order": 3,
+    "title": "AVG - Average Values",
+    "description": "Learn how to calculate averages using AVG.",
+    "instructions": "Calculate the average salary of all employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT salary FROM employees",
+    "solution": "SELECT AVG(salary) FROM employees",
+    "hints": [
+      "AVG calculates the arithmetic mean",
+      "Result is a decimal number",
+      "NULL values are ignored in AVG"
+    ],
+    "tests": [
+      {
+        "description": "Query must use AVG",
+        "mustContain": ["SELECT", "AVG", "FROM"],
+        "expectedColumns": ["AVG(salary)"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d5-c4",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 5,
+    "order": 4,
+    "title": "MIN and MAX",
+    "description": "Learn how to find minimum and maximum values.",
+    "instructions": "Find the lowest and highest salary in the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT salary FROM employees",
+    "solution": "SELECT MIN(salary), MAX(salary) FROM employees",
+    "hints": [
+      "MIN finds the smallest value",
+      "MAX finds the largest value",
+      "You can use multiple aggregates in one query"
+    ],
+    "tests": [
+      {
+        "description": "Query must use MIN and MAX",
+        "mustContain": ["SELECT", "MIN", "MAX", "FROM"],
+        "expectedColumns": ["MIN(salary)", "MAX(salary)"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w1-d5-c5",
+    "module": "sql-fundamentals",
+    "week": 1,
+    "day": 5,
+    "order": 5,
+    "title": "Aggregate with Aliases",
+    "description": "Learn how to name your aggregate results with aliases.",
+    "instructions": "Calculate the average salary and name the result 'average_salary'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT NOT NULL,\\n  salary INTEGER NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 'Engineering', 95000, '2020-01-15'),\\n  (2, 'Jane Doe', 'Marketing', 75000, '2019-03-20'),\\n  (3, 'Bob Johnson', 'Sales', 85000, '2021-06-10'),\\n  (4, 'Alice Williams', 'Engineering', 110000, '2018-11-05');",
+    "starterCode": "SELECT AVG(salary) FROM employees",
+    "solution": "SELECT AVG(salary) AS average_salary FROM employees",
+    "hints": [
+      "Use AS to give aggregate results a name",
+      "This makes results more readable",
+      "Format: AGGREGATE(column) AS alias_name"
+    ],
+    "tests": [
+      {
+        "description": "Query must use alias for AVG result",
+        "mustContain": ["SELECT", "AVG", "AS"],
+        "expectedColumns": ["average_salary"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "beginner"
+  }
+]

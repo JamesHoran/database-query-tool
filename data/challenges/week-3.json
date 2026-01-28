@@ -1,0 +1,677 @@
+[
+  {
+    "id": "w3-d1-c1",
+    "module": "joins",
+    "week": 3,
+    "day": 1,
+    "order": 1,
+    "title": "Introduction to INNER JOIN",
+    "description": "Learn how to combine data from two tables using INNER JOIN.",
+    "instructions": "Join employees and departments to show employee names with their department names.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1, 95000),\\n  (2, 'Jane Doe', 2, 75000),\\n  (3, 'Bob Johnson', 3, 85000);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "hints": [
+      "INNER JOIN matches rows from both tables",
+      "ON specifies how tables relate",
+      "Format: FROM table1 JOIN table2 ON table1.col = table2.col"
+    ],
+    "tests": [
+      {
+        "description": "Query must use INNER JOIN",
+        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d1-c2",
+    "module": "joins",
+    "week": 3,
+    "day": 1,
+    "order": 2,
+    "title": "Table Aliases in JOINs",
+    "description": "Learn how to use shorter names for tables in joins.",
+    "instructions": "Rewrite the previous query using table aliases (e for employees, d for departments).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1, 95000),\\n  (2, 'Jane Doe', 2, 75000),\\n  (3, 'Bob Johnson', 3, 85000);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT e.name, d.name FROM employees e INNER JOIN departments d ON e.department_id = d.id",
+    "hints": [
+      "Aliases go after table names",
+      "Use aliases throughout the query",
+      "Makes queries more readable"
+    ],
+    "tests": [
+      {
+        "description": "Query must use table aliases",
+        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d1-c3",
+    "module": "joins",
+    "week": 3,
+    "day": 1,
+    "order": 3,
+    "title": "JOIN with Column Selection",
+    "description": "Learn how to select specific columns from joined tables.",
+    "instructions": "Select employee name, department name, and salary from the joined tables.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1, 95000),\\n  (2, 'Jane Doe', 2, 75000),\\n  (3, 'Bob Johnson', 3, 85000);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name, departments.name, employees.salary FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "hints": [
+      "Prefix columns with table names",
+      "Select only needed columns",
+      "Use aliases for shorter names"
+    ],
+    "tests": [
+      {
+        "description": "Query must select specific columns from JOIN",
+        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
+        "expectedColumns": ["name", "name", "salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d1-c4",
+    "module": "joins",
+    "week": 3,
+    "day": 1,
+    "order": 4,
+    "title": "JOIN with WHERE",
+    "description": "Learn how to filter joined results.",
+    "instructions": "Find employees in Engineering department using JOIN.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1, 95000),\\n  (2, 'Jane Doe', 2, 75000),\\n  (3, 'Bob Johnson', 3, 85000),\\n  (4, 'Alice Williams', 1, 110000);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE departments.name = 'Engineering'",
+    "hints": [
+      "WHERE comes after the JOIN clause",
+      "Can filter on columns from either table",
+      "Use table aliases for clarity"
+    ],
+    "tests": [
+      {
+        "description": "Query must use WHERE with JOIN",
+        "mustContain": ["SELECT", "FROM", "JOIN", "WHERE"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d1-c5",
+    "module": "joins",
+    "week": 3,
+    "day": 1,
+    "order": 5,
+    "title": "JOIN Three Tables",
+    "description": "Learn how to join more than two tables.",
+    "instructions": "Join employees, departments, and locations to show employee, department, and city.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nDROP TABLE IF EXISTS locations;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  location_id INTEGER\\n);\\nCREATE TABLE locations (\\n  id INTEGER PRIMARY KEY,\\n  city TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John Smith', 1), (2, 'Jane Doe', 2);\\nINSERT INTO departments VALUES (1, 'Engineering', 1), (2, 'Marketing', 2);\\nINSERT INTO locations VALUES (1, 'New York'), (2, 'San Francisco');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT employees.name, departments.name, locations.city FROM employees INNER JOIN departments ON employees.department_id = departments.id INNER JOIN locations ON departments.location_id = locations.id",
+    "hints": [
+      "Chain multiple JOINs together",
+      "Each JOIN connects two tables",
+      "Follow the foreign key relationships"
+    ],
+    "tests": [
+      {
+        "description": "Query must JOIN three tables",
+        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
+        "expectedColumns": ["name", "name", "city"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d2-c1",
+    "module": "joins",
+    "week": 3,
+    "day": 2,
+    "order": 1,
+    "title": "LEFT JOIN Basics",
+    "description": "Learn how to use LEFT JOIN to keep all rows from the left table.",
+    "instructions": "Use LEFT JOIN to show all employees and their departments (even if no department assigned).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1),\\n  (2, 'Jane Doe', 2),\\n  (3, 'Bob Johnson', NULL);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name, departments.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id",
+    "hints": [
+      "LEFT JOIN keeps all rows from left table",
+      "NULL appears when no match exists",
+      "Left table is the one after FROM"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LEFT JOIN",
+        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "ON"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d2-c2",
+    "module": "joins",
+    "week": 3,
+    "day": 2,
+    "order": 2,
+    "title": "RIGHT JOIN Basics",
+    "description": "Learn how to use RIGHT JOIN to keep all rows from the right table.",
+    "instructions": "Use RIGHT JOIN to show all departments and their employees (even if no employees).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1),\\n  (2, 'Jane Doe', 2);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name, departments.name FROM employees RIGHT JOIN departments ON employees.department_id = departments.id",
+    "hints": [
+      "RIGHT JOIN keeps all rows from right table",
+      "Right table is the one after JOIN",
+      "NULL appears for unmatched left rows"
+    ],
+    "tests": [
+      {
+        "description": "Query must use RIGHT JOIN",
+        "mustContain": ["SELECT", "FROM", "RIGHT JOIN", "ON"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d2-c3",
+    "module": "joins",
+    "week": 3,
+    "day": 2,
+    "order": 3,
+    "title": "Finding Unmatched Records",
+    "description": "Learn how to find rows that don't match using LEFT JOIN.",
+    "instructions": "Find employees who are not assigned to any department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1),\\n  (2, 'Jane Doe', 2),\\n  (3, 'Bob Johnson', NULL),\\n  (4, 'Alice Williams', NULL);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id WHERE departments.id IS NULL",
+    "hints": [
+      "Use LEFT JOIN then filter for NULL",
+      "NULL in right table means no match",
+      "Use IS NULL to check for missing matches"
+    ],
+    "tests": [
+      {
+        "description": "Query must find unmatched records",
+        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "WHERE", "IS NULL"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d2-c4",
+    "module": "joins",
+    "week": 3,
+    "day": 2,
+    "order": 4,
+    "title": "LEFT JOIN with Aggregation",
+    "description": "Learn how to aggregate with LEFT JOIN.",
+    "instructions": "Count the number of employees in each department, including departments with zero employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1),\\n  (2, 'Jane Doe', 1),\\n  (3, 'Bob Johnson', 2);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing'),\\n  (3, 'Sales');",
+    "starterCode": "SELECT departments.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT departments.name, COUNT(employees.id) FROM departments LEFT JOIN employees ON departments.id = employees.department_id GROUP BY departments.id, departments.name",
+    "hints": [
+      "LEFT JOIN from departments to employees",
+      "Count employee ids (not *)",
+      "NULL values are not counted"
+    ],
+    "tests": [
+      {
+        "description": "Query must use LEFT JOIN with aggregation",
+        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "COUNT(employees.id)"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d2-c5",
+    "module": "joins",
+    "week": 3,
+    "day": 2,
+    "order": 5,
+    "title": "FULL OUTER JOIN Simulation",
+    "description": "Learn how to simulate FULL OUTER JOIN using UNION.",
+    "instructions": "Show all employees and all departments, matched or not.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John Smith', 1),\\n  (2, 'Jane Doe', NULL);\\nINSERT INTO departments VALUES\\n  (1, 'Engineering'),\\n  (2, 'Marketing');",
+    "starterCode": "SELECT employees.name, departments.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT employees.name, departments.name FROM employees LEFT JOIN departments ON employees.department_id = departments.id UNION ALL SELECT employees.name, departments.name FROM employees RIGHT JOIN departments ON employees.department_id = departments.id",
+    "hints": [
+      "SQLite doesn't support FULL OUTER JOIN directly",
+      "Use UNION of LEFT and RIGHT JOINs",
+      "UNION ALL keeps duplicates"
+    ],
+    "tests": [
+      {
+        "description": "Query must simulate FULL OUTER JOIN",
+        "mustContain": ["SELECT", "LEFT JOIN", "UNION", "RIGHT JOIN"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d3-c1",
+    "module": "joins",
+    "week": 3,
+    "day": 3,
+    "order": 1,
+    "title": "CROSS JOIN Basics",
+    "description": "Learn how CROSS JOIN creates all combinations of rows.",
+    "instructions": "Create a combination of all employees with all departments.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane');\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Marketing');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT employees.name, departments.name FROM employees CROSS JOIN departments",
+    "hints": [
+      "CROSS JOIN creates every possible combination",
+      "Result rows = table1 rows × table2 rows",
+      "No ON clause needed"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CROSS JOIN",
+        "mustContain": ["SELECT", "FROM", "CROSS JOIN"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d3-c2",
+    "module": "joins",
+    "week": 3,
+    "day": 3,
+    "order": 2,
+    "title": "Self Join Basics",
+    "description": "Learn how to join a table to itself.",
+    "instructions": "Find pairs of employees who work in the same department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1),\\n  (2, 'Jane', 1),\\n  (3, 'Bob', 2);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT e1.name, e2.name FROM employees e1 INNER JOIN employees e2 ON e1.department_id = e2.department_id WHERE e1.id < e2.id",
+    "hints": [
+      "Use table aliases to distinguish instances",
+      "Join table to itself on related columns",
+      "Use WHERE to avoid duplicate pairs and self-matches"
+    ],
+    "tests": [
+      {
+        "description": "Query must use self join",
+        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
+        "expectedColumns": ["name", "name"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d3-c3",
+    "module": "joins",
+    "week": 3,
+    "day": 3,
+    "order": 3,
+    "title": "Self Join for Hierarchy",
+    "description": "Learn how to use self join for hierarchical data.",
+    "instructions": "Show each employee with their manager's name.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  manager_id INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', NULL),\\n  (2, 'Bob', 1),\\n  (3, 'Carol', 1),\\n  (4, 'Dave', 2);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT e.name as employee, m.name as manager FROM employees e LEFT JOIN employees m ON e.manager_id = m.id",
+    "hints": [
+      "Join employees to itself on manager_id = id",
+      "Use LEFT JOIN for top-level employees",
+      "Use aliases to distinguish employee and manager"
+    ],
+    "tests": [
+      {
+        "description": "Query must use self join for hierarchy",
+        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "ON"],
+        "expectedColumns": ["employee", "manager"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d3-c4",
+    "module": "joins",
+    "week": 3,
+    "day": 3,
+    "order": 4,
+    "title": "JOIN with Subquery",
+    "description": "Learn how to join with a subquery result.",
+    "instructions": "Join employees with a subquery that calculates average salary per department.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT e.name, e.salary, avg_dept.avg_salary FROM employees e INNER JOIN (SELECT department_id, AVG(salary) as avg_salary FROM employees GROUP BY department_id) avg_dept ON e.department_id = avg_dept.department_id",
+    "hints": [
+      "Subquery in FROM clause creates derived table",
+      "Give subquery an alias",
+      "Join with it like a regular table"
+    ],
+    "tests": [
+      {
+        "description": "Query must join with subquery",
+        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "salary", "avg_salary"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d3-c5",
+    "module": "joins",
+    "week": 3,
+    "day": 3,
+    "order": 5,
+    "title": "Multiple JOINs with Aggregation",
+    "description": "Combine multiple JOINs with GROUP BY.",
+    "instructions": "Show department name and total salary from all employees.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000);\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Sales');",
+    "starterCode": "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id",
+    "solution": "SELECT departments.name, SUM(employees.salary) FROM employees INNER JOIN departments ON employees.department_id = departments.id GROUP BY departments.id, departments.name",
+    "hints": [
+      "Join tables first, then group",
+      "Include non-aggregated columns in GROUP BY",
+      "Can group by joined table columns"
+    ],
+    "tests": [
+      {
+        "description": "Query must use JOIN with GROUP BY",
+        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "SUM(employees.salary)"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d4-c1",
+    "module": "joins",
+    "week": 3,
+    "day": 4,
+    "order": 1,
+    "title": "Using IN with Subquery",
+    "description": "Learn how to filter using IN with a subquery.",
+    "instructions": "Find employees who earn more than the average salary.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 90000),\\n  (2, 'Jane', 80000),\\n  (3, 'Bob', 70000),\\n  (4, 'Alice', 95000);",
+    "starterCode": "SELECT * FROM employees WHERE salary",
+    "solution": "SELECT * FROM employees WHERE salary > (SELECT AVG(salary) FROM employees)",
+    "hints": [
+      "Subquery returns a single value",
+      "Comparison operators work with subqueries",
+      "Subquery runs first, then main query uses result"
+    ],
+    "tests": [
+      {
+        "description": "Query must use subquery in WHERE",
+        "mustContain": ["SELECT", "FROM", "WHERE", "SELECT"],
+        "expectedColumns": ["id", "name", "salary"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d4-c2",
+    "module": "joins",
+    "week": 3,
+    "day": 4,
+    "order": 2,
+    "title": "Using IN with Multi-Row Subquery",
+    "description": "Learn how to use IN with subqueries that return multiple rows.",
+    "instructions": "Find employees in departments with average salary > 75000.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 80000),\\n  (3, 'Bob', 2, 70000),\\n  (4, 'Alice', 2, 72000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT * FROM employees WHERE department_id IN (SELECT department_id FROM employees GROUP BY department_id HAVING AVG(salary) > 75000)",
+    "hints": [
+      "Subquery returns multiple department_ids",
+      "IN checks if value is in the result set",
+      "More efficient than repeated OR conditions"
+    ],
+    "tests": [
+      {
+        "description": "Query must use IN with subquery",
+        "mustContain": ["SELECT", "FROM", "WHERE", "IN", "SELECT"],
+        "expectedColumns": ["id", "name", "department_id", "salary"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d4-c3",
+    "module": "joins",
+    "week": 3,
+    "day": 4,
+    "order": 3,
+    "title": "EXISTS Subquery",
+    "description": "Learn how to use EXISTS to check for related records.",
+    "instructions": "Find departments that have at least one employee.",
+    "seedData": "DROP TABLE IF EXISTS departments;\\nDROP TABLE IF EXISTS employees;\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Marketing'), (3, 'Sales');\\nINSERT INTO employees VALUES (1, 'John', 1), (2, 'Jane', 1);",
+    "starterCode": "SELECT * FROM departments",
+    "solution": "SELECT * FROM departments d WHERE EXISTS (SELECT 1 FROM employees e WHERE e.department_id = d.id)",
+    "hints": [
+      "EXISTS returns true if subquery finds any rows",
+      "Correlated subquery references outer query",
+      "More efficient than IN for large datasets"
+    ],
+    "tests": [
+      {
+        "description": "Query must use EXISTS with subquery",
+        "mustContain": ["SELECT", "FROM", "WHERE", "EXISTS", "SELECT"],
+        "expectedColumns": ["id", "name"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d4-c4",
+    "module": "joins",
+    "week": 3,
+    "day": 4,
+    "order": 4,
+    "title": "NOT IN Subquery",
+    "description": "Learn how to find records not in a subquery result.",
+    "instructions": "Find departments that have no employees.",
+    "seedData": "DROP TABLE IF EXISTS departments;\\nDROP TABLE IF EXISTS employees;\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER\\n);\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Marketing'), (3, 'Sales');\\nINSERT INTO employees VALUES (1, 'John', 1), (2, 'Jane', 1);",
+    "starterCode": "SELECT * FROM departments",
+    "solution": "SELECT * FROM departments WHERE id NOT IN (SELECT DISTINCT department_id FROM employees WHERE department_id IS NOT NULL)",
+    "hints": [
+      "NOT IN finds values not in the subquery result",
+      "Make sure to handle NULL values",
+      "Useful for finding missing relationships"
+    ],
+    "tests": [
+      {
+        "description": "Query must use NOT IN with subquery",
+        "mustContain": ["SELECT", "FROM", "WHERE", "NOT IN", "SELECT"],
+        "expectedColumns": ["id", "name"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d4-c5",
+    "module": "joins",
+    "week": 3,
+    "day": 4,
+    "order": 5,
+    "title": "JOIN vs Subquery Comparison",
+    "description": "Understand when to use JOIN vs subquery.",
+    "instructions": "Find the highest paid employee in each department using JOIN with a subquery.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department_id INTEGER,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'John', 1, 90000),\\n  (2, 'Jane', 1, 95000),\\n  (3, 'Bob', 2, 70000),\\n  (4, 'Alice', 2, 85000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT e.name, e.department_id, e.salary FROM employees e INNER JOIN (SELECT department_id, MAX(salary) as max_sal FROM employees GROUP BY department_id) m ON e.department_id = m.department_id AND e.salary = m.max_sal",
+    "hints": [
+      "Subquery finds max salary per department",
+      "Join back to get employee details",
+      "Handles ties for highest salary"
+    ],
+    "tests": [
+      {
+        "description": "Query must use JOIN with subquery",
+        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "department_id", "salary"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w3-d5-c1",
+    "module": "joins",
+    "week": 3,
+    "day": 5,
+    "order": 1,
+    "title": "UNION - Combining Results",
+    "description": "Learn how to combine results from multiple queries.",
+    "instructions": "Combine names from employees and departments into one list.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane');\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Sales');",
+    "starterCode": "SELECT name FROM employees",
+    "solution": "SELECT name FROM employees UNION SELECT name FROM departments",
+    "hints": [
+      "UNION combines result sets",
+      "Removes duplicate rows",
+      "Both queries must have same column count"
+    ],
+    "tests": [
+      {
+        "description": "Query must use UNION",
+        "mustContain": ["SELECT", "UNION", "SELECT"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d5-c2",
+    "module": "joins",
+    "week": 3,
+    "day": 5,
+    "order": 2,
+    "title": "UNION ALL - Keep Duplicates",
+    "description": "Learn how to combine results keeping duplicates.",
+    "instructions": "List all employee names and department names, keeping duplicates.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'John');\\nINSERT INTO departments VALUES (1, 'John'), (2, 'Sales');",
+    "starterCode": "SELECT name FROM employees UNION SELECT name FROM departments",
+    "solution": "SELECT name FROM employees UNION ALL SELECT name FROM departments",
+    "hints": [
+      "UNION ALL keeps all rows including duplicates",
+      "Faster than UNION (no duplicate check)",
+      "Use when you know there are no duplicates"
+    ],
+    "tests": [
+      {
+        "description": "Query must use UNION ALL",
+        "mustContain": ["SELECT", "UNION ALL", "SELECT"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d5-c3",
+    "module": "joins",
+    "week": 3,
+    "day": 5,
+    "order": 3,
+    "title": "UNION with Custom Columns",
+    "description": "Learn how to add identifying columns in UNION.",
+    "instructions": "Combine names with a label indicating the source table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane');\\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Sales');",
+    "starterCode": "SELECT name FROM employees",
+    "solution": "SELECT name, 'employee' as type FROM employees UNION SELECT name, 'department' as type FROM departments",
+    "hints": [
+      "Add literal columns to identify source",
+      "Use single quotes for string literals",
+      "Both queries must have same structure"
+    ],
+    "tests": [
+      {
+        "description": "Query must use UNION with custom columns",
+        "mustContain": ["SELECT", "UNION", "SELECT"],
+        "expectedColumns": ["name", "type"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d5-c4",
+    "module": "joins",
+    "week": 3,
+    "day": 5,
+    "order": 4,
+    "title": "INTERSECT - Common Rows",
+    "description": "Learn how to find rows common to both queries.",
+    "instructions": "Find names that appear in both employees and departments.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane');\\nINSERT INTO departments VALUES (1, 'John'), (2, 'Sales');",
+    "starterCode": "SELECT name FROM employees",
+    "solution": "SELECT name FROM employees INTERSECT SELECT name FROM departments",
+    "hints": [
+      "INTERSECT returns only common rows",
+      "Like a set intersection",
+      "Duplicates are removed"
+    ],
+    "tests": [
+      {
+        "description": "Query must use INTERSECT",
+        "mustContain": ["SELECT", "INTERSECT", "SELECT"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w3-d5-c5",
+    "module": "joins",
+    "week": 3,
+    "day": 5,
+    "order": 5,
+    "title": "EXCEPT - Difference of Rows",
+    "description": "Learn how to find rows in one query but not another.",
+    "instructions": "Find names that are in employees but not in departments.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nDROP TABLE IF EXISTS departments;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO employees VALUES (1, 'John'), (2, 'Jane'), (3, 'Bob');\\nINSERT INTO departments VALUES (1, 'John'), (2, 'Sales');",
+    "starterCode": "SELECT name FROM employees",
+    "solution": "SELECT name FROM employees EXCEPT SELECT name FROM departments",
+    "hints": [
+      "EXCEPT returns rows from first query not in second",
+      "Like a set difference",
+      "Duplicates are removed"
+    ],
+    "tests": [
+      {
+        "description": "Query must use EXCEPT",
+        "mustContain": ["SELECT", "EXCEPT", "SELECT"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  }
+]
