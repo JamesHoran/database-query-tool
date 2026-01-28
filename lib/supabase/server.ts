@@ -2,13 +2,39 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import type { Database } from './types';
 
-export async function getSupabaseServerClient() {
-  const cookieStore = await cookies();
+/**
+ * Validates that required environment variables are set
+ * @throws {Error} If required environment variables are missing
+ */
+function validateEnvVars(): {
+  url: string;
+  key: string;
+} {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  if (!url) {
+    throw new Error(
+      'Missing NEXT_PUBLIC_SUPABASE_URL environment variable. ' +
+      'Please check your .env.local file or Vercel environment variables.'
+    );
+  }
+  if (!key) {
+    throw new Error(
+      'Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable. ' +
+      'Please check your .env.local file or Vercel environment variables.'
+    );
+  }
+
+  return { url, key };
+}
+
+export async function getSupabaseServerClient() {
+  try {
+    const { url, key } = validateEnvVars();
+    const cookieStore = await cookies();
+
+    return createServerClient<Database>(url, key, {
       cookies: {
         getAll() {
           return cookieStore.getAll();
@@ -24,6 +50,9 @@ export async function getSupabaseServerClient() {
           }
         },
       },
-    }
-  );
+    });
+  } catch (error) {
+    console.error('Failed to initialize Supabase server client:', error);
+    throw error;
+  }
 }

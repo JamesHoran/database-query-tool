@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 
+// CORS headers for API responses
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+// Handle OPTIONS preflight requests
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, { headers: corsHeaders });
+}
+
 // GET /api/profile - Fetch user profile
 export async function GET(request: NextRequest) {
   try {
@@ -12,11 +24,14 @@ export async function GET(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401, headers: corsHeaders }
+      );
     }
 
     // Fetch profile data
-    const { data: profile, error } = await supabase
+    const { data: profile, error } = await (supabase as any)
       .from('profiles')
       .select('*')
       .eq('id', user.id)
@@ -28,31 +43,34 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch progress data for stats
-    const { data: progress } = await supabase
+    const { data: progress } = await (supabase as any)
       .from('user_progress')
       .select('*')
       .eq('user_id', user.id)
       .maybeSingle();
 
-    return NextResponse.json({
-      profile: profile || {
-        id: user.id,
-        email: user.email,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+    return NextResponse.json(
+      {
+        profile: profile || {
+          id: user.id,
+          email: user.email,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        progress: progress || {
+          completed_challenges: [],
+          current_challenge: 'w1-d1-c1',
+          started_at: new Date().toISOString(),
+          last_activity: new Date().toISOString(),
+        },
       },
-      progress: progress || {
-        completed_challenges: [],
-        current_challenge: 'w1-d1-c1',
-        started_at: new Date().toISOString(),
-        last_activity: new Date().toISOString(),
-      },
-    });
+      { headers: corsHeaders }
+    );
   } catch (error: any) {
     console.error('Error fetching profile:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to fetch profile' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

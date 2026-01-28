@@ -9,6 +9,46 @@ export interface QueryResult {
   rowCount: number;
 }
 
+// List of CDN fallbacks for SQL.js WASM files
+const SQLJS_CDN_FALLBACKS = [
+  'https://sql.js.org/dist/', // Official CDN
+  'https://cdn.jsdelivr.net/npm/sql.js/dist/', // jsDelivr CDN
+  'https://unpkg.com/sql.js/dist/', // unpkg CDN
+];
+
+/**
+ * Attempts to load SQL.js from multiple CDN sources with retry logic
+ */
+async function loadSqlJsWithRetry(): Promise<any> {
+  const maxRetries = 2; // Retries per CDN
+
+  for (const cdnBase of SQLJS_CDN_FALLBACKS) {
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const SQL = await initSqlJs({
+          locateFile: (file) => `${cdnBase}${file}`,
+        });
+        return SQL;
+      } catch (err) {
+        const isLastAttempt = attempt === maxRetries;
+        if (isLastAttempt) {
+          console.warn(
+            `Failed to load SQL.js from ${cdnBase} after ${maxRetries + 1} attempts. Trying next CDN...`
+          );
+        } else {
+          console.warn(
+            `Attempt ${attempt + 1} failed for ${cdnBase}. Retrying...`
+          );
+        }
+      }
+    }
+  }
+
+  throw new Error(
+    'Failed to load SQL.js from all CDN sources. Please check your internet connection or try again later.'
+  );
+}
+
 export function useSQLDatabase(seedData: string) {
   const [db, setDb] = useState<Database | null>(null);
   const [loading, setLoading] = useState(true);
@@ -21,15 +61,18 @@ export function useSQLDatabase(seedData: string) {
 
     initPromise.current = (async () => {
       try {
-        const SQL = await initSqlJs({
-          locateFile: (file) => `https://sql.js.org/dist/${file}`,
-        });
+        const SQL = await loadSqlJsWithRetry();
         const database = new SQL.Database();
         setDb(database);
         setLoading(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load database');
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'Failed to load database. Please refresh the page.';
+        setError(errorMessage);
         setLoading(false);
+        console.error('SQL.js initialization error:', err);
       }
     })();
 
