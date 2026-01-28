@@ -1,0 +1,677 @@
+[
+  {
+    "id": "w5-d1-c1",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 1,
+    "order": 1,
+    "title": "Sales Summary Report",
+    "description": "Generate a comprehensive sales summary by category.",
+    "instructions": "Show category name, total sales, average sale amount, and count of sales. Order by total sales descending.",
+    "seedData": "DROP TABLE IF EXISTS sales;\\nDROP TABLE IF EXISTS categories;\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER NOT NULL,\\n  category_id INTEGER\\n);\\nCREATE TABLE categories (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO categories VALUES (1, 'Electronics'), (2, 'Clothing'), (3, 'Food');\\nINSERT INTO sales VALUES\\n  (1, 100, 1), (2, 200, 1), (3, 50, 2), (4, 75, 2), (5, 30, 3), (6, 40, 3), (7, 25, 3);",
+    "starterCode": "SELECT * FROM sales",
+    "solution": "SELECT c.name, SUM(s.amount) as total_sales, AVG(s.amount) as avg_sale, COUNT(*) as sale_count FROM sales s INNER JOIN categories c ON s.category_id = c.id GROUP BY c.id, c.name ORDER BY total_sales DESC",
+    "hints": [
+      "Join sales with categories",
+      "Group by category",
+      "Use multiple aggregate functions"
+    ],
+    "tests": [
+      {
+        "description": "Query must generate sales summary",
+        "mustContain": ["SELECT", "JOIN", "GROUP BY", "ORDER BY"],
+        "expectedColumns": ["name", "total_sales", "avg_sale", "sale_count"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d1-c2",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 1,
+    "order": 2,
+    "title": "Top Performers Identification",
+    "description": "Find top 3 salespeople by total revenue.",
+    "instructions": "Show salesperson name and their total revenue. Only include top 3 by revenue.",
+    "seedData": "DROP TABLE IF EXISTS salespeople;\\nDROP TABLE IF EXISTS sales;\\nCREATE TABLE salespeople (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER NOT NULL,\\n  salesperson_id INTEGER\\n);\\nINSERT INTO salespeople VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol'), (4, 'Dave'), (5, 'Eve');\\nINSERT INTO sales VALUES\\n  (1, 1000, 1), (2, 1500, 1), (3, 2000, 2), (4, 500, 3), (5, 750, 4);",
+    "starterCode": "SELECT * FROM salespeople",
+    "solution": "SELECT s.name, SUM(sa.amount) as total_revenue FROM salespeople s INNER JOIN sales sa ON s.id = sa.salesperson_id GROUP BY s.id, s.name ORDER BY total_revenue DESC LIMIT 3",
+    "hints": [
+      "Join salespeople with sales",
+      "Group by salesperson",
+      "Use LIMIT for top N"
+    ],
+    "tests": [
+      {
+        "description": "Query must find top performers",
+        "mustContain": ["SELECT", "JOIN", "GROUP BY", "LIMIT"],
+        "expectedColumns": ["name", "total_revenue"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d1-c3",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 1,
+    "order": 3,
+    "title": "Duplicate Detection",
+    "description": "Find duplicate records based on specific columns.",
+    "instructions": "Find customers who have placed orders with the same total amount more than once.",
+    "seedData": "DROP TABLE IF EXISTS orders;\\nCREATE TABLE orders (\\n  id INTEGER PRIMARY KEY,\\n  customer_id INTEGER,\\n  total_amount INTEGER\\n);\\nINSERT INTO orders VALUES\\n  (1, 1, 100), (2, 1, 100), (3, 1, 200), (4, 2, 150), (5, 2, 150), (6, 3, 300);",
+    "starterCode": "SELECT * FROM orders",
+    "solution": "SELECT customer_id, total_amount, COUNT(*) as duplicate_count FROM orders GROUP BY customer_id, total_amount HAVING COUNT(*) > 1",
+    "hints": [
+      "Group by the columns that define duplicates",
+      "Use HAVING to find groups with more than one",
+      "COUNT(*) shows how many duplicates"
+    ],
+    "tests": [
+      {
+        "description": "Query must find duplicates",
+        "mustContain": ["SELECT", "GROUP BY", "HAVING"],
+        "expectedColumns": ["customer_id", "total_amount", "duplicate_count"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d1-c4",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 1,
+    "order": 4,
+    "title": "Year-over-Year Comparison",
+    "description": "Compare sales between two years.",
+    "instructions": "Show total sales for each year, ordered by year.",
+    "seedData": "DROP TABLE IF EXISTS sales;\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER NOT NULL,\\n  sale_date TEXT\\n);\\nINSERT INTO sales VALUES\\n  (1, 1000, '2022-03-15'), (2, 1500, '2022-06-20'), (3, 2000, '2023-01-10'), (4, 1800, '2023-08-05'), (5, 2200, '2023-11-20');",
+    "starterCode": "SELECT * FROM sales",
+    "solution": "SELECT CAST(strftime('%Y', sale_date) AS INTEGER) as year, SUM(amount) as total_sales FROM sales GROUP BY year ORDER BY year",
+    "hints": [
+      "Use strftime to extract year",
+      "Group by the extracted year",
+      "Sum amounts for each year"
+    ],
+    "tests": [
+      {
+        "description": "Query must compare yearly sales",
+        "mustContain": ["SELECT", "strftime", "GROUP BY"],
+        "expectedColumns": ["year", "total_sales"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d1-c5",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 1,
+    "order": 5,
+    "title": "Product Inventory Analysis",
+    "description": "Identify products that need restocking.",
+    "instructions": "Find products where quantity is less than 10, showing product name and quantity.",
+    "seedData": "DROP TABLE IF EXISTS products;\\nCREATE TABLE products (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  quantity INTEGER NOT NULL\\n);\\nINSERT INTO products VALUES\\n  (1, 'Laptop', 15), (2, 'Mouse', 5), (3, 'Keyboard', 8), (4, 'Monitor', 20), (5, 'Cable', 3);",
+    "starterCode": "SELECT * FROM products",
+    "solution": "SELECT name, quantity FROM products WHERE quantity < 10 ORDER BY quantity",
+    "hints": [
+      "Use WHERE to filter low quantity",
+      "Order by quantity for priority",
+      "Simple filtering with comparison operator"
+    ],
+    "tests": [
+      {
+        "description": "Query must find low stock items",
+        "mustContain": ["SELECT", "FROM", "WHERE"],
+        "expectedColumns": ["name", "quantity"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "w5-d2-c1",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 2,
+    "order": 1,
+    "title": "Customer Purchase Patterns",
+    "description": "Analyze customer purchase frequency.",
+    "instructions": "Show customer name and number of orders. Include customers with zero orders.",
+    "seedData": "DROP TABLE IF EXISTS customers;\\nDROP TABLE IF EXISTS orders;\\nCREATE TABLE customers (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE orders (\\n  id INTEGER PRIMARY KEY,\\n  customer_id INTEGER,\\n  order_date TEXT\\n);\\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol');\\nINSERT INTO orders VALUES (1, 1, '2023-01-01'), (2, 1, '2023-02-01'), (3, 2, '2023-01-15');",
+    "starterCode": "SELECT * FROM customers",
+    "solution": "SELECT c.name, COUNT(o.id) as order_count FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name",
+    "hints": [
+      "Use LEFT JOIN to include all customers",
+      "Count orders (not customers)",
+      "GROUP BY customer for aggregation"
+    ],
+    "tests": [
+      {
+        "description": "Query must analyze purchase patterns",
+        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "order_count"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d2-c2",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 2,
+    "order": 2,
+    "title": "Employee Tenure Analysis",
+    "description": "Calculate employee tenure and categorize by experience.",
+    "instructions": "Show employee name, years employed, and experience level ('Senior' if 5+ years, 'Mid' if 2-4, 'Junior' if <2).",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  hire_date TEXT\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', '2018-01-15'),\\n  (2, 'Bob', '2020-06-01'),\\n  (3, 'Carol', '2022-03-10'),\\n  (4, 'Dave', '2015-11-20');",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT name, CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', hire_date) AS INTEGER) as years_employed, CASE WHEN CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', hire_date) AS INTEGER) >= 5 THEN 'Senior' WHEN CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', hire_date) AS INTEGER) >= 2 THEN 'Mid' ELSE 'Junior' END as experience_level FROM employees",
+    "hints": [
+      "Calculate years from hire date to now",
+      "Use CASE for categorization",
+      "Multiple conditions in WHEN clauses"
+    ],
+    "tests": [
+      {
+        "description": "Query must analyze tenure",
+        "mustContain": ["SELECT", "CASE", "WHEN"],
+        "expectedColumns": ["name", "years_employed", "experience_level"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d2-c3",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 2,
+    "order": 3,
+    "title": "Department Budget Comparison",
+    "description": "Compare actual spending to budget by department.",
+    "instructions": "Show department name, total spending, budget, and variance (spending - budget).",
+    "seedData": "DROP TABLE IF EXISTS departments;\\nDROP TABLE IF EXISTS expenses;\\nCREATE TABLE departments (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  budget INTEGER\\n);\\nCREATE TABLE expenses (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER,\\n  department_id INTEGER\\n);\\nINSERT INTO departments VALUES (1, 'Engineering', 100000), (2, 'Marketing', 50000);\\nINSERT INTO expenses VALUES (1, 60000, 1), (2, 30000, 1), (3, 40000, 2);",
+    "starterCode": "SELECT * FROM departments",
+    "solution": "SELECT d.name, COALESCE(SUM(e.amount), 0) as spending, d.budget, COALESCE(SUM(e.amount), 0) - d.budget as variance FROM departments d LEFT JOIN expenses e ON d.id = e.department_id GROUP BY d.id, d.name, d.budget",
+    "hints": [
+      "LEFT JOIN to include all departments",
+      "COALESCE handles NULL spending",
+      "Calculate variance as difference"
+    ],
+    "tests": [
+      {
+        "description": "Query must compare budget to spending",
+        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "spending", "budget", "variance"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d2-c4",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 2,
+    "order": 4,
+    "title": "Course Enrollment Statistics",
+    "description": "Analyze course enrollment capacity.",
+    "instructions": "Show courses where enrolled students reach or exceed 80% of capacity.",
+    "seedData": "DROP TABLE IF EXISTS courses;\\nCREATE TABLE courses (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  capacity INTEGER,\\n  enrolled INTEGER\\n);\\nINSERT INTO courses VALUES\\n  (1, 'Math 101', 30, 28),\\n  (2, 'Physics 201', 25, 20),\\n  (3, 'Chemistry 101', 20, 18),\\n  (4, 'Biology 301', 15, 10);",
+    "starterCode": "SELECT * FROM courses",
+    "solution": "SELECT name, capacity, enrolled, ROUND(enrolled * 100.0 / capacity, 1) as percent_full FROM courses WHERE enrolled * 1.0 / capacity >= 0.8 ORDER BY enrolled * 1.0 / capacity DESC",
+    "hints": [
+      "Calculate percentage: enrolled/capacity",
+      "Use 1.0 to force decimal division",
+      "Filter by 80% threshold"
+    ],
+    "tests": [
+      {
+        "description": "Query must find near-full courses",
+        "mustContain": ["SELECT", "FROM", "WHERE"],
+        "expectedColumns": ["name", "capacity", "enrolled", "percent_full"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d2-c5",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 2,
+    "order": 5,
+    "title": "Commission Calculation",
+    "description": "Calculate sales commissions based on performance tiers.",
+    "instructions": "Show salesperson name, total sales, and commission (10% for sales > 50000, 5% otherwise).",
+    "seedData": "DROP TABLE IF EXISTS salespeople;\\nDROP TABLE IF EXISTS sales;\\nCREATE TABLE salespeople (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER,\\n  salesperson_id INTEGER\\n);\\nINSERT INTO salespeople VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol');\\nINSERT INTO sales VALUES (1, 30000, 1), (2, 35000, 1), (3, 20000, 2), (4, 15000, 3);",
+    "starterCode": "SELECT * FROM salespeople",
+    "solution": "SELECT s.name, SUM(sa.amount) as total_sales, CASE WHEN SUM(sa.amount) > 50000 THEN SUM(sa.amount) * 0.10 ELSE SUM(sa.amount) * 0.05 END as commission FROM salespeople s INNER JOIN sales sa ON s.id = sa.salesperson_id GROUP BY s.id, s.name",
+    "hints": [
+      "Sum sales per person first",
+      "Use CASE for tiered commission",
+      "Calculate commission based on total"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate commissions",
+        "mustContain": ["SELECT", "CASE", "GROUP BY"],
+        "expectedColumns": ["name", "total_sales", "commission"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d3-c1",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 3,
+    "order": 1,
+    "title": "Finding Missing Data",
+    "description": "Identify gaps in data collection.",
+    "instructions": "Find customers who have never placed an order.",
+    "seedData": "DROP TABLE IF EXISTS customers;\\nDROP TABLE IF EXISTS orders;\\nCREATE TABLE customers (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE orders (\\n  id INTEGER PRIMARY KEY,\\n  customer_id INTEGER\\n);\\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol'), (4, 'Dave');\\nINSERT INTO orders VALUES (1, 1), (2, 3);",
+    "starterCode": "SELECT * FROM customers",
+    "solution": "SELECT c.name FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.id IS NULL",
+    "hints": [
+      "Use LEFT JOIN to get all customers",
+      "Filter for NULL in orders table",
+      "NULL means no matching orders"
+    ],
+    "tests": [
+      {
+        "description": "Query must find customers without orders",
+        "mustContain": ["SELECT", "LEFT JOIN", "WHERE", "IS NULL"],
+        "expectedColumns": ["name"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d3-c2",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 3,
+    "order": 2,
+    "title": "Consecutive Days Analysis",
+    "description": "Find employees who worked 3+ consecutive days.",
+    "instructions": "Use self join to find employees with consecutive work days.",
+    "seedData": "DROP TABLE IF EXISTS work_days;\\nCREATE TABLE work_days (\\n  employee_id INTEGER,\\n  work_date TEXT\\n);\\nINSERT INTO work_days VALUES\\n  (1, '2023-01-01'), (1, '2023-01-02'), (1, '2023-01-03'),\\n  (2, '2023-01-01'), (2, '2023-01-03'),\\n  (3, '2023-01-01'), (3, '2023-01-02'), (3, '2023-01-03'), (3, '2023-01-04');",
+    "starterCode": "SELECT * FROM work_days",
+    "solution": "SELECT DISTINCT w1.employee_id FROM work_days w1 INNER JOIN work_days w2 ON w1.employee_id = w2.employee_id AND date(w1.work_date) = date(w2.work_date, '-1 day') INNER JOIN work_days w3 ON w1.employee_id = w3.employee_id AND date(w2.work_date) = date(w3.work_date, '-1 day')",
+    "hints": [
+      "Self join finds consecutive dates",
+      "Multiple joins for 3 consecutive days",
+      "Use date arithmetic for comparison"
+    ],
+    "tests": [
+      {
+        "description": "Query must find consecutive day workers",
+        "mustContain": ["SELECT", "FROM", "INNER JOIN"],
+        "expectedColumns": ["employee_id"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d3-c3",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 3,
+    "order": 3,
+    "title": "Salary Distribution Analysis",
+    "description": "Categorize employees into salary bands.",
+    "instructions": "Count employees in each salary band: '<50k', '50-80k', '80-120k', '>120k'.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', 45000), (2, 'Bob', 55000), (3, 'Carol', 90000), (4, 'Dave', 115000), (5, 'Eve', 130000);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "SELECT CASE WHEN salary < 50000 THEN '<50k' WHEN salary < 80000 THEN '50-80k' WHEN salary < 120000 THEN '80-120k' ELSE '>120k' END as salary_band, COUNT(*) as employee_count FROM employees GROUP BY salary_band ORDER BY MIN(salary)",
+    "hints": [
+      "Use CASE to create bands",
+      "GROUP BY the CASE expression",
+      "ORDER BY MIN to keep band order"
+    ],
+    "tests": [
+      {
+        "description": "Query must categorize salary bands",
+        "mustContain": ["SELECT", "CASE", "GROUP BY"],
+        "expectedColumns": ["salary_band", "employee_count"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d3-c4",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 3,
+    "order": 4,
+    "title": "Project Progress Tracking",
+    "description": "Calculate project completion percentage.",
+    "instructions": "Show project name, total tasks, completed tasks, and completion percentage.",
+    "seedData": "DROP TABLE IF EXISTS projects;\\nDROP TABLE IF EXISTS tasks;\\nCREATE TABLE projects (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE tasks (\\n  id INTEGER PRIMARY KEY,\\n  project_id INTEGER,\\n  status TEXT\\n);\\nINSERT INTO projects VALUES (1, 'Website Redesign'), (2, 'Mobile App');\\nINSERT INTO tasks VALUES\\n  (1, 1, 'completed'), (2, 1, 'completed'), (3, 1, 'in_progress'),\\n  (4, 2, 'completed'), (5, 2, 'pending');",
+    "starterCode": "SELECT * FROM projects",
+    "solution": "SELECT p.name, COUNT(t.id) as total_tasks, SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) as completed_tasks, ROUND(SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 1) as percent_complete FROM projects p LEFT JOIN tasks t ON p.id = t.project_id GROUP BY p.id, p.name",
+    "hints": [
+      "LEFT JOIN to include all projects",
+      "SUM with CASE counts completed",
+      "Calculate percentage from count"
+    ],
+    "tests": [
+      {
+        "description": "Query must track project progress",
+        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "total_tasks", "completed_tasks", "percent_complete"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d3-c5",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 3,
+    "order": 5,
+    "title": "Customer Lifetime Value",
+    "description": "Calculate customer lifetime value (CLV).",
+    "instructions": "Show customer name, total orders, total spent, and average order value.",
+    "seedData": "DROP TABLE IF EXISTS customers;\\nDROP TABLE IF EXISTS orders;\\nCREATE TABLE customers (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nCREATE TABLE orders (\\n  id INTEGER PRIMARY KEY,\\n  customer_id INTEGER,\\n  total INTEGER\\n);\\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol');\\nINSERT INTO orders VALUES (1, 1, 100), (2, 1, 150), (3, 2, 200);",
+    "starterCode": "SELECT * FROM customers",
+    "solution": "SELECT c.name, COUNT(o.id) as total_orders, COALESCE(SUM(o.total), 0) as total_spent, ROUND(COALESCE(AVG(o.total), 0), 2) as avg_order_value FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name ORDER BY total_spent DESC",
+    "hints": [
+      "LEFT JOIN includes customers with no orders",
+      "COALESCE handles NULL values",
+      "Multiple aggregations in one query"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate CLV metrics",
+        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
+        "expectedColumns": ["name", "total_orders", "total_spent", "avg_order_value"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d4-c1",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 4,
+    "order": 1,
+    "title": "Finding Nth Highest Salary",
+    "description": "Find the employee with the Nth highest salary.",
+    "instructions": "Find the employee with the 3rd highest salary using LIMIT and OFFSET.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', 95000), (2, 'Bob', 90000), (3, 'Carol', 85000),\\n  (4, 'Dave', 80000), (5, 'Eve', 75000);",
+    "starterCode": "SELECT name, salary FROM employees ORDER BY salary DESC",
+    "solution": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 2",
+    "hints": [
+      "OFFSET skips N rows before returning",
+      "OFFSET 2 gives the 3rd row (0-indexed)",
+      "LIMIT 1 returns just one row"
+    ],
+    "tests": [
+      {
+        "description": "Query must find 3rd highest salary",
+        "mustContain": ["SELECT", "FROM", "LIMIT", "OFFSET"],
+        "expectedColumns": ["name", "salary"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d4-c2",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 4,
+    "order": 2,
+    "title": "Median Calculation",
+    "description": "Calculate the median value of a column.",
+    "instructions": "Find the median salary from the employees table.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', 95000), (2, 'Bob', 90000), (3, 'Carol', 85000),\\n  (4, 'Dave', 80000), (5, 'Eve', 75000);",
+    "starterCode": "SELECT salary FROM employees ORDER BY salary",
+    "solution": "SELECT salary FROM employees ORDER BY salary LIMIT 1 OFFSET (SELECT COUNT(*) FROM employees) / 2",
+    "hints": [
+      "Order the values first",
+      "Use OFFSET with COUNT/2 for median",
+      "Subquery calculates total count"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate median",
+        "mustContain": ["SELECT", "FROM", "LIMIT", "OFFSET"],
+        "expectedColumns": ["salary"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d4-c3",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 4,
+    "order": 3,
+    "title": "Percentage of Total with GROUP BY",
+    "description": "Calculate each group's percentage of the total.",
+    "instructions": "Show each department's salary as percentage of total payroll.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL,\\n  department TEXT,\\n  salary INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'Alice', 'Engineering', 90000),\\n  (2, 'Bob', 'Engineering', 85000),\\n  (3, 'Carol', 'Sales', 75000),\\n  (4, 'Dave', 'Sales', 70000);",
+    "starterCode": "SELECT department, SUM(salary) FROM employees GROUP BY department",
+    "solution": "SELECT department, SUM(salary) as dept_total, ROUND(SUM(salary) * 100.0 / (SELECT SUM(salary) FROM employees), 1) as percent FROM employees GROUP BY department",
+    "hints": [
+      "Subquery gets overall total",
+      "Divide group sum by total",
+      "Multiply by 100 for percentage"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate percentage of total",
+        "mustContain": ["SELECT", "GROUP BY"],
+        "expectedColumns": ["department", "dept_total", "percent"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d4-c4",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 4,
+    "order": 4,
+    "title": "Multi-level Aggregation",
+    "description": "Perform aggregations at multiple levels.",
+    "instructions": "Show total sales, and also total sales per category.",
+    "seedData": "DROP TABLE IF EXISTS sales;\\nDROP TABLE IF EXISTS categories;\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER,\\n  category_id INTEGER\\n);\\nCREATE TABLE categories (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT NOT NULL\\n);\\nINSERT INTO categories VALUES (1, 'Electronics'), (2, 'Clothing');\\nINSERT INTO sales VALUES (1, 100, 1), (2, 200, 1), (3, 75, 2);",
+    "starterCode": "SELECT * FROM sales",
+    "solution": "SELECT c.name, SUM(s.amount) as category_sales, SUM(SUM(s.amount)) OVER () as total_sales FROM sales s INNER JOIN categories c ON s.category_id = c.id GROUP BY c.id, c.name",
+    "hints": [
+      "GROUP BY for category totals",
+      "Window function OVER () for grand total",
+      "Combine both in one query"
+    ],
+    "tests": [
+      {
+        "description": "Query must show multi-level aggregation",
+        "mustContain": ["SELECT", "GROUP BY", "OVER"],
+        "expectedColumns": ["name", "category_sales", "total_sales"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d4-c5",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 4,
+    "order": 5,
+    "title": "Growth Rate Calculation",
+    "description": "Calculate period-over-period growth.",
+    "instructions": "Show month and revenue with previous month revenue and growth percent.",
+    "seedData": "DROP TABLE IF EXISTS monthly_sales;\\nCREATE TABLE monthly_sales (\\n  month TEXT PRIMARY KEY,\\n  revenue INTEGER\\n);\\nINSERT INTO monthly_sales VALUES\\n  ('2023-01', 10000), ('2023-02', 12000), ('2023-03', 15000);",
+    "starterCode": "SELECT * FROM monthly_sales",
+    "solution": "SELECT month, revenue, LAG(revenue) OVER (ORDER BY month) as prev_revenue, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0 / LAG(revenue) OVER (ORDER BY month), 1) as growth_percent FROM monthly_sales",
+    "hints": [
+      "LAG gets previous month value",
+      "Calculate growth: (current - prev) / prev",
+      "Cast to decimal for percentage"
+    ],
+    "tests": [
+      {
+        "description": "Query must calculate growth rate",
+        "mustContain": ["SELECT", "LAG", "OVER"],
+        "expectedColumns": ["month", "revenue", "prev_revenue", "growth_percent"],
+        "expectedRowCount": 3
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d5-c1",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 5,
+    "order": 1,
+    "title": "Complex JOIN Challenge",
+    "description": "Join 4+ tables in a meaningful way.",
+    "instructions": "Show customer name, order date, product name, and quantity from sales database.",
+    "seedData": "DROP TABLE IF EXISTS customers;\\nDROP TABLE IF EXISTS orders;\\nDROP TABLE IF EXISTS order_items;\\nDROP TABLE IF EXISTS products;\\nCREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT);\\nCREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT);\\nCREATE TABLE order_items (id INTEGER PRIMARY KEY, order_id INTEGER, product_id INTEGER, quantity INTEGER);\\nCREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT);\\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob');\\nINSERT INTO orders VALUES (1, 1, '2023-01-15'), (2, 2, '2023-02-20');\\nINSERT INTO order_items VALUES (1, 1, 1, 2), (2, 1, 2, 1);\\nINSERT INTO products VALUES (1, 'Laptop'), (2, 'Mouse');",
+    "starterCode": "SELECT * FROM customers",
+    "solution": "SELECT c.name, o.order_date, p.name, oi.quantity FROM customers c INNER JOIN orders o ON c.id = o.customer_id INNER JOIN order_items oi ON o.id = oi.order_id INNER JOIN products p ON oi.product_id = p.id",
+    "hints": [
+      "Chain multiple JOINs together",
+      "Follow foreign key relationships",
+      "Use table aliases for clarity"
+    ],
+    "tests": [
+      {
+        "description": "Query must JOIN 4 tables",
+        "mustContain": ["SELECT", "FROM", "INNER JOIN"],
+        "expectedColumns": ["name", "order_date", "name", "quantity"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "w5-d5-c2",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 5,
+    "order": 2,
+    "title": "CTE with Window Function",
+    "description": "Combine CTEs and window functions.",
+    "instructions": "Use a CTE with row_number to find the top selling product in each category.",
+    "seedData": "DROP TABLE IF EXISTS sales;\\nDROP TABLE IF EXISTS products;\\nDROP TABLE IF EXISTS categories;\\nCREATE TABLE sales (id INTEGER PRIMARY KEY, product_id INTEGER, quantity INTEGER);\\nCREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER);\\nCREATE TABLE categories (id INTEGER PRIMARY KEY, name TEXT);\\nINSERT INTO categories VALUES (1, 'Electronics'), (2, 'Clothing');\\nINSERT INTO products VALUES (1, 'Laptop', 1), (2, 'Phone', 1), (3, 'Shirt', 2);\\nINSERT INTO sales VALUES (1, 1, 10), (2, 1, 5), (3, 2, 8), (4, 3, 20);",
+    "starterCode": "SELECT * FROM products",
+    "solution": "WITH product_sales AS (SELECT p.name, p.category_id, c.name as category_name, SUM(s.quantity) as total_sold FROM products p INNER JOIN sales s ON p.id = s.product_id INNER JOIN categories c ON p.category_id = c.id GROUP BY p.id, p.name, p.category_id, c.name) SELECT * FROM product_sales WHERE ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY total_sold DESC) = 1",
+    "hints": [
+      "CTE aggregates sales by product",
+      "Window function ranks within category",
+      "Filter for rank 1 (top product)"
+    ],
+    "tests": [
+      {
+        "description": "Query must use CTE with window function",
+        "mustContain": ["WITH", "ROW_NUMBER", "OVER"],
+        "expectedColumns": ["name", "category_id", "category_name", "total_sold"],
+        "expectedRowCount": 2
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d5-c3",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 5,
+    "order": 3,
+    "title": "Pivot-like Query",
+    "description": "Create a pivot-like result using CASE.",
+    "instructions": "Show months as columns with sales totals per month.",
+    "seedData": "DROP TABLE IF EXISTS sales;\\nCREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  amount INTEGER,\\n  sale_date TEXT\\n);\\nINSERT INTO sales VALUES\\n  (1, 1000, '2023-01-15'),\\n  (2, 1500, '2023-01-20'),\\n  (3, 2000, '2023-02-10'),\\n  (4, 1800, '2023-02-25'),\\n  (5, 2500, '2023-03-05');",
+    "starterCode": "SELECT * FROM sales",
+    "solution": "SELECT SUM(CASE WHEN strftime('%m', sale_date) = '01' THEN amount ELSE 0 END) as jan_total, SUM(CASE WHEN strftime('%m', sale_date) = '02' THEN amount ELSE 0 END) as feb_total, SUM(CASE WHEN strftime('%m', sale_date) = '03' THEN amount ELSE 0 END) as mar_total FROM sales",
+    "hints": [
+      "Use CASE for each column",
+      "strftime extracts month number",
+      "SUM aggregates each month separately"
+    ],
+    "tests": [
+      {
+        "description": "Query must create pivot result",
+        "mustContain": ["SELECT", "CASE", "strftime"],
+        "expectedColumns": ["jan_total", "feb_total", "mar_total"],
+        "expectedRowCount": 1
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d5-c4",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 5,
+    "order": 4,
+    "title": "Hierarchical Data with Recursive CTE",
+    "description": "Traverse hierarchical relationships.",
+    "instructions": "Show all employees and their level in the organization hierarchy.",
+    "seedData": "DROP TABLE IF EXISTS employees;\\nCREATE TABLE employees (\\n  id INTEGER PRIMARY KEY,\\n  name TEXT,\\n  manager_id INTEGER\\n);\\nINSERT INTO employees VALUES\\n  (1, 'CEO', NULL),\\n  (2, 'VP1', 1), (3, 'VP2', 1),\\n  (4, 'Manager1', 2), (5, 'Manager2', 2),\\n  (6, 'Worker1', 4);",
+    "starterCode": "SELECT * FROM employees",
+    "solution": "WITH RECURSIVE org_chart AS (SELECT id, name, manager_id, 0 as level FROM employees WHERE manager_id IS NULL UNION ALL SELECT e.id, e.name, e.manager_id, oc.level + 1 FROM employees e INNER JOIN org_chart oc ON e.manager_id = oc.id) SELECT * FROM org_chart ORDER BY level, id",
+    "hints": [
+      "Anchor member starts with top level",
+      "Recursive member joins to CTE",
+      "Level increments with each depth"
+    ],
+    "tests": [
+      {
+        "description": "Query must traverse hierarchy",
+        "mustContain": ["WITH", "RECURSIVE", "UNION ALL"],
+        "expectedColumns": ["id", "name", "manager_id", "level"],
+        "expectedRowCount": 6
+      }
+    ],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "w5-d5-c5",
+    "module": "advanced-practice",
+    "week": 5,
+    "day": 5,
+    "order": 5,
+    "title": "Final Comprehensive Challenge",
+    "description": "Put it all together in a real-world scenario.",
+    "instructions": "Create a sales dashboard summary: top product, total revenue, orders by status.",
+    "seedData": "DROP TABLE IF EXISTS products;\\nDROP TABLE IF EXISTS orders;\\nDROP TABLE IF EXISTS order_items;\\nCREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT);\\nCREATE TABLE orders (id INTEGER PRIMARY KEY, status TEXT, total INTEGER);\\nCREATE TABLE order_items (id INTEGER PRIMARY KEY, order_id INTEGER, product_id INTEGER, quantity INTEGER);\\nINSERT INTO products VALUES (1, 'Laptop'), (2, 'Mouse'), (3, 'Keyboard');\\nINSERT INTO orders VALUES (1, 'completed', 2500), (2, 'pending', 500), (3, 'completed', 3000), (4, 'cancelled', 200);\\nINSERT INTO order_items VALUES (1, 1, 1, 2), (2, 2, 2, 5), (3, 3, 1, 3);",
+    "starterCode": "SELECT * FROM orders",
+    "solution": "SELECT 'Total Revenue' as metric, SUM(total) as value FROM orders WHERE status = 'completed' UNION ALL SELECT 'Top Product', p.name FROM order_items oi INNER JOIN products p ON oi.product_id = p.id GROUP BY p.id, p.name ORDER BY SUM(oi.quantity) DESC LIMIT 1 UNION ALL SELECT 'Completed Orders', CAST(COUNT(*) AS TEXT) FROM orders WHERE status = 'completed' UNION ALL SELECT 'Pending Orders', CAST(COUNT(*) AS TEXT) FROM orders WHERE status = 'pending'",
+    "hints": [
+      "UNION ALL combines different metrics",
+      "Each SELECT is independent",
+      "Mix of aggregation and direct values"
+    ],
+    "tests": [
+      {
+        "description": "Query must create dashboard summary",
+        "mustContain": ["SELECT", "UNION ALL"],
+        "expectedColumns": ["metric", "value"],
+        "expectedRowCount": 4
+      }
+    ],
+    "difficulty": "advanced"
+  }
+]
