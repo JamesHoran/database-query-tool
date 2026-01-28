@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -16,7 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SQL Mastery - Learn SQL in 5 Weeks",
   description: "Interactive SQL learning platform with 125 challenges. Master SQL through browser-based practice with instant feedback.",
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
