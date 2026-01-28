@@ -22,16 +22,16 @@ export function Navigation({
   onPrevious,
 }: NavigationProps) {
   return (
-    <div className="flex justify-between items-center pt-6 border-t border-zinc-800">
-      <div>
+    <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-zinc-800">
+      <div className="flex-1">
         {hasPrevious && (
           previousId ? (
             <Link
               href={`/challenge/${previousId}`}
-              className="inline-flex items-center px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-300 transition-colors"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-300 transition-colors"
             >
               <svg
-                className="w-5 h-5 mr-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -43,15 +43,15 @@ export function Navigation({
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Previous
+              <span className="text-sm">Previous</span>
             </Link>
           ) : (
             <button
               onClick={onPrevious}
-              className="inline-flex items-center px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-300 transition-colors"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-300 transition-colors"
             >
               <svg
-                className="w-5 h-5 mr-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -63,24 +63,26 @@ export function Navigation({
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Previous
+              <span className="text-sm">Previous</span>
             </button>
           )
         )}
       </div>
 
-      <span className="text-zinc-500 text-sm font-mono">{currentId}</span>
+      <div className="hidden sm:block text-zinc-500 text-xs sm:text-sm font-mono px-2">
+        {currentId}
+      </div>
 
-      <div>
+      <div className="flex-1">
         {hasNext && (
           nextId ? (
             <Link
               href={`/challenge/${nextId}`}
-              className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors"
             >
-              Next
+              <span className="text-sm">Next</span>
               <svg
-                className="w-5 h-5 ml-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -96,11 +98,11 @@ export function Navigation({
           ) : (
             <button
               onClick={onNext}
-              className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors"
             >
-              Next
+              <span className="text-sm">Next</span>
               <svg
-                className="w-5 h-5 ml-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

@@ -10,6 +10,7 @@ export interface QueryTest {
 export interface Challenge {
   id: string;
   module: string;
+  week: number;
   day: number;
   order: number;
   title: string;
@@ -36,4 +37,27 @@ export interface GradeResult {
   hints: string[];
   userResults?: QueryResult;
   expectedResults?: QueryResult;
+}
+
+// Supabase Auth types
+export interface SupabaseUser {
+  id: string;
+  email?: string;
+  email_confirmed_at?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface SupabaseSession {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  token_type: string;
+  user: SupabaseUser;
+}
+
+export interface AuthState {
+  session: SupabaseSession | null;
+  user: SupabaseUser | null;
+  loading: boolean;
 }

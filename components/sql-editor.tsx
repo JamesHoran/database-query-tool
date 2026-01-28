@@ -39,7 +39,8 @@ export function SQLEditor({
     <div className="border border-zinc-700 rounded-lg overflow-hidden bg-zinc-900">
       <CodeMirror
         value={value}
-        height="300px"
+        height="200px"
+        minHeight="150px"
         extensions={disabled ? [] : [sql()]}
         theme={oneDark}
         onChange={disabled ? undefined : onChange}
@@ -68,19 +69,19 @@ export function SQLEditor({
           lintKeymap: true,
         }}
       />
-      <div className="flex gap-2 p-3 bg-zinc-800 border-t border-zinc-700">
+      <div className="flex flex-col sm:flex-row gap-2 p-2 sm:p-3 bg-zinc-800 border-t border-zinc-700">
         <button
           onClick={onSubmit}
           disabled={disabled || !value.trim()}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed rounded-md text-white font-medium transition-colors"
+          className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed rounded-md text-white font-medium text-sm transition-colors"
         >
           Run Query
-          <span className="ml-2 text-zinc-400 text-sm">(Ctrl+Enter)</span>
+          <span className="hidden sm:inline ml-2 text-zinc-300 text-xs">(Ctrl+Enter)</span>
         </button>
         <button
           onClick={() => onChange('')}
           disabled={disabled}
-          className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed rounded-md text-white transition-colors"
+          className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed rounded-md text-white text-sm transition-colors"
         >
           Clear
         </button>

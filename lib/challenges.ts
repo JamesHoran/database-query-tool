@@ -11,7 +11,12 @@ function unescapeSqlString(str: string): string {
 export async function getAllChallenges(): Promise<Challenge[]> {
   try {
     const week1 = (await import('@/data/challenges/week-1.json')).default as any[];
-    return week1.map(c => ({
+    const week2 = (await import('@/data/challenges/week-2.json')).default as any[];
+    const week3 = (await import('@/data/challenges/week-3.json')).default as any[];
+    const week4 = (await import('@/data/challenges/week-4.json')).default as any[];
+    const week5 = (await import('@/data/challenges/week-5.json')).default as any[];
+    const allChallenges = [...week1, ...week2, ...week3, ...week4, ...week5];
+    return allChallenges.map(c => ({
       ...c,
       seedData: unescapeSqlString(c.seedData),
       difficulty: c.difficulty as Challenge['difficulty'],

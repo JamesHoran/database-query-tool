@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SQL Interview Mastery - Learn SQL in 2 Weeks",
-  description: "Interactive SQL learning platform with 97 challenges. Master SQL for interviews through browser-based practice with instant feedback.",
+  title: "SQL Mastery - Learn SQL in 5 Weeks",
+  description: "Interactive SQL learning platform with 125 challenges. Master SQL through browser-based practice with instant feedback.",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -27,7 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <div className="flex-1">{children}</div>
+        </div>
       </body>
     </html>
   );
