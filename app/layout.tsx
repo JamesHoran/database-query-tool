@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SQL Mastery - Learn SQL in 5 Weeks",
-  description: "Interactive SQL learning platform with 125 challenges. Master SQL through browser-based practice with instant feedback.",
+  title: "CodeMastery - Learn SQL & Python Online",
+  description: "Interactive learning platform with 200+ challenges in SQL and Python. Master in-demand skills through browser-based practice with instant feedback.",
   viewport: "width=device-width, initial-scale=1",
 };
 
