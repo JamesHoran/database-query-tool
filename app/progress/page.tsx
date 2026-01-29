@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { ProgressBar } from '@/components/progress-bar';
 
 export default function ProgressPage() {
-  const { progress, getCompletedCount, resetProgress, isAuthenticated, syncing } = useProgress();
+  const { progress, getCompletedCount, resetProgress, isAuthenticated, isSyncing } = useProgress();
   const [challenges, setChallenges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -83,7 +83,7 @@ export default function ProgressPage() {
                   <span className="text-xs text-zinc-500">Local storage only</span>
                 </div>
               )}
-              {syncing && (
+              {isSyncing && (
                 <div className="flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

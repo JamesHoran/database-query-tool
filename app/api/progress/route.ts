@@ -17,32 +17,50 @@ export async function OPTIONS(request: NextRequest) {
 // Ensure profile and progress exist for the user
 async function ensureUserRecord(supabase: any, userId: string) {
   // Check if profile exists, create if not
-  const { data: profile } = await (supabase
+  const { data: profile, error: profileError } = await (supabase
     .from('profiles')
     .select('id')
     .eq('id', userId)
     .maybeSingle() as any);
 
+  if (profileError) {
+    console.error('Error checking profile:', profileError);
+  }
+
   if (!profile) {
-    await supabase.from('profiles').insert({
+    const { error: insertError } = await supabase.from('profiles').insert({
       id: userId,
       email: null, // Will be updated by trigger if it works
     });
+
+    if (insertError) {
+      console.error('Error creating profile:', insertError);
+      throw new Error(`Failed to create profile: ${insertError.message}`);
+    }
   }
 
   // Check if progress exists, create if not
-  const { data: progress } = await supabase
+  const { data: progress, error: progressError } = await supabase
     .from('user_progress')
     .select('user_id')
     .eq('user_id', userId)
     .maybeSingle();
 
+  if (progressError) {
+    console.error('Error checking progress:', progressError);
+  }
+
   if (!progress) {
-    await supabase.from('user_progress').insert({
+    const { error: insertError } = await supabase.from('user_progress').insert({
       user_id: userId,
       completed_challenges: [],
       current_challenge: 'w1-d1-c1',
     });
+
+    if (insertError) {
+      console.error('Error creating progress:', insertError);
+      throw new Error(`Failed to create progress: ${insertError.message}`);
+    }
   }
 }
 
