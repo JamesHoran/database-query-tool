@@ -19,12 +19,22 @@
     "tests": [
       {
         "description": "Query must use SELECT and FROM",
-        "mustContain": ["SELECT", "FROM"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d1-c2",
@@ -46,12 +56,21 @@
     "tests": [
       {
         "description": "Query must select only name and salary",
-        "mustContain": ["SELECT", "FROM", "name", "salary"],
-        "expectedColumns": ["name", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "name",
+          "salary"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d1-c3",
@@ -73,12 +92,19 @@
     "tests": [
       {
         "description": "Query must use alias for name column",
-        "mustContain": ["SELECT", "AS", "employee_name"],
-        "expectedColumns": ["employee_name"],
+        "mustContain": [
+          "SELECT",
+          "AS",
+          "employee_name"
+        ],
+        "expectedColumns": [
+          "employee_name"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d1-c4",
@@ -100,12 +126,19 @@
     "tests": [
       {
         "description": "Query must use DISTINCT",
-        "mustContain": ["SELECT", "DISTINCT", "department"],
-        "expectedColumns": ["department"],
+        "mustContain": [
+          "SELECT",
+          "DISTINCT",
+          "department"
+        ],
+        "expectedColumns": [
+          "department"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d1-c5",
@@ -127,12 +160,23 @@
     "tests": [
       {
         "description": "Query must use LIMIT",
-        "mustContain": ["SELECT", "FROM", "LIMIT"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LIMIT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d2-c1",
@@ -154,12 +198,24 @@
     "tests": [
       {
         "description": "Query must filter by Engineering department",
-        "mustContain": ["SELECT", "FROM", "WHERE", "department"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "department"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d2-c2",
@@ -181,12 +237,24 @@
     "tests": [
       {
         "description": "Query must filter by salary > 80000",
-        "mustContain": ["SELECT", "FROM", "WHERE", "salary"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "salary"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d2-c3",
@@ -208,12 +276,24 @@
     "tests": [
       {
         "description": "Query must use AND for both conditions",
-        "mustContain": ["SELECT", "FROM", "WHERE", "AND"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "AND"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d2-c4",
@@ -235,12 +315,24 @@
     "tests": [
       {
         "description": "Query must use OR for departments",
-        "mustContain": ["SELECT", "FROM", "WHERE", "OR"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "OR"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d2-c5",
@@ -262,12 +354,24 @@
     "tests": [
       {
         "description": "Query must use IN operator",
-        "mustContain": ["SELECT", "FROM", "WHERE", "IN"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "IN"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d3-c1",
@@ -289,12 +393,24 @@
     "tests": [
       {
         "description": "Query must use LIKE with pattern",
-        "mustContain": ["SELECT", "FROM", "WHERE", "LIKE"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "LIKE"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d3-c2",
@@ -316,12 +432,24 @@
     "tests": [
       {
         "description": "Query must use LIKE for ending pattern",
-        "mustContain": ["SELECT", "FROM", "WHERE", "LIKE"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "LIKE"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d3-c3",
@@ -343,12 +471,24 @@
     "tests": [
       {
         "description": "Query must use IS NULL",
-        "mustContain": ["SELECT", "FROM", "WHERE", "IS NULL"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "IS NULL"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d3-c4",
@@ -370,12 +510,24 @@
     "tests": [
       {
         "description": "Query must use IS NOT NULL",
-        "mustContain": ["SELECT", "FROM", "WHERE", "IS NOT NULL"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "IS NOT NULL"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d3-c5",
@@ -397,12 +549,24 @@
     "tests": [
       {
         "description": "Query must use BETWEEN",
-        "mustContain": ["SELECT", "FROM", "WHERE", "BETWEEN"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "BETWEEN"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d4-c1",
@@ -424,12 +588,23 @@
     "tests": [
       {
         "description": "Query must use ORDER BY",
-        "mustContain": ["SELECT", "FROM", "ORDER BY"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d4-c2",
@@ -451,12 +626,24 @@
     "tests": [
       {
         "description": "Query must use ORDER BY DESC",
-        "mustContain": ["SELECT", "FROM", "ORDER BY", "DESC"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "ORDER BY",
+          "DESC"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d4-c3",
@@ -478,12 +665,23 @@
     "tests": [
       {
         "description": "Query must sort by multiple columns",
-        "mustContain": ["SELECT", "FROM", "ORDER BY"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 5
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d4-c4",
@@ -505,12 +703,24 @@
     "tests": [
       {
         "description": "Query must use both WHERE and ORDER BY",
-        "mustContain": ["SELECT", "FROM", "WHERE", "ORDER BY"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d4-c5",
@@ -532,12 +742,24 @@
     "tests": [
       {
         "description": "Query must use ORDER BY and LIMIT",
-        "mustContain": ["SELECT", "FROM", "ORDER BY", "LIMIT"],
-        "expectedColumns": ["id", "name", "department", "salary", "hire_date"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "ORDER BY",
+          "LIMIT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary",
+          "hire_date"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w1-d5-c1",
@@ -559,12 +781,19 @@
     "tests": [
       {
         "description": "Query must use COUNT",
-        "mustContain": ["SELECT", "COUNT", "FROM"],
-        "expectedColumns": ["COUNT(*)"],
+        "mustContain": [
+          "SELECT",
+          "COUNT",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "COUNT(*)"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d5-c2",
@@ -586,12 +815,19 @@
     "tests": [
       {
         "description": "Query must use SUM",
-        "mustContain": ["SELECT", "SUM", "FROM"],
-        "expectedColumns": ["SUM(salary)"],
+        "mustContain": [
+          "SELECT",
+          "SUM",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "SUM(salary)"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d5-c3",
@@ -613,12 +849,19 @@
     "tests": [
       {
         "description": "Query must use AVG",
-        "mustContain": ["SELECT", "AVG", "FROM"],
-        "expectedColumns": ["AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "AVG",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "AVG(salary)"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d5-c4",
@@ -640,12 +883,21 @@
     "tests": [
       {
         "description": "Query must use MIN and MAX",
-        "mustContain": ["SELECT", "MIN", "MAX", "FROM"],
-        "expectedColumns": ["MIN(salary)", "MAX(salary)"],
+        "mustContain": [
+          "SELECT",
+          "MIN",
+          "MAX",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "MIN(salary)",
+          "MAX(salary)"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w1-d5-c5",
@@ -667,11 +919,18 @@
     "tests": [
       {
         "description": "Query must use alias for AVG result",
-        "mustContain": ["SELECT", "AVG", "AS"],
-        "expectedColumns": ["average_salary"],
+        "mustContain": [
+          "SELECT",
+          "AVG",
+          "AS"
+        ],
+        "expectedColumns": [
+          "average_salary"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   }
 ]

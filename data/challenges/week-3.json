@@ -19,12 +19,21 @@
     "tests": [
       {
         "description": "Query must use INNER JOIN",
-        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d1-c2",
@@ -46,12 +55,21 @@
     "tests": [
       {
         "description": "Query must use table aliases",
-        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d1-c3",
@@ -73,12 +91,22 @@
     "tests": [
       {
         "description": "Query must select specific columns from JOIN",
-        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
-        "expectedColumns": ["name", "name", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name",
+          "salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d1-c4",
@@ -100,12 +128,21 @@
     "tests": [
       {
         "description": "Query must use WHERE with JOIN",
-        "mustContain": ["SELECT", "FROM", "JOIN", "WHERE"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "WHERE"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d1-c5",
@@ -127,12 +164,22 @@
     "tests": [
       {
         "description": "Query must JOIN three tables",
-        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
-        "expectedColumns": ["name", "name", "city"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name",
+          "city"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d2-c1",
@@ -154,12 +201,21 @@
     "tests": [
       {
         "description": "Query must use LEFT JOIN",
-        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "ON"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LEFT JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d2-c2",
@@ -181,12 +237,21 @@
     "tests": [
       {
         "description": "Query must use RIGHT JOIN",
-        "mustContain": ["SELECT", "FROM", "RIGHT JOIN", "ON"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "RIGHT JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d2-c3",
@@ -208,12 +273,21 @@
     "tests": [
       {
         "description": "Query must find unmatched records",
-        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "WHERE", "IS NULL"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LEFT JOIN",
+          "WHERE",
+          "IS NULL"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d2-c4",
@@ -235,12 +309,21 @@
     "tests": [
       {
         "description": "Query must use LEFT JOIN with aggregation",
-        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "COUNT(employees.id)"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LEFT JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "COUNT(employees.id)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d2-c5",
@@ -262,12 +345,21 @@
     "tests": [
       {
         "description": "Query must simulate FULL OUTER JOIN",
-        "mustContain": ["SELECT", "LEFT JOIN", "UNION", "RIGHT JOIN"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "UNION",
+          "RIGHT JOIN"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d3-c1",
@@ -289,12 +381,20 @@
     "tests": [
       {
         "description": "Query must use CROSS JOIN",
-        "mustContain": ["SELECT", "FROM", "CROSS JOIN"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "CROSS JOIN"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d3-c2",
@@ -316,12 +416,21 @@
     "tests": [
       {
         "description": "Query must use self join",
-        "mustContain": ["SELECT", "FROM", "JOIN", "ON"],
-        "expectedColumns": ["name", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "name",
+          "name"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d3-c3",
@@ -343,12 +452,21 @@
     "tests": [
       {
         "description": "Query must use self join for hierarchy",
-        "mustContain": ["SELECT", "FROM", "LEFT JOIN", "ON"],
-        "expectedColumns": ["employee", "manager"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LEFT JOIN",
+          "ON"
+        ],
+        "expectedColumns": [
+          "employee",
+          "manager"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d3-c4",
@@ -370,12 +488,22 @@
     "tests": [
       {
         "description": "Query must join with subquery",
-        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "salary", "avg_salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "avg_salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d3-c5",
@@ -397,12 +525,21 @@
     "tests": [
       {
         "description": "Query must use JOIN with GROUP BY",
-        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "SUM(employees.salary)"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "SUM(employees.salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d4-c1",
@@ -424,12 +561,22 @@
     "tests": [
       {
         "description": "Query must use subquery in WHERE",
-        "mustContain": ["SELECT", "FROM", "WHERE", "SELECT"],
-        "expectedColumns": ["id", "name", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "salary"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d4-c2",
@@ -451,12 +598,24 @@
     "tests": [
       {
         "description": "Query must use IN with subquery",
-        "mustContain": ["SELECT", "FROM", "WHERE", "IN", "SELECT"],
-        "expectedColumns": ["id", "name", "department_id", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "IN",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department_id",
+          "salary"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d4-c3",
@@ -478,12 +637,22 @@
     "tests": [
       {
         "description": "Query must use EXISTS with subquery",
-        "mustContain": ["SELECT", "FROM", "WHERE", "EXISTS", "SELECT"],
-        "expectedColumns": ["id", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "EXISTS",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d4-c4",
@@ -505,12 +674,22 @@
     "tests": [
       {
         "description": "Query must use NOT IN with subquery",
-        "mustContain": ["SELECT", "FROM", "WHERE", "NOT IN", "SELECT"],
-        "expectedColumns": ["id", "name"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "NOT IN",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d4-c5",
@@ -532,12 +711,22 @@
     "tests": [
       {
         "description": "Query must use JOIN with subquery",
-        "mustContain": ["SELECT", "FROM", "JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "department_id", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "department_id",
+          "salary"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w3-d5-c1",
@@ -559,12 +748,19 @@
     "tests": [
       {
         "description": "Query must use UNION",
-        "mustContain": ["SELECT", "UNION", "SELECT"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "UNION",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d5-c2",
@@ -586,12 +782,19 @@
     "tests": [
       {
         "description": "Query must use UNION ALL",
-        "mustContain": ["SELECT", "UNION ALL", "SELECT"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "UNION ALL",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d5-c3",
@@ -613,12 +816,20 @@
     "tests": [
       {
         "description": "Query must use UNION with custom columns",
-        "mustContain": ["SELECT", "UNION", "SELECT"],
-        "expectedColumns": ["name", "type"],
+        "mustContain": [
+          "SELECT",
+          "UNION",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "name",
+          "type"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d5-c4",
@@ -640,12 +851,19 @@
     "tests": [
       {
         "description": "Query must use INTERSECT",
-        "mustContain": ["SELECT", "INTERSECT", "SELECT"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "INTERSECT",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w3-d5-c5",
@@ -667,11 +885,18 @@
     "tests": [
       {
         "description": "Query must use EXCEPT",
-        "mustContain": ["SELECT", "EXCEPT", "SELECT"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "EXCEPT",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   }
 ]

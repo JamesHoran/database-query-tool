@@ -22,6 +22,7 @@ export interface Challenge {
   hints: string[];
   tests: QueryTest[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
+  xp: number;
 }
 
 export interface QueryResult {

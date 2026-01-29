@@ -8,6 +8,7 @@ export interface UserProgress {
   currentChallenge: string;
   startedAt: string;
   lastActivity: string;
+  totalXp: number;
 }
 
 export interface ProgressState {
@@ -46,6 +47,7 @@ export const INITIAL_PROGRESS: UserProgress = {
   currentChallenge: 'w1-d1-c1',
   startedAt: new Date().toISOString(),
   lastActivity: new Date().toISOString(),
+  totalXp: 0,
 };
 
 export const INITIAL_STATE: ProgressState = {

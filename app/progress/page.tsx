@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { ProgressBar } from '@/components/progress-bar';
 
 export default function ProgressPage() {
-  const { progress, getCompletedCount, resetProgress, isAuthenticated, isSyncing } = useProgress();
+  const { progress, getCompletedCount, getTotalXp, resetProgress, isAuthenticated, isSyncing } = useProgress();
   const [challenges, setChallenges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -116,6 +116,7 @@ export default function ProgressPage() {
             </div>
             <div className="text-right">
               <div className="text-2xl sm:text-3xl font-bold text-zinc-100">{completionRate}%</div>
+              <div className="text-xs sm:text-sm text-zinc-500">{getTotalXp()} XP earned</div>
             </div>
           </div>
           <ProgressBar completed={totalCompleted} total={totalChallenges} />
@@ -244,7 +245,7 @@ export default function ProgressPage() {
           <h3 className="text-base sm:text-lg font-semibold text-zinc-100 mb-2">Start Your Journey</h3>
           <p className="text-xs sm:text-sm text-zinc-400 mb-4 sm:mb-6">Complete your first challenge to see your progress here.</p>
           <Link
-            href="/course"
+            href="/sql"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors text-sm sm:text-base"
           >
             Start Learning

@@ -1,6 +1,6 @@
 /**
  * Progress Hook - Main Export
- * Re-exports the professional progress system
+ * Re-exports the professional progress system with XP support
  */
 
 export { useProgress } from '@/lib/progress/hooks';

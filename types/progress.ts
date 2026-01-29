@@ -1,4 +1,4 @@
-// Progress Types - Re-exports from the progress system
+// Progress Types - Re-exports from the progress system with XP support
 export type { UserProgress, ProgressState, ProgressAction } from '@/lib/progress/types';
 
 // Additional types for UI components

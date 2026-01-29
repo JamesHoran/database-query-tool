@@ -26,10 +26,11 @@ export interface UseProgressReturn {
   syncingMessage: string | null;
 
   // Actions
-  markComplete: (challengeId: string) => Promise<void>;
+  markComplete: (challengeId: string, xp?: number) => Promise<void>;
   isCompleted: (challengeId: string) => boolean;
   getCompletionRate: () => number;
   getCompletedCount: () => number;
+  getTotalXp: () => number;
   resetProgress: () => Promise<void>;
   retry: () => void;
 }
@@ -179,7 +180,7 @@ export function useProgress(): UseProgressReturn {
   // Actions
   // ============================================================================
 
-  const markComplete = useCallback(async (challengeId: string) => {
+  const markComplete = useCallback(async (challengeId: string, xp: number = 10) => {
     const currentProgress = state.progress;
     if (!currentProgress) return;
 
@@ -192,6 +193,7 @@ export function useProgress(): UseProgressReturn {
     const updated: UserProgress = {
       ...currentProgress,
       completedChallenges: [...new Set([...currentProgress.completedChallenges, challengeId])],
+      totalXp: (currentProgress.totalXp || 0) + xp,
       lastActivity: new Date().toISOString(),
     };
 
@@ -262,6 +264,10 @@ export function useProgress(): UseProgressReturn {
     return state.progress?.completedChallenges.length ?? 0;
   }, [state.progress]);
 
+  const getTotalXp = useCallback((): number => {
+    return state.progress?.totalXp ?? 0;
+  }, [state.progress]);
+
   const retry = useCallback(() => {
     if (state.isAuthenticated) {
       const supabase = getSupabaseClient();
@@ -291,6 +297,7 @@ export function useProgress(): UseProgressReturn {
     isCompleted,
     getCompletionRate,
     getCompletedCount,
+    getTotalXp,
     resetProgress,
     retry,
   };

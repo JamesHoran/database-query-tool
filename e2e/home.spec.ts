@@ -25,7 +25,7 @@ test.describe('Home Page', () => {
     const courseLink = page.getByRole('link', { name: /Start Learning/i }).first();
     await expect(courseLink).toBeAttached();
     await courseLink.click();
-    await expect(page).toHaveURL(/\/course/);
+    await expect(page).toHaveURL(/\/sql/);
   });
 
   test('has curriculum anchor link', async ({ page }) => {
@@ -39,7 +39,7 @@ test.describe('Home Page', () => {
     // Check for curriculum section anchor
     await expect(page.locator('#curriculum')).toBeAttached();
     // Check for week links (there are multiple, so just check at least one exists)
-    const weekLinks = page.locator('a[href*="/course#w"]');
+    const weekLinks = page.locator('a[href*="/sql#w"]');
     await expect(weekLinks.first()).toBeAttached();
   });
 });

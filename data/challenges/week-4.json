@@ -19,12 +19,21 @@
     "tests": [
       {
         "description": "Query must use CTE (WITH)",
-        "mustContain": ["WITH", "SELECT", "FROM"],
-        "expectedColumns": ["id", "name", "salary"],
+        "mustContain": [
+          "WITH",
+          "SELECT",
+          "FROM"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "salary"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d1-c2",
@@ -46,12 +55,22 @@
     "tests": [
       {
         "description": "Query must use CTE with aggregation",
-        "mustContain": ["WITH", "GROUP BY", "SELECT", "JOIN"],
-        "expectedColumns": ["name", "salary", "avg_sal"],
+        "mustContain": [
+          "WITH",
+          "GROUP BY",
+          "SELECT",
+          "JOIN"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "avg_sal"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d1-c3",
@@ -73,12 +92,19 @@
     "tests": [
       {
         "description": "Query must use multiple CTEs",
-        "mustContain": ["WITH", "SELECT"],
-        "expectedColumns": ["department_id", "cnt"],
+        "mustContain": [
+          "WITH",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "department_id",
+          "cnt"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w4-d1-c4",
@@ -100,12 +126,19 @@
     "tests": [
       {
         "description": "Query must use recursive CTE",
-        "mustContain": ["WITH", "RECURSIVE", "SELECT"],
-        "expectedColumns": ["n"],
+        "mustContain": [
+          "WITH",
+          "RECURSIVE",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "n"
+        ],
         "expectedRowCount": 5
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w4-d1-c5",
@@ -127,12 +160,19 @@
     "tests": [
       {
         "description": "Query must use CTE for readability",
-        "mustContain": ["WITH", "GROUP BY", "SELECT"],
-        "expectedColumns": ["department_id"],
+        "mustContain": [
+          "WITH",
+          "GROUP BY",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "department_id"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d2-c1",
@@ -154,12 +194,21 @@
     "tests": [
       {
         "description": "Query must use ROW_NUMBER",
-        "mustContain": ["SELECT", "ROW_NUMBER", "OVER"],
-        "expectedColumns": ["name", "salary", "row_num"],
+        "mustContain": [
+          "SELECT",
+          "ROW_NUMBER",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "row_num"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d2-c2",
@@ -181,12 +230,21 @@
     "tests": [
       {
         "description": "Query must use RANK",
-        "mustContain": ["SELECT", "RANK", "OVER"],
-        "expectedColumns": ["name", "salary", "rank_num"],
+        "mustContain": [
+          "SELECT",
+          "RANK",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "rank_num"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d2-c3",
@@ -208,12 +266,21 @@
     "tests": [
       {
         "description": "Query must use DENSE_RANK",
-        "mustContain": ["SELECT", "DENSE_RANK", "OVER"],
-        "expectedColumns": ["name", "salary", "dense_rank"],
+        "mustContain": [
+          "SELECT",
+          "DENSE_RANK",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "dense_rank"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d2-c4",
@@ -235,12 +302,23 @@
     "tests": [
       {
         "description": "Query must use PARTITION BY",
-        "mustContain": ["SELECT", "RANK", "OVER", "PARTITION BY"],
-        "expectedColumns": ["name", "department_id", "salary", "dept_rank"],
+        "mustContain": [
+          "SELECT",
+          "RANK",
+          "OVER",
+          "PARTITION BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "department_id",
+          "salary",
+          "dept_rank"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d2-c5",
@@ -262,12 +340,21 @@
     "tests": [
       {
         "description": "Query must use NTILE",
-        "mustContain": ["SELECT", "NTILE", "OVER"],
-        "expectedColumns": ["name", "salary", "salary_group"],
+        "mustContain": [
+          "SELECT",
+          "NTILE",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "salary_group"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d3-c1",
@@ -289,12 +376,21 @@
     "tests": [
       {
         "description": "Query must use LAG",
-        "mustContain": ["SELECT", "LAG", "OVER"],
-        "expectedColumns": ["name", "salary", "prev_salary"],
+        "mustContain": [
+          "SELECT",
+          "LAG",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "prev_salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d3-c2",
@@ -316,12 +412,21 @@
     "tests": [
       {
         "description": "Query must use LEAD",
-        "mustContain": ["SELECT", "LEAD", "OVER"],
-        "expectedColumns": ["name", "salary", "next_salary"],
+        "mustContain": [
+          "SELECT",
+          "LEAD",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "next_salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d3-c3",
@@ -343,12 +448,21 @@
     "tests": [
       {
         "description": "Query must use FIRST_VALUE",
-        "mustContain": ["SELECT", "FIRST_VALUE", "OVER"],
-        "expectedColumns": ["name", "salary", "highest_salary"],
+        "mustContain": [
+          "SELECT",
+          "FIRST_VALUE",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "highest_salary"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d3-c4",
@@ -370,12 +484,21 @@
     "tests": [
       {
         "description": "Query must use window frame",
-        "mustContain": ["SELECT", "OVER", "ROWS BETWEEN"],
-        "expectedColumns": ["name", "salary", "moving_avg"],
+        "mustContain": [
+          "SELECT",
+          "OVER",
+          "ROWS BETWEEN"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "moving_avg"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w4-d3-c5",
@@ -397,12 +520,21 @@
     "tests": [
       {
         "description": "Query must calculate running total",
-        "mustContain": ["SELECT", "SUM", "OVER"],
-        "expectedColumns": ["name", "salary", "running_total"],
+        "mustContain": [
+          "SELECT",
+          "SUM",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary",
+          "running_total"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d4-c1",
@@ -424,12 +556,19 @@
     "tests": [
       {
         "description": "Query must use COALESCE",
-        "mustContain": ["SELECT", "COALESCE"],
-        "expectedColumns": ["name", "commission"],
+        "mustContain": [
+          "SELECT",
+          "COALESCE"
+        ],
+        "expectedColumns": [
+          "name",
+          "commission"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d4-c2",
@@ -451,12 +590,19 @@
     "tests": [
       {
         "description": "Query must use NULLIF",
-        "mustContain": ["SELECT", "NULLIF"],
-        "expectedColumns": ["name", "hourly_rate"],
+        "mustContain": [
+          "SELECT",
+          "NULLIF"
+        ],
+        "expectedColumns": [
+          "name",
+          "hourly_rate"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d4-c3",
@@ -478,12 +624,19 @@
     "tests": [
       {
         "description": "Query must use IFNULL",
-        "mustContain": ["SELECT", "IFNULL"],
-        "expectedColumns": ["name", "department"],
+        "mustContain": [
+          "SELECT",
+          "IFNULL"
+        ],
+        "expectedColumns": [
+          "name",
+          "department"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w4-d4-c4",
@@ -505,12 +658,19 @@
     "tests": [
       {
         "description": "Query must use CAST",
-        "mustContain": ["SELECT", "CAST"],
-        "expectedColumns": ["name", "salary_text"],
+        "mustContain": [
+          "SELECT",
+          "CAST"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary_text"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d4-c5",
@@ -532,12 +692,19 @@
     "tests": [
       {
         "description": "Query must use strftime",
-        "mustContain": ["SELECT", "strftime"],
-        "expectedColumns": ["name", "hire_year"],
+        "mustContain": [
+          "SELECT",
+          "strftime"
+        ],
+        "expectedColumns": [
+          "name",
+          "hire_year"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d5-c1",
@@ -559,12 +726,20 @@
     "tests": [
       {
         "description": "Query must use INSERT",
-        "mustContain": ["INSERT INTO", "VALUES"],
-        "expectedColumns": ["name", "department", "salary"],
+        "mustContain": [
+          "INSERT INTO",
+          "VALUES"
+        ],
+        "expectedColumns": [
+          "name",
+          "department",
+          "salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w4-d5-c2",
@@ -586,12 +761,21 @@
     "tests": [
       {
         "description": "Query must use INSERT with SELECT",
-        "mustContain": ["INSERT INTO", "SELECT"],
-        "expectedColumns": ["id", "name", "department", "salary"],
+        "mustContain": [
+          "INSERT INTO",
+          "SELECT"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w4-d5-c3",
@@ -613,12 +797,22 @@
     "tests": [
       {
         "description": "Query must use UPDATE",
-        "mustContain": ["UPDATE", "SET", "WHERE"],
-        "expectedColumns": ["id", "name", "department", "salary"],
+        "mustContain": [
+          "UPDATE",
+          "SET",
+          "WHERE"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w4-d5-c4",
@@ -640,12 +834,21 @@
     "tests": [
       {
         "description": "Query must use DELETE",
-        "mustContain": ["DELETE FROM", "WHERE"],
-        "expectedColumns": ["id", "name", "department", "salary"],
+        "mustContain": [
+          "DELETE FROM",
+          "WHERE"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "department",
+          "salary"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w4-d5-c5",
@@ -667,11 +870,18 @@
     "tests": [
       {
         "description": "Query must use CREATE TABLE",
-        "mustContain": ["CREATE TABLE"],
-        "expectedColumns": ["id", "name", "status"],
+        "mustContain": [
+          "CREATE TABLE"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "status"
+        ],
         "expectedRowCount": 0
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   }
 ]
