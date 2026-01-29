@@ -1,11 +1,7 @@
-export interface UserProgress {
-  completedChallenges: string[];
-  currentChallenge: string;
-  startedAt: string;
-  lastActivity: string;
-  totalXp: number;
-}
+// Progress Types - Re-exports from the progress system with XP support
+export type { UserProgress, ProgressState, ProgressAction } from '@/lib/progress/types';
 
+// Additional types for UI components
 export interface DayProgress {
   day: number;
   week: number;

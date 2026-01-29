@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useProgress } from '@/hooks/use-progress';
 import { useSQLDatabase } from '@/hooks/use-sql-database';
@@ -16,25 +16,87 @@ interface ChallengePlayerProps {
   allChallenges: Challenge[];
 }
 
+// ============================================================================
+// Progress Status Banner Component
+// ============================================================================
+
+interface ProgressStatusProps {
+  isCompleted: boolean;
+  justCompleted: boolean;
+  error: string | null;
+  syncing: boolean;
+  syncingMessage: string | null;
+}
+
+function ProgressStatus({ isCompleted, justCompleted, error, syncing, syncingMessage }: ProgressStatusProps) {
+  if (justCompleted) {
+    return (
+      <div className="mb-4 px-4 py-3 bg-green-900/20 border border-green-800 rounded-xl flex items-center gap-3">
+        <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span className="text-sm font-medium text-green-400">Challenge completed! Progress saved.</span>
+      </div>
+    );
+  }
+
+  if (syncing || syncingMessage) {
+    return (
+      <div className="mb-4 px-4 py-3 bg-blue-900/20 border border-blue-800 rounded-xl flex items-center gap-3">
+        <svg className="w-5 h-5 text-blue-400 flex-shrink-0 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <span className="text-sm text-blue-400">{syncingMessage || 'Saving progress...'}</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mb-4 px-4 py-3 bg-amber-900/20 border border-amber-800 rounded-xl flex items-center gap-3">
+        <svg className="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span className="text-sm text-amber-400">{error}</span>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+// ============================================================================
+// Main Challenge Player Component
+// ============================================================================
+
 export function ChallengePlayer({
   challenge,
   nextId,
   previousId,
   allChallenges,
 }: ChallengePlayerProps) {
+  // Query state
   const [query, setQuery] = useState(challenge.starterCode);
   const [showSolution, setShowSolution] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [grade, setGrade] = useState<any>(null);
 
+  // Completion state for UI feedback
+  const [justCompleted, setJustCompleted] = useState(false);
+
+  // Database
   const {
     db,
     loading: dbLoading,
     error: dbError,
+    initStep,
+    checkpointStatus,
     executeQuery,
     resetDatabase,
   } = useSQLDatabase(challenge.seedData);
 
+  // Progress
   const {
     progress,
     isCompleted,
@@ -42,32 +104,50 @@ export function ChallengePlayer({
     getCompletionRate,
     getCompletedCount,
     getTotalXp,
-    loading: progressLoading,
-    syncing,
+    isLoading: progressLoading,
+    isSyncing: syncing,
+    error: progressError,
+    syncingMessage,
   } = useProgress();
 
   const challengeCompleted = isCompleted(challenge.id);
 
+  // Reset form when challenge changes
   useEffect(() => {
     setQuery(challenge.starterCode);
     setShowSolution(false);
+    setResults(null);
+    setGrade(null);
+    setJustCompleted(false);
   }, [challenge.id, challenge.starterCode]);
 
-  const handleReset = () => {
+  // Week colors
+  const weekColors: Record<number, string> = {
+    1: 'bg-blue-600',
+    2: 'bg-purple-600',
+    3: 'bg-emerald-600',
+    4: 'bg-amber-600',
+    5: 'bg-rose-600',
+  };
+
+  // ============================================================================
+  // Handlers
+  // ============================================================================
+
+  const handleReset = useCallback(() => {
     setQuery(challenge.starterCode);
     setShowSolution(false);
     setResults(null);
     setGrade(null);
     resetDatabase();
-  };
+  }, [challenge.starterCode, resetDatabase]);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (!query.trim()) return;
 
     const userResults = executeQuery(query);
     setResults(userResults);
 
-    // Run solution and grade if we have a database
     if (db && userResults) {
       const solutionResults = executeSolution(db, challenge.solution);
       const gradeResult = gradeQuery(
@@ -77,13 +157,19 @@ export function ChallengePlayer({
         solutionResults || undefined
       );
       setGrade(gradeResult);
-    }
-  };
 
-  const handleShowSolution = () => {
+      // Auto-mark as complete when the challenge is solved
+      if (gradeResult.passed && !challengeCompleted && !justCompleted) {
+        markComplete(challenge.id);
+        setJustCompleted(true);
+      }
+    }
+  }, [query, db, executeQuery, challenge, challengeCompleted, justCompleted, markComplete]);
+
+  const handleShowSolution = useCallback(() => {
     setShowSolution(true);
     setQuery(challenge.solution);
-  };
+  }, [challenge.solution]);
 
   const handleMarkComplete = () => {
     if (!challengeCompleted) {
@@ -91,16 +177,21 @@ export function ChallengePlayer({
     }
   };
 
-  const weekColors: Record<number, string> = {
-    1: 'bg-blue-600',
-    2: 'bg-purple-600',
-    3: 'bg-emerald-600',
-    4: 'bg-amber-600',
-    5: 'bg-rose-600',
-  };
+  // ============================================================================
+  // Render
+  // ============================================================================
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      {/* Progress Status Banner */}
+      <ProgressStatus
+        isCompleted={challengeCompleted}
+        justCompleted={justCompleted}
+        error={progressError}
+        syncing={syncing}
+        syncingMessage={syncingMessage}
+      />
+
       {/* Challenge Header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -119,8 +210,11 @@ export function ChallengePlayer({
                   Day {challenge.day} • Challenge {challenge.order}
                 </span>
                 {challengeCompleted && (
-                  <span className="px-1.5 sm:px-2 py-0.5 bg-green-900/30 border border-green-800 rounded-[10px] text-[10px] sm:text-xs text-green-400 font-medium">
-                    ✓ Completed
+                  <span className="px-1.5 sm:px-2 py-0.5 bg-green-900/30 border border-green-800 rounded-[10px] text-[10px] sm:text-xs text-green-400 font-medium flex items-center gap-1" data-testid="challenge-completed-badge">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Completed
                   </span>
                 )}
                 <span className={`px-1.5 sm:px-2 py-0.5 border rounded-[10px] text-[10px] sm:text-xs font-medium ${
@@ -190,16 +284,6 @@ export function ChallengePlayer({
               ))}
             </div>
           </div>
-
-          {/* Mark Complete Button */}
-          {!challengeCompleted && (
-            <button
-              onClick={handleMarkComplete}
-              className="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
-            >
-              Mark as Complete
-            </button>
-          )}
         </div>
 
         {/* Right Column - Editor */}
@@ -264,7 +348,27 @@ export function ChallengePlayer({
 
           {dbLoading && (
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-              <p className="text-sm text-zinc-400">Loading database engine...</p>
+              <p className="text-sm text-zinc-400">Loading database engine... ({initStep})</p>
+            </div>
+          )}
+
+          {/* Debug: Show checkpoint status (always visible in dev) */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-xs space-y-1">
+              <p className="font-semibold text-zinc-300">Database Checkpoint Status:</p>
+              <p>State: <span className="text-blue-400">{checkpointStatus?.state || 'unknown'}</span></p>
+              <p>Checkpoint: <span className="text-blue-400">{checkpointStatus?.checkpoint ?? '?'}/5</span></p>
+              <p>Message: <span className="text-zinc-300">{checkpointStatus?.message || 'no message'}</span></p>
+              {dbError && <p className="text-red-400">Error: {dbError}</p>}
+            </div>
+          )}
+
+          {/* Debug: Show seed data info */}
+          {process.env.NODE_ENV === 'development' && !dbLoading && !dbError && (
+            <div className="bg-blue-900/20 border border-blue-800 rounded-xl p-2 text-xs text-blue-300">
+              <p>Seed data length: {challenge.seedData.length} chars</p>
+              <p>Contains \\n: {challenge.seedData.includes('\\n') ? 'YES' : 'NO'}</p>
+              <p>Contains actual newline: {challenge.seedData.includes('\n') ? 'YES' : 'NO'}</p>
             </div>
           )}
 
@@ -302,7 +406,7 @@ export function ChallengePlayer({
               {results.rowCount === 0 ? (
                 <p className="text-sm text-zinc-500 italic">No results returned</p>
               ) : (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto" data-testid="results-table">
                   <table className="w-full text-xs sm:text-sm">
                     <thead>
                       <tr className="border-b border-zinc-700">
@@ -348,9 +452,23 @@ export function ChallengePlayer({
   );
 }
 
+// ============================================================================
+// Utilities
+// ============================================================================
+
+// Helper function to unescape SQL string that was serialized by JSON
+function unescapeSqlString(str: string): string {
+  return str
+    .replace(/\\n/g, '\n')
+    .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"')
+    .replace(/\\\\/g, '\\');
+}
+
 function extractSchema(seedData: string): string {
-  // Extract CREATE TABLE statements from seed data
-  const lines = seedData.split('\n');
+  // Unescape first - JSON serialization converts newlines to \n
+  const unescaped = unescapeSqlString(seedData);
+  const lines = unescaped.split('\n');
   const schemaLines: string[] = [];
 
   let capturing = false;

@@ -2,35 +2,65 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 import type { UserProgress } from '@/types';
 
+// CORS headers for API responses
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+// Handle OPTIONS preflight requests
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, { headers: corsHeaders });
+}
+
 // Ensure profile and progress exist for the user
 async function ensureUserRecord(supabase: any, userId: string) {
   // Check if profile exists, create if not
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await (supabase
     .from('profiles')
     .select('id')
     .eq('id', userId)
-    .maybeSingle();
+    .maybeSingle() as any);
+
+  if (profileError) {
+    console.error('Error checking profile:', profileError);
+  }
 
   if (!profile) {
-    await supabase.from('profiles').insert({
+    const { error: insertError } = await supabase.from('profiles').insert({
       id: userId,
       email: null, // Will be updated by trigger if it works
     });
+
+    if (insertError) {
+      console.error('Error creating profile:', insertError);
+      throw new Error(`Failed to create profile: ${insertError.message}`);
+    }
   }
 
   // Check if progress exists, create if not
-  const { data: progress } = await supabase
+  const { data: progress, error: progressError } = await supabase
     .from('user_progress')
     .select('user_id')
     .eq('user_id', userId)
     .maybeSingle();
 
+  if (progressError) {
+    console.error('Error checking progress:', progressError);
+  }
+
   if (!progress) {
-    await supabase.from('user_progress').insert({
+    const { error: insertError } = await supabase.from('user_progress').insert({
       user_id: userId,
       completed_challenges: [],
       current_challenge: 'w1-d1-c1',
     });
+
+    if (insertError) {
+      console.error('Error creating progress:', insertError);
+      throw new Error(`Failed to create progress: ${insertError.message}`);
+    }
   }
 }
 
@@ -54,13 +84,16 @@ export async function GET(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401, headers: corsHeaders }
+      );
     }
 
     // Ensure profile and progress exist (lazy initialization)
     await ensureUserRecord(supabase, user.id);
 
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('user_progress')
       .select('*')
       .eq('user_id', user.id)
@@ -73,13 +106,16 @@ export async function GET(request: NextRequest) {
 
     // If no progress found, return default progress
     if (!data) {
-      return NextResponse.json({
-        completedChallenges: [],
-        currentChallenge: 'w1-d1-c1',
-        startedAt: new Date().toISOString(),
-        lastActivity: new Date().toISOString(),
-        totalXp: 0,
-      } satisfies UserProgress);
+      return NextResponse.json(
+        {
+          completedChallenges: [],
+          currentChallenge: 'w1-d1-c1',
+          startedAt: new Date().toISOString(),
+          lastActivity: new Date().toISOString(),
+          totalXp: 0,
+        } satisfies UserProgress,
+        { headers: corsHeaders }
+      );
     }
 
     // Convert from database format to UserProgress format
@@ -92,12 +128,12 @@ export async function GET(request: NextRequest) {
       totalXp: 0, // TODO: Calculate from completed challenges
     };
 
-    return NextResponse.json(userProgress);
+    return NextResponse.json(userProgress, { headers: corsHeaders });
   } catch (error: any) {
     console.error('Error fetching progress:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to fetch progress' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -113,7 +149,10 @@ export async function POST(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401, headers: corsHeaders }
+      );
     }
 
     // Ensure profile and progress exist first
@@ -126,7 +165,7 @@ export async function POST(request: NextRequest) {
     if (!Array.isArray(completedChallenges)) {
       return NextResponse.json(
         { error: 'completedChallenges must be an array' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -159,12 +198,12 @@ export async function POST(request: NextRequest) {
       totalXp: 0, // TODO: Calculate from completed challenges
     };
 
-    return NextResponse.json(userProgress);
+    return NextResponse.json(userProgress, { headers: corsHeaders });
   } catch (error: any) {
     console.error('Error updating progress:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to update progress' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
