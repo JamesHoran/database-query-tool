@@ -218,7 +218,7 @@ assert old_car.age() == 9`,
 - Class attribute \`interest_rate\` = 0.02
 - Instance attributes: owner, balance
 - Method \`apply_interest()\` - adds interest to balance
-- Method \`__str__\` - returns "Account: {owner}, Balance: ${balance}"`,
+- Method \`__str__\` - returns "Account: {owner}, Balance: {balance formatted to 2 decimal places}"`,
     starterCode: `class BankAccount:
     interest_rate = 0.02  # Class attribute
 
@@ -242,7 +242,7 @@ assert old_car.age() == 9`,
         self.balance += self.balance * BankAccount.interest_rate
 
     def __str__(self):
-        return f"Account: {self.owner}, Balance: ${self.balance:.2f}"`,
+        return f"Account: {self.owner}, Balance: \${self.balance:.2f}"`,
     tests: [
       {
         name: 'test_bank_account',
@@ -254,7 +254,7 @@ assert old_car.age() == 9`,
     def apply_interest(self):
         self.balance += self.balance * BankAccount.interest_rate
     def __str__(self):
-        return f"Account: {self.owner}, Balance: ${self.balance:.2f}"
+        return f"Account: {self.owner}, Balance: \${self.balance:.2f}"
 acc = BankAccount("Alice", 1000)
 acc.apply_interest()
 assert round(acc.balance, 2) == 1020.0

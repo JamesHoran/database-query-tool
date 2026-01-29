@@ -1,30 +1,61 @@
 // Python Challenge Data Loader
+// Using direct imports instead of import.meta.glob for webpack compatibility
 
 import type { PythonChallenge, ProjectChallenge, PythonModule } from '@/types/python';
 
-// Dynamically import challenge modules
-const challengeModules = import.meta.glob('@/data/python-challenges/**/*.ts', {
-  eager: true,
-});
+// Import all challenge modules directly
+import * as day01Variables from '@/data/python-challenges/week-01-basics/day-01-variables';
+import * as day02Conditionals from '@/data/python-challenges/week-01-basics/day-02-conditionals';
+import * as day03Loops from '@/data/python-challenges/week-01-basics/day-03-loops';
+import * as day04Functions from '@/data/python-challenges/week-01-basics/day-04-functions';
+import * as day05Lists from '@/data/python-challenges/week-01-basics/day-05-lists';
+import * as day06Dictionaries from '@/data/python-challenges/week-01-basics/day-06-dictionaries';
+import * as day07Review from '@/data/python-challenges/week-01-basics/day-07-review';
+import * as week02Day01 from '@/data/python-challenges/week-02-data-structures-oop/day-01-lists-advanced';
+import * as week02Day02 from '@/data/python-challenges/week-02-data-structures-oop/day-02-dicts-advanced';
+import * as week02Day03 from '@/data/python-challenges/week-02-data-structures-oop/day-03-tuples-sets';
+import * as week02Day04 from '@/data/python-challenges/week-02-data-structures-oop/day-04-classes';
+import * as week02Day05 from '@/data/python-challenges/week-02-data-structures-oop/day-05-methods';
+import * as week02Day06 from '@/data/python-challenges/week-02-data-structures-oop/day-06-oop-practice';
+import * as week02Day07 from '@/data/python-challenges/week-02-data-structures-oop/day-07-review';
+import * as week03Project from '@/data/python-challenges/week-03-project/arithmetic-formatter';
 
-const moduleIndex = import.meta.glob('@/data/python-challenges/**/index.ts', {
-  eager: true,
-});
+// Type guards to check if a module has challenges property
+function hasChallenges(mod: any): mod is { challenges: PythonChallenge[] } {
+  return mod && Array.isArray(mod.challenges);
+}
+
+function isChallengeModule(mod: any): mod is { challenge: PythonChallenge } {
+  return mod && mod.challenge && typeof mod.challenge.id === 'string';
+}
+
+// Collect all challenges
+const challengeModules = [
+  day01Variables,
+  day02Conditionals,
+  day03Loops,
+  day04Functions,
+  day05Lists,
+  day06Dictionaries,
+  day07Review,
+  week02Day01,
+  week02Day02,
+  week02Day03,
+  week02Day04,
+  week02Day05,
+  week02Day06,
+  week02Day07,
+  week03Project,
+];
 
 export function getAllChallenges(): PythonChallenge[] {
   const challenges: PythonChallenge[] = [];
 
-  for (const path in challengeModules) {
-    // Skip index files
-    if (path.endsWith('index.ts')) {
-      continue;
-    }
-
-    const module = challengeModules[path] as any;
-    if (module.challenge) {
-      challenges.push(module.challenge);
-    } else if (module.challenges) {
-      challenges.push(...module.challenges);
+  for (const mod of challengeModules) {
+    if (hasChallenges(mod)) {
+      challenges.push(...mod.challenges);
+    } else if (isChallengeModule(mod)) {
+      challenges.push(mod.challenge);
     }
   }
 

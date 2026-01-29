@@ -1,6 +1,6 @@
 // use-mobile-keyboard.ts - Mobile Keyboard Handling
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface MobileKeyboardState {
   isOpen: boolean;
@@ -11,8 +11,8 @@ interface MobileKeyboardState {
 export function useMobileKeyboard() {
   const [state, setState] = useState<MobileKeyboardState>({
     isOpen: false,
-    viewportHeight: typeof window !== 'undefined' ? window.innerHeight : 0,
-    originalHeight: typeof window !== 'undefined' ? window.innerHeight : 0,
+    viewportHeight: 0,
+    originalHeight: 0,
   });
 
   useEffect(() => {
@@ -21,33 +21,6 @@ export function useMobileKeyboard() {
     }
 
     const originalHeight = window.innerHeight;
-    let visualViewport: VisualViewport | null = null;
-
-    // Check for VisualViewport API support
-    if ('visualViewport' in window) {
-      visualViewport = window.visualViewport;
-
-      const handleResize = () => {
-        if (!visualViewport) return;
-
-        const currentHeight = visualViewport.height;
-        const isOpen = currentHeight < originalHeight * 0.85; // Keyboard threshold
-
-        setState({
-          isOpen,
-          viewportHeight: currentHeight,
-          originalHeight,
-        });
-      };
-
-      visualViewport.addEventListener('resize', handleResize);
-      visualViewport.addEventListener('scroll', handleResize);
-
-      return () => {
-        visualViewport?.removeEventListener('resize', handleResize);
-        visualViewport?.removeEventListener('scroll', handleResize);
-      };
-    }
 
     // Fallback: use window resize event
     const handleResize = () => {
@@ -69,7 +42,8 @@ export function useMobileKeyboard() {
   }, []);
 
   // Insert special characters at cursor position (useful for mobile)
-  const insertChar = useCallback((char: string, textarea: HTMLTextAreaElement | null) => {
+  const insertChar = useCallback((char: string) => {
+    const textarea = document.querySelector('textarea, [contenteditable="true"]') as HTMLTextAreaElement;
     if (!textarea) return;
 
     const start = textarea.selectionStart;

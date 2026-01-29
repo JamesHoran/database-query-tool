@@ -34,7 +34,8 @@ const pendingMessages = new Map<number, { resolve: (value: any) => void; reject:
 function getWorker(): Worker {
   if (!worker) {
     // Create worker from the public directory
-    worker = new Worker('/pyodide-worker.js', { type: 'module' });
+    // Note: Not using type: 'module' to allow importScripts() for Pyodide
+    worker = new Worker('/pyodide-worker.js', { type: 'classic' });
 
     worker.addEventListener('message', (event) => {
       const { id, result, error } = event.data;
@@ -125,5 +126,3 @@ export async function checkWebAssemblySupport(): Promise<boolean> {
     return false;
   }
 }
-
-export type { ExecuteResult, TestResult, RunTestsResult, ExecutionOptions };

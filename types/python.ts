@@ -12,13 +12,15 @@ export type Concept =
   | 'conditionals'
   | 'lists'
   | 'dictionaries'
+  | 'dicts'
   | 'tuples'
   | 'sets'
   | 'methods'
   | 'oop'
   | 'file_io'
   | 'exceptions'
-  | 'comprehensions';
+  | 'comprehensions'
+  | 'algorithms';
 
 export interface PythonModule {
   id: string;
@@ -99,7 +101,7 @@ export interface PyodideAPI {
 }
 
 export interface PythonRuntimeState {
-  pyodide: PyodideAPI | null;
+  pyodide: Record<string, unknown> | null;
   isLoading: boolean;
   error: string | null;
   supported: boolean;
