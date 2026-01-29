@@ -28,23 +28,14 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_group_by_category',
-        code: `def group_by_category(items):
-    grouped = {}
-    for item in items:
-        category = item["category"]
-        name = item["name"]
-        if category not in grouped:
-            grouped[category] = []
-        grouped[category].append(name)
-    return grouped
-items = [
+        code: `items = [
     {"name": "apple", "category": "fruit"},
     {"name": "carrot", "category": "vegetable"},
     {"name": "banana", "category": "fruit"}
 ]
 result = group_by_category(items)
-assert result["fruit"] == ["apple", "banana"]
-assert result["vegetable"] == ["carrot"]`,
+assert result["fruit"] == ["apple", "banana"], "Should group fruits together"
+assert result["vegetable"] == ["carrot"], "Should group vegetables together"`,
       },
     ],
     hints: [
@@ -78,21 +69,11 @@ assert result["vegetable"] == ["carrot"]`,
     tests: [
       {
         name: 'test_count_frequency',
-        code: `def count_frequency(items):
-    counts = {}
-    for item in items:
-        counts[item] = counts.get(item, 0) + 1
-    return counts
-assert count_frequency(["a", "b", "a", "c", "b", "a"]) == {"a": 3, "b": 2, "c": 1}`,
+        code: `assert count_frequency(["a", "b", "a", "c", "b", "a"]) == {"a": 3, "b": 2, "c": 1}, "Should count item frequencies"`,
       },
       {
         name: 'test_count_frequency_numbers',
-        code: `def count_frequency(items):
-    counts = {}
-    for item in items:
-        counts[item] = counts.get(item, 0) + 1
-    return counts
-assert count_frequency([1, 2, 1, 3, 2, 1]) == {1: 3, 2: 2, 3: 1}`,
+        code: `assert count_frequency([1, 2, 1, 3, 2, 1]) == {1: 3, 2: 2, 3: 1}, "Should count number frequencies"`,
       },
     ],
     hints: [
@@ -127,14 +108,8 @@ assert count_frequency([1, 2, 1, 3, 2, 1]) == {1: 3, 2: 2, 3: 1}`,
     tests: [
       {
         name: 'test_merge_dicts',
-        code: `def merge_dicts(dicts):
-    merged = {}
-    for d in dicts:
-        for key, value in d.items():
-            merged[key] = merged.get(key, 0) + value
-    return merged
-dicts_list = [{"a": 1, "b": 2}, {"b": 3, "c": 4}, {"a": 2}]
-assert merge_dicts(dicts_list) == {"a": 3, "b": 5, "c": 4}`,
+        code: `dicts_list = [{"a": 1, "b": 2}, {"b": 3, "c": 4}, {"a": 2}]
+assert merge_dicts(dicts_list) == {"a": 3, "b": 5, "c": 4}, "Should merge and sum values for same keys"`,
       },
     ],
     hints: [
@@ -165,10 +140,8 @@ assert merge_dicts(dicts_list) == {"a": 3, "b": 5, "c": 4}`,
     tests: [
       {
         name: 'test_sort_by_value',
-        code: `def sort_by_value(d):
-    return sorted(d.items(), key=lambda x: x[1], reverse=True)
-result = sort_by_value({"a": 3, "b": 1, "c": 2})
-assert result == [("a", 3), ("c", 2), ("b", 1)]`,
+        code: `result = sort_by_value({"a": 3, "b": 1, "c": 2})
+assert result == [("a", 3), ("c", 2), ("b", 1)], "Should sort by value descending"`,
       },
     ],
     hints: [
@@ -199,9 +172,7 @@ assert result == [("a", 3), ("c", 2), ("b", 1)]`,
     tests: [
       {
         name: 'test_invert_dict',
-        code: `def invert_dict(d):
-    return {value: key for key, value in d.items()}
-assert invert_dict({"a": 1, "b": 2, "c": 3}) == {1: "a", 2: "b", 3: "c"}`,
+        code: `assert invert_dict({"a": 1, "b": 2, "c": 3}) == {1: "a", 2: "b", 3: "c"}, "Should swap keys and values"`,
       },
     ],
     hints: [

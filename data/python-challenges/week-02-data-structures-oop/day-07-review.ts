@@ -50,25 +50,12 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_queue_class',
-        code: `class Queue:
-    def __init__(self):
-        self.items = []
-    def enqueue(self, item):
-        self.items.append(item)
-    def dequeue(self):
-        if self.is_empty():
-            return None
-        return self.items.pop(0)
-    def is_empty(self):
-        return len(self.items) == 0
-    def __len__(self):
-        return len(self.items)
-q = Queue()
+        code: `q = Queue()
 q.enqueue("first")
 q.enqueue("second")
-assert len(q) == 2
-assert q.dequeue() == "first"
-assert len(q) == 1`,
+assert len(q) == 2, "Queue should have 2 items"
+assert q.dequeue() == "first", "Should dequeue first item (FIFO)"
+assert len(q) == 1, "Queue should have 1 item after dequeue"`,
       },
     ],
     hints: [
@@ -129,27 +116,12 @@ assert len(q) == 1`,
     tests: [
       {
         name: 'test_stack_class',
-        code: `class Stack:
-    def __init__(self):
-        self.items = []
-    def push(self, item):
-        self.items.append(item)
-    def pop(self):
-        if self.is_empty():
-            return None
-        return self.items.pop()
-    def peek(self):
-        if self.is_empty():
-            return None
-        return self.items[-1]
-    def is_empty(self):
-        return len(self.items) == 0
-s = Stack()
+        code: `s = Stack()
 s.push("a")
 s.push("b")
-assert s.peek() == "b"
-assert s.pop() == "b"
-assert s.peek() == "a"`,
+assert s.peek() == "b", "Peek should return top item"
+assert s.pop() == "b", "Pop should return top item (LIFO)"
+assert s.peek() == "a", "Peek should return next item"`,
       },
     ],
     hints: [
@@ -187,22 +159,12 @@ assert s.peek() == "a"`,
     tests: [
       {
         name: 'test_anagram_true',
-        code: `def is_anagram(str1, str2):
-    s1 = str1.lower().replace(" ", "")
-    s2 = str2.lower().replace(" ", "")
-    from collections import Counter
-    return Counter(s1) == Counter(s2)
-assert is_anagram("listen", "silent") == True
-assert is_anagram("race car", "car race") == True`,
+        code: `assert is_anagram("listen", "silent") == True, "listen and silent are anagrams"
+assert is_anagram("race car", "car race") == True, "Should ignore spaces"`,
       },
       {
         name: 'test_anagram_false',
-        code: `def is_anagram(str1, str2):
-    s1 = str1.lower().replace(" ", "")
-    s2 = str2.lower().replace(" ", "")
-    from collections import Counter
-    return Counter(s1) == Counter(s2)
-assert is_anagram("hello", "world") == False`,
+        code: `assert is_anagram("hello", "world") == False, "hello and world are not anagrams"`,
       },
     ],
     hints: [
@@ -244,33 +206,11 @@ assert is_anagram("hello", "world") == False`,
     tests: [
       {
         name: 'test_binary_search_found',
-        code: `def binary_search(lst, target):
-    left, right = 0, len(lst) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if lst[mid] == target:
-            return mid
-        elif lst[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-assert binary_search([1, 3, 5, 7, 9], 5) == 2`,
+        code: `assert binary_search([1, 3, 5, 7, 9], 5) == 2, "Should find target at index 2"`,
       },
       {
         name: 'test_binary_search_not_found',
-        code: `def binary_search(lst, target):
-    left, right = 0, len(lst) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if lst[mid] == target:
-            return mid
-        elif lst[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-assert binary_search([1, 3, 5, 7, 9], 4) == -1`,
+        code: `assert binary_search([1, 3, 5, 7, 9], 4) == -1, "Should return -1 when target not found"`,
       },
     ],
     hints: [
@@ -331,24 +271,12 @@ assert binary_search([1, 3, 5, 7, 9], 4) == -1`,
     tests: [
       {
         name: 'test_todo_list',
-        code: `class TodoList:
-    def __init__(self):
-        self.tasks = []
-    def add_task(self, task):
-        self.tasks.append({"task": task, "done": False})
-    def complete_task(self, index):
-        if 0 <= index < len(self.tasks):
-            self.tasks[index]["done"] = True
-    def get_pending(self):
-        return [t["task"] for t in self.tasks if not t["done"]]
-    def get_completed(self):
-        return [t["task"] for t in self.tasks if t["done"]]
-todo = TodoList()
+        code: `todo = TodoList()
 todo.add_task("Buy groceries")
 todo.add_task("Code")
 todo.complete_task(0)
-assert todo.get_pending() == ["Code"]
-assert todo.get_completed() == ["Buy groceries"]`,
+assert todo.get_pending() == ["Code"], "Only Code should be pending"
+assert todo.get_completed() == ["Buy groceries"], "Buy groceries should be completed"`,
       },
     ],
     hints: [

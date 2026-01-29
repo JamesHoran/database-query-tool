@@ -45,23 +45,11 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_basic_format',
-        code: `def arithmetic_formatter(problems):
-    lines = ["", "", ""]
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698", "3801 - 2"])
-assert "   32" in result
-assert "  3801" in result
-assert "+ 698" in result
-assert "-    2" in result`,
+        code: `result = arithmetic_formatter(["32 + 698", "3801 - 2"])
+assert "   32" in result, "First number should be right-justified"
+assert "  3801" in result, "Second number should be right-justified"
+assert "+ 698" in result, "Operator line should be correct"
+assert "-    2" in result, "Operator line should be correct"`,
       },
     ],
     hints: [
@@ -107,22 +95,10 @@ assert "-    2" in result`,
     tests: [
       {
         name: 'test_spacing',
-        code: `def arithmetic_formatter(problems):
-    lines = ["", "", ""]
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698", "3801 - 2"])
+        code: `result = arithmetic_formatter(["32 + 698", "3801 - 2"])
 lines = result.split("\\n")
 # Check that there are 4 spaces between problems in first line
-assert "    " in lines[0]`,
+assert "    " in lines[0], "Should have 4 spaces between problems"`,
       },
     ],
     hints: [
@@ -165,22 +141,10 @@ assert "    " in lines[0]`,
     tests: [
       {
         name: 'test_4_problems',
-        code: `def arithmetic_formatter(problems):
-    lines = ["", "", ""]
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-problems = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
+        code: `problems = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
 result = arithmetic_formatter(problems)
 lines = result.split("\\n")
-assert len(lines) == 3`,
+assert len(lines) == 3, "Should have 3 lines"`,
       },
     ],
     hints: [
@@ -222,22 +186,10 @@ assert len(lines) == 3`,
     tests: [
       {
         name: 'test_5_problems',
-        code: `def arithmetic_formatter(problems):
-    lines = ["", "", ""]
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-problems = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "999 - 1"]
+        code: `problems = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "999 - 1"]
 result = arithmetic_formatter(problems)
 lines = result.split("\\n")
-assert len(lines) == 3`,
+assert len(lines) == 3, "Should have 3 lines"`,
       },
     ],
     hints: [
@@ -279,21 +231,9 @@ assert len(lines) == 3`,
     tests: [
       {
         name: 'test_both_operators',
-        code: `def arithmetic_formatter(problems):
-    lines = ["", "", ""]
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698", "3801 - 2"])
-assert "+" in result
-assert "-" in result`,
+        code: `result = arithmetic_formatter(["32 + 698", "3801 - 2"])
+assert "+" in result, "Should contain + operator"
+assert "-" in result, "Should contain - operator"`,
       },
     ],
     hints: [
@@ -349,30 +289,10 @@ assert "-" in result`,
     tests: [
       {
         name: 'test_with_answers',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698"], show_answers=True)
+        code: `result = arithmetic_formatter(["32 + 698"], show_answers=True)
 lines = result.split("\\n")
-assert len(lines) == 4
-assert "730" in lines[3]`,
+assert len(lines) == 4, "Should have 4 lines with answers"
+assert "730" in lines[3], "Answer should be 730"`,
       },
     ],
     hints: [
@@ -434,35 +354,11 @@ assert "730" in lines[3]`,
     tests: [
       {
         name: 'test_validation_error',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-try:
+        code: `try:
     arithmetic_formatter(["32 + 698 + 1"])
-    assert False, "Should raise error"
+    assert False, "Should raise error for invalid format"
 except Exception as e:
-    assert "two operators" in str(e)`,
+    assert "two operators" in str(e) or "exactly" in str(e), "Should error about incorrect number of operators"`,
       },
     ],
     hints: [
@@ -527,37 +423,11 @@ except Exception as e:
     tests: [
       {
         name: 'test_operator_validation',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-try:
+        code: `try:
     arithmetic_formatter(["32 * 698"])
-    assert False, "Should raise error"
+    assert False, "Should raise error for invalid operator"
 except Exception as e:
-    assert "Operator must be" in str(e)`,
+    assert "Operator must be" in str(e) or "+" in str(e) or "-" in str(e), "Should error about invalid operator"`,
       },
     ],
     hints: [
@@ -624,39 +494,11 @@ except Exception as e:
     tests: [
       {
         name: 'test_operand_validation',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-try:
+        code: `try:
     arithmetic_formatter(["32 + abc"])
-    assert False, "Should raise error"
+    assert False, "Should raise error for non-numeric operand"
 except Exception as e:
-    assert "digits" in str(e)`,
+    assert "digits" in str(e) or "number" in str(e).lower(), "Should error about non-numeric values"`,
       },
     ],
     hints: [
@@ -725,41 +567,11 @@ except Exception as e:
     tests: [
       {
         name: 'test_max_digits',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-try:
+        code: `try:
     arithmetic_formatter(["12345 + 1"])
-    assert False, "Should raise error"
+    assert False, "Should raise error for number with more than 4 digits"
 except Exception as e:
-    assert "four digits" in str(e)`,
+    assert "four digits" in str(e) or "too many" in str(e).lower() or "5 digit" in str(e).lower(), "Should error about too many digits"`,
       },
     ],
     hints: [
@@ -829,43 +641,11 @@ except Exception as e:
     tests: [
       {
         name: 'test_max_problems',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    if len(problems) > 5:
-        raise Exception("Error: Too many problems")
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-try:
+        code: `try:
     arithmetic_formatter(["1+1", "2+2", "3+3", "4+4", "5+5", "6+6"])
-    assert False, "Should raise error"
+    assert False, "Should raise error for more than 5 problems"
 except Exception as e:
-    assert "Too many problems" in str(e)`,
+    assert "Too many problems" in str(e) or "5" in str(e), "Should error about too many problems"`,
       },
     ],
     hints: [
@@ -967,41 +747,9 @@ except Exception as e:
     tests: [
       {
         name: 'test_single_digit',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    if len(problems) > 5:
-        raise Exception("Error: Too many problems")
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["5 + 3"])
+        code: `result = arithmetic_formatter(["5 + 3"])
 lines = result.split("\\n")
-assert len(lines[0]) == len(lines[1]) == len(lines[2])`,
+assert len(lines[0]) == len(lines[1]) == len(lines[2]), "All lines should have equal length"`,
       },
     ],
     hints: [
@@ -1102,41 +850,9 @@ assert len(lines[0]) == len(lines[1]) == len(lines[2])`,
     tests: [
       {
         name: 'test_multi_digit',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    if len(problems) > 5:
-        raise Exception("Error: Too many problems")
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["123 + 5"])
-assert "  123" in result
-assert "+    5" in result`,
+        code: `result = arithmetic_formatter(["123 + 5"])
+assert "  123" in result, "Should right-justify 123"
+assert "+    5" in result, "Should show operator with 5 right-justified"`,
       },
     ],
     hints: [
@@ -1202,41 +918,9 @@ assert "+    5" in result`,
     tests: [
       {
         name: 'test_final_no_answers',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    if len(problems) > 5:
-        raise Exception("Error: Too many problems")
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
+        code: `result = arithmetic_formatter(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
 lines = result.split("\\n")
-assert len(lines) == 3`,
+assert len(lines) == 3, "Should have 3 lines without answers"`,
       },
     ],
     hints: [
@@ -1303,43 +987,11 @@ assert len(lines) == 3`,
     tests: [
       {
         name: 'test_final_with_answers',
-        code: `def arithmetic_formatter(problems, show_answers=False):
-    if len(problems) > 5:
-        raise Exception("Error: Too many problems")
-    for problem in problems:
-        parts = problem.split()
-        if len(parts) != 3:
-            raise Exception("Error: Each problem must have exactly two operators")
-        if parts[1] not in "+-":
-            raise Exception("Error: Operator must be '+' or '-'")
-        if not parts[0].isdigit() or not parts[2].isdigit():
-            raise Exception("Error: Numbers must only contain digits")
-        if len(parts[0]) > 4 or len(parts[2]) > 4:
-            raise Exception("Error: Numbers cannot be more than four digits")
-    lines = ["", "", ""]
-    if show_answers:
-        lines.append("")
-    for problem in problems:
-        parts = problem.split()
-        num1 = parts[0]
-        operator = parts[1]
-        num2 = parts[2]
-        width = max(len(num1), len(num2)) + 2
-        lines[0] += num1.rjust(width) + "    "
-        lines[1] += operator + " " + num2.rjust(width - 2) + "    "
-        lines[2] += "-" * width + "    "
-        if show_answers:
-            if operator == "+":
-                answer = str(int(num1) + int(num2))
-            else:
-                answer = str(int(num1) - int(num2))
-            lines[3] += answer.rjust(width) + "    "
-    return "\\n".join([line.rstrip() for line in lines])
-result = arithmetic_formatter(["32 + 698", "3801 - 2"], show_answers=True)
+        code: `result = arithmetic_formatter(["32 + 698", "3801 - 2"], show_answers=True)
 lines = result.split("\\n")
-assert len(lines) == 4
-assert "730" in lines[3]
-assert "3799" in lines[3]`,
+assert len(lines) == 4, "Should have 4 lines with answers"
+assert "730" in lines[3], "Should contain answer 730 (32 + 698)"
+assert "3799" in lines[3], "Should contain answer 3799 (3801 - 2)"`,
       },
     ],
     hints: [

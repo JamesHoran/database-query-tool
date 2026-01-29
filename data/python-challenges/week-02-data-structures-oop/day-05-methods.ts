@@ -41,18 +41,9 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_book_str_repr',
-        code: `class Book:
-    def __init__(self, title, author, year):
-        self.title = title
-        self.author = author
-        self.year = year
-    def __str__(self):
-        return f'"{self.title}" by {self.author}'
-    def __repr__(self):
-        return f"Book({self.title!r}, {self.author!r}, {self.year})"
-book = Book("1984", "George Orwell", 1949)
-assert str(book) == '"1984" by George Orwell'
-assert "Book(" in repr(book) and "1984" in repr(book)`,
+        code: `book = Book("1984", "George Orwell", 1949)
+assert str(book) == '"1984" by George Orwell', "__str__ should format as "Title" by Author"
+assert "Book(" in repr(book) and "1984" in repr(book), "__repr__ should include Book class name"`,
       },
     ],
     hints: [
@@ -101,18 +92,9 @@ assert "Book(" in repr(book) and "1984" in repr(book)`,
     tests: [
       {
         name: 'test_circle_properties',
-        code: `class Circle:
-    def __init__(self, radius):
-        self.radius = radius
-    @property
-    def area(self):
-        return 3.14 * self.radius ** 2
-    @property
-    def diameter(self):
-        return 2 * self.radius
-c = Circle(5)
-assert round(c.area, 2) == 78.5
-assert c.diameter == 10`,
+        code: `c = Circle(5)
+assert round(c.area, 2) == 78.5, "Area should be π × r²"
+assert c.diameter == 10, "Diameter should be 2 × radius"`,
       },
     ],
     hints: [
@@ -171,25 +153,12 @@ assert c.diameter == 10`,
     tests: [
       {
         name: 'test_temperature_class',
-        code: `class Temperature:
-    def __init__(self, celsius):
-        self._celsius = celsius
-    @property
-    def celsius(self):
-        return self._celsius
-    @celsius.setter
-    def celsius(self, value):
-        if value >= -273.15:
-            self._celsius = value
-    @property
-    def fahrenheit(self):
-        return self._celsius * 9/5 + 32
-t = Temperature(0)
-assert t.fahrenheit == 32
+        code: `t = Temperature(0)
+assert t.fahrenheit == 32, "0°C should be 32°F"
 t.celsius = 100
-assert t.fahrenheit == 212
+assert t.fahrenheit == 212, "100°C should be 212°F"
 t.celsius = -300
-assert t.celsius == 100  # Should not change`,
+assert t.celsius == 100, "Invalid temp should not change value"`,
       },
     ],
     hints: [
@@ -244,21 +213,10 @@ assert t.celsius == 100  # Should not change`,
     tests: [
       {
         name: 'test_student_classmethod',
-        code: `class Student:
-    school_name = "Python Academy"
-    def __init__(self, name, grade):
-        self.name = name
-        self.grade = grade
-    @classmethod
-    def from_string(cls, info_string):
-        name, grade = info_string.split(",")
-        return cls(name, int(grade))
-    def get_info(self):
-        return f"{self.name} (Grade {self.grade}) - {self.school_name}"
-s = Student.from_string("Alice,10")
-assert s.name == "Alice"
-assert s.grade == 10
-assert s.get_info() == "Alice (Grade 10) - Python Academy"`,
+        code: `s = Student.from_string("Alice,10")
+assert s.name == "Alice", "Name should be parsed correctly"
+assert s.grade == 10, "Grade should be parsed as integer"
+assert s.get_info() == "Alice (Grade 10) - Python Academy", "Info should format correctly"`,
       },
     ],
     hints: [
@@ -308,19 +266,9 @@ assert s.get_info() == "Alice (Grade 10) - Python Academy"`,
     tests: [
       {
         name: 'test_math_staticmethods',
-        code: `class Math:
-    @staticmethod
-    def add(a, b):
-        return a + b
-    @staticmethod
-    def multiply(a, b):
-        return a * b
-    @staticmethod
-    def power(base, exp):
-        return base ** exp
-assert Math.add(3, 5) == 8
-assert Math.multiply(4, 7) == 28
-assert Math.power(2, 5) == 32`,
+        code: `assert Math.add(3, 5) == 8, "add() should return sum"
+assert Math.multiply(4, 7) == 28, "multiply() should return product"
+assert Math.power(2, 5) == 32, "power() should return base^exp"`,
       },
     ],
     hints: [

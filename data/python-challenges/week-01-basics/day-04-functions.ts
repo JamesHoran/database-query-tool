@@ -26,15 +26,11 @@ result = greet("Alice")`,
     tests: [
       {
         name: 'test_greet_alice',
-        code: `def greet(name):
-    return f"Hello, {name}!"
-assert greet("Alice") == "Hello, Alice!"`,
+        code: `assert greet("Alice") == "Hello, Alice!", "Should greet Alice"`,
       },
       {
         name: 'test_greet_bob',
-        code: `def greet(name):
-    return f"Hello, {name}!"
-assert greet("Bob") == "Hello, Bob!"`,
+        code: `assert greet("Bob") == "Hello, Bob!", "Should greet Bob"`,
       },
     ],
     hints: [
@@ -63,21 +59,15 @@ and returns their sum.`,
     tests: [
       {
         name: 'test_add_positive',
-        code: `def add(a, b):
-    return a + b
-assert add(3, 5) == 8`,
+        code: `assert add(3, 5) == 8, "3 + 5 should equal 8"`,
       },
       {
         name: 'test_add_negative',
-        code: `def add(a, b):
-    return a + b
-assert add(-2, 7) == 5`,
+        code: `assert add(-2, 7) == 5, "-2 + 7 should equal 5"`,
       },
       {
         name: 'test_add_zero',
-        code: `def add(a, b):
-    return a + b
-assert add(0, 0) == 0`,
+        code: `assert add(0, 0) == 0, "0 + 0 should equal 0"`,
       },
     ],
     hints: [
@@ -113,55 +103,19 @@ assert add(0, 0) == 0`,
     tests: [
       {
         name: 'test_add',
-        code: `def calculate(num1, num2, operation):
-    if operation == "add":
-        return num1 + num2
-    elif operation == "sub":
-        return num1 - num2
-    elif operation == "mul":
-        return num1 * num2
-    elif operation == "div":
-        return num1 / num2
-assert calculate(10, 5, "add") == 15`,
+        code: `assert calculate(10, 5, "add") == 15, "10 + 5 should equal 15"`,
       },
       {
         name: 'test_sub',
-        code: `def calculate(num1, num2, operation):
-    if operation == "add":
-        return num1 + num2
-    elif operation == "sub":
-        return num1 - num2
-    elif operation == "mul":
-        return num1 * num2
-    elif operation == "div":
-        return num1 / num2
-assert calculate(10, 5, "sub") == 5`,
+        code: `assert calculate(10, 5, "sub") == 5, "10 - 5 should equal 5"`,
       },
       {
         name: 'test_mul',
-        code: `def calculate(num1, num2, operation):
-    if operation == "add":
-        return num1 + num2
-    elif operation == "sub":
-        return num1 - num2
-    elif operation == "mul":
-        return num1 * num2
-    elif operation == "div":
-        return num1 / num2
-assert calculate(10, 5, "mul") == 50`,
+        code: `assert calculate(10, 5, "mul") == 50, "10 * 5 should equal 50"`,
       },
       {
         name: 'test_div',
-        code: `def calculate(num1, num2, operation):
-    if operation == "add":
-        return num1 + num2
-    elif operation == "sub":
-        return num1 - num2
-    elif operation == "mul":
-        return num1 * num2
-    elif operation == "div":
-        return num1 / num2
-assert calculate(10, 5, "div") == 2`,
+        code: `assert calculate(10, 5, "div") == 2, "10 / 5 should equal 2"`,
       },
     ],
     hints: [
@@ -192,21 +146,15 @@ assert calculate(10, 5, "div") == 2`,
     tests: [
       {
         name: 'test_default_exponent',
-        code: `def power(base, exponent=2):
-    return base ** exponent
-assert power(5) == 25`,
+        code: `assert power(5) == 25, "5^2 should equal 25"`,
       },
       {
         name: 'test_custom_exponent',
-        code: `def power(base, exponent=2):
-    return base ** exponent
-assert power(2, 3) == 8`,
+        code: `assert power(2, 3) == 8, "2^3 should equal 8"`,
       },
       {
         name: 'test_exponent_one',
-        code: `def power(base, exponent=2):
-    return base ** exponent
-assert power(10, 1) == 10`,
+        code: `assert power(10, 1) == 10, "10^1 should equal 10"`,
       },
     ],
     hints: [
@@ -249,48 +197,15 @@ assert power(10, 1) == 10`,
     tests: [
       {
         name: 'test_grade_A',
-        code: `def get_grade(score):
-    if score >= 90:
-        return "A"
-    elif score >= 80:
-        return "B"
-    elif score >= 70:
-        return "C"
-    elif score >= 60:
-        return "D"
-    else:
-        return "F"
-assert get_grade(95) == "A"`,
+        code: `assert get_grade(95) == "A", "95 should get an A"`,
       },
       {
         name: 'test_grade_B',
-        code: `def get_grade(score):
-    if score >= 90:
-        return "A"
-    elif score >= 80:
-        return "B"
-    elif score >= 70:
-        return "C"
-    elif score >= 60:
-        return "D"
-    else:
-        return "F"
-assert get_grade(85) == "B"`,
+        code: `assert get_grade(85) == "B", "85 should get a B"`,
       },
       {
         name: 'test_grade_F',
-        code: `def get_grade(score):
-    if score >= 90:
-        return "A"
-    elif score >= 80:
-        return "B"
-    elif score >= 70:
-        return "C"
-    elif score >= 60:
-        return "D"
-    else:
-        return "F"
-assert get_grade(45) == "F"`,
+        code: `assert get_grade(45) == "F", "45 should get an F"`,
       },
     ],
     hints: [

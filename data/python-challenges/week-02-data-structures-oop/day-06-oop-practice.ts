@@ -50,25 +50,13 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_shopping_cart',
-        code: `class ShoppingCart:
-    def __init__(self):
-        self.items = {}
-    def add_item(self, name, price):
-        self.items[name] = price
-    def remove_item(self, name):
-        if name in self.items:
-            del self.items[name]
-    def get_total(self):
-        return sum(self.items.values())
-    def __len__(self):
-        return len(self.items)
-cart = ShoppingCart()
+        code: `cart = ShoppingCart()
 cart.add_item("Apple", 1.50)
 cart.add_item("Bread", 2.00)
-assert len(cart) == 2
-assert cart.get_total() == 3.5
+assert len(cart) == 2, "Cart should have 2 items"
+assert cart.get_total() == 3.5, "Total should be sum of prices"
 cart.remove_item("Apple")
-assert len(cart) == 1`,
+assert len(cart) == 1, "Cart should have 1 item after removal"`,
       },
     ],
     hints: [
@@ -122,25 +110,14 @@ assert len(cart) == 1`,
     tests: [
       {
         name: 'test_player_class',
-        code: `class Player:
-    def __init__(self, name, max_health):
-        self.name = name
-        self.max_health = max_health
-        self.health = max_health
-    def take_damage(self, amount):
-        self.health = max(0, self.health - amount)
-    def heal(self, amount):
-        self.health = min(self.max_health, self.health + amount)
-    def is_alive(self):
-        return self.health > 0
-p = Player("Hero", 100)
+        code: `p = Player("Hero", 100)
 p.take_damage(30)
-assert p.health == 70
+assert p.health == 70, "Health should decrease by damage amount"
 p.heal(20)
-assert p.health == 90
+assert p.health == 90, "Health should increase by heal amount"
 p.take_damage(100)
-assert p.health == 0
-assert p.is_alive() == False`,
+assert p.health == 0, "Health should not go below 0"
+assert p.is_alive() == False, "Player should not be alive at 0 health"`,
       },
     ],
     hints: [
@@ -193,24 +170,13 @@ assert p.is_alive() == False`,
     tests: [
       {
         name: 'test_counter_class',
-        code: `class Counter:
-    def __init__(self):
-        self.counts = {}
-    def add(self, item):
-        self.counts[item] = self.counts.get(item, 0) + 1
-    def get_count(self, item):
-        return self.counts.get(item, 0)
-    def get_most_common(self):
-        if not self.counts:
-            return None
-        return max(self.counts.items(), key=lambda x: x[1])[0]
-c = Counter()
+        code: `c = Counter()
 c.add("apple")
 c.add("banana")
 c.add("apple")
-assert c.get_count("apple") == 2
-assert c.get_count("banana") == 1
-assert c.get_most_common() == "apple"`,
+assert c.get_count("apple") == 2, "Apple should be counted twice"
+assert c.get_count("banana") == 1, "Banana should be counted once"
+assert c.get_most_common() == "apple", "Apple should be most common"`,
       },
     ],
     hints: [
@@ -273,24 +239,8 @@ class Timer:
       {
         name: 'test_timer_class',
         code: `import time
-class Timer:
-    def __init__(self):
-        self.start_time = None
-        self.end_time = None
-    def __enter__(self):
-        self.start_time = time.time()
-        return self
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.end_time = time.time()
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.end_time = time.time()
-    def get_elapsed(self):
-        if self.start_time is None:
-            return 0
-        end = self.end_time or time.time()
-        return end - self.start_time
 t = Timer()
-assert t.get_elapsed() == 0`,
+assert t.get_elapsed() == 0, "Timer should return 0 before starting"`,
       },
     ],
     hints: [
@@ -349,26 +299,11 @@ class Deck:
     tests: [
       {
         name: 'test_deck_class',
-        code: `import random
-class Deck:
-    def __init__(self):
-        self.cards = []
-        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-        suits = ["hearts", "diamonds", "clubs", "spades"]
-        for suit in suits:
-            for rank in ranks:
-                self.cards.append((rank, suit))
-    def shuffle(self):
-        random.shuffle(self.cards)
-    def deal(self):
-        if not self.cards:
-            return None
-        return self.cards.pop()
-deck = Deck()
-assert len(deck.cards) == 52
+        code: `deck = Deck()
+assert len(deck.cards) == 52, "Deck should have 52 cards"
 card = deck.deal()
-assert card is not None
-assert len(deck.cards) == 51`,
+assert card is not None, "Dealing should return a card"
+assert len(deck.cards) == 51, "Deck should have 51 cards after dealing"`,
       },
     ],
     hints: [

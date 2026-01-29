@@ -164,16 +164,7 @@ assert difference_set == {1, 2, 3}`,
     tests: [
       {
         name: 'test_find_duplicates',
-        code: `def find_duplicates(items):
-    seen = set()
-    duplicates = set()
-    for item in items:
-        if item in seen:
-            duplicates.add(item)
-        else:
-            seen.add(item)
-    return duplicates
-assert find_duplicates([1, 2, 2, 3, 1, 4]) == {1, 2}`,
+        code: `assert find_duplicates([1, 2, 2, 3, 1, 4]) == {1, 2}, "Should find items appearing more than once"`,
       },
     ],
     hints: [

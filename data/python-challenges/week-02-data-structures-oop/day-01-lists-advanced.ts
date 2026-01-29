@@ -28,39 +28,15 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_find_max_positive',
-        code: `def find_max(numbers):
-    if not numbers:
-        return None
-    maximum = numbers[0]
-    for num in numbers:
-        if num > maximum:
-            maximum = num
-    return maximum
-assert find_max([3, 7, 2, 9, 1]) == 9`,
+        code: `assert find_max([3, 7, 2, 9, 1]) == 9, "Should find 9 as maximum"`,
       },
       {
         name: 'test_find_max_negative',
-        code: `def find_max(numbers):
-    if not numbers:
-        return None
-    maximum = numbers[0]
-    for num in numbers:
-        if num > maximum:
-            maximum = num
-    return maximum
-assert find_max([-5, -2, -8, -1]) == -1`,
+        code: `assert find_max([-5, -2, -8, -1]) == -1, "Should find -1 as maximum (least negative)"`,
       },
       {
         name: 'test_find_max_single',
-        code: `def find_max(numbers):
-    if not numbers:
-        return None
-    maximum = numbers[0]
-    for num in numbers:
-        if num > maximum:
-            maximum = num
-    return maximum
-assert find_max([42]) == 42`,
+        code: `assert find_max([42]) == 42, "Single element should be its own max"`,
       },
     ],
     hints: [
@@ -94,30 +70,15 @@ assert find_max([42]) == 42`,
     tests: [
       {
         name: 'test_search_found',
-        code: `def linear_search(lst, target):
-    for i, item in enumerate(lst):
-        if item == target:
-            return i
-    return -1
-assert linear_search([1, 5, 3, 7, 9], 3) == 2`,
+        code: `assert linear_search([1, 5, 3, 7, 9], 3) == 2, "Should find 3 at index 2"`,
       },
       {
         name: 'test_search_not_found',
-        code: `def linear_search(lst, target):
-    for i, item in enumerate(lst):
-        if item == target:
-            return i
-    return -1
-assert linear_search([1, 5, 3, 7, 9], 4) == -1`,
+        code: `assert linear_search([1, 5, 3, 7, 9], 4) == -1, "Should return -1 for not found"`,
       },
       {
         name: 'test_search_first_occurrence',
-        code: `def linear_search(lst, target):
-    for i, item in enumerate(lst):
-        if item == target:
-            return i
-    return -1
-assert linear_search([1, 2, 2, 3], 2) == 1`,
+        code: `assert linear_search([1, 2, 2, 3], 2) == 1, "Should find first occurrence at index 1"`,
       },
     ],
     hints: [
@@ -154,29 +115,13 @@ assert linear_search([1, 2, 2, 3], 2) == 1`,
     tests: [
       {
         name: 'test_reverse_even',
-        code: `def reverse_list(lst):
-    left = 0
-    right = len(lst) - 1
-    while left < right:
-        lst[left], lst[right] = lst[right], lst[left]
-        left += 1
-        right -= 1
-    return lst
-test = [1, 2, 3, 4]
-assert reverse_list(test) == [4, 3, 2, 1]`,
+        code: `test = [1, 2, 3, 4]
+assert reverse_list(test) == [4, 3, 2, 1], "Should reverse even-length list"`,
       },
       {
         name: 'test_reverse_odd',
-        code: `def reverse_list(lst):
-    left = 0
-    right = len(lst) - 1
-    while left < right:
-        lst[left], lst[right] = lst[right], lst[left]
-        left += 1
-        right -= 1
-    return lst
-test = [1, 2, 3, 4, 5]
-assert reverse_list(test) == [5, 4, 3, 2, 1]`,
+        code: `test = [1, 2, 3, 4, 5]
+assert reverse_list(test) == [5, 4, 3, 2, 1], "Should reverse odd-length list"`,
       },
     ],
     hints: [
@@ -214,27 +159,11 @@ assert reverse_list(test) == [5, 4, 3, 2, 1]`,
     tests: [
       {
         name: 'test_remove_duplicates',
-        code: `def remove_duplicates(lst):
-    result = []
-    seen = set()
-    for item in lst:
-        if item not in seen:
-            result.append(item)
-            seen.add(item)
-    return result
-assert remove_duplicates([1, 2, 2, 3, 1, 4]) == [1, 2, 3, 4]`,
+        code: `assert remove_duplicates([1, 2, 2, 3, 1, 4]) == [1, 2, 3, 4], "Should remove duplicates"`,
       },
       {
         name: 'test_remove_duplicates_strings',
-        code: `def remove_duplicates(lst):
-    result = []
-    seen = set()
-    for item in lst:
-        if item not in seen:
-            result.append(item)
-            seen.add(item)
-    return result
-assert remove_duplicates(["a", "b", "a", "c", "b"]) == ["a", "b", "c"]`,
+        code: `assert remove_duplicates(["a", "b", "a", "c", "b"]) == ["a", "b", "c"], "Should remove string duplicates"`,
       },
     ],
     hints: [
@@ -276,37 +205,11 @@ assert remove_duplicates(["a", "b", "a", "c", "b"]) == ["a", "b", "c"]`,
     tests: [
       {
         name: 'test_merge_basic',
-        code: `def merge_sorted(list1, list2):
-    result = []
-    i = j = 0
-    while i < len(list1) and j < len(list2):
-        if list1[i] <= list2[j]:
-            result.append(list1[i])
-            i += 1
-        else:
-            result.append(list2[j])
-            j += 1
-    result.extend(list1[i:])
-    result.extend(list2[j:])
-    return result
-assert merge_sorted([1, 3, 5], [2, 4, 6]) == [1, 2, 3, 4, 5, 6]`,
+        code: `assert merge_sorted([1, 3, 5], [2, 4, 6]) == [1, 2, 3, 4, 5, 6], "Should merge two sorted lists"`,
       },
       {
         name: 'test_merge_different_lengths',
-        code: `def merge_sorted(list1, list2):
-    result = []
-    i = j = 0
-    while i < len(list1) and j < len(list2):
-        if list1[i] <= list2[j]:
-            result.append(list1[i])
-            i += 1
-        else:
-            result.append(list2[j])
-            j += 1
-    result.extend(list1[i:])
-    result.extend(list2[j:])
-    return result
-assert merge_sorted([1, 2, 5], [3, 4]) == [1, 2, 3, 4, 5]`,
+        code: `assert merge_sorted([1, 2, 5], [3, 4]) == [1, 2, 3, 4, 5], "Should handle different length lists"`,
       },
     ],
     hints: [

@@ -31,16 +31,10 @@ export const challenges: PythonChallenge[] = [
     tests: [
       {
         name: 'test_dog_class',
-        code: `class Dog:
-    def __init__(self, name, breed):
-        self.name = name
-        self.breed = breed
-    def bark(self):
-        return f"{self.name} says Woof!"
-dog = Dog("Buddy", "Golden Retriever")
-assert dog.name == "Buddy"
-assert dog.breed == "Golden Retriever"
-assert dog.bark() == "Buddy says Woof!"`,
+        code: `dog = Dog("Buddy", "Golden Retriever")
+assert dog.name == "Buddy", "Dog should have name attribute"
+assert dog.breed == "Golden Retriever", "Dog should have breed attribute"
+assert dog.bark() == "Buddy says Woof!", "bark() should return formatted string"`,
       },
     ],
     hints: [
@@ -94,36 +88,16 @@ assert dog.bark() == "Buddy says Woof!"`,
     tests: [
       {
         name: 'test_rectangle_class',
-        code: `class Rectangle:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-    def area(self):
-        return self.width * self.height
-    def perimeter(self):
-        return 2 * (self.width + self.height)
-    def is_square(self):
-        return self.width == self.height
-r = Rectangle(5, 3)
-assert r.area() == 15
-assert r.perimeter() == 16
-assert r.is_square() == False`,
+        code: `r = Rectangle(5, 3)
+assert r.area() == 15, "Area should be width × height"
+assert r.perimeter() == 16, "Perimeter should be 2 × (width + height)"
+assert r.is_square() == False, "Should not be square when width != height"`,
       },
       {
         name: 'test_square_rectangle',
-        code: `class Rectangle:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-    def area(self):
-        return self.width * self.height
-    def perimeter(self):
-        return 2 * (self.width + self.height)
-    def is_square(self):
-        return self.width == self.height
-s = Rectangle(4, 4)
-assert s.is_square() == True
-assert s.area() == 16`,
+        code: `s = Rectangle(4, 4)
+assert s.is_square() == True, "Should be square when width == height"
+assert s.area() == 16, "Area should be width × height"`,
       },
     ],
     hints: [
@@ -170,32 +144,14 @@ assert s.area() == 16`,
     tests: [
       {
         name: 'test_car_default_year',
-        code: `class Car:
-    def __init__(self, make, model, year=2024):
-        self.make = make
-        self.model = model
-        self.year = year
-    def description(self):
-        return f"{self.year} {self.make} {self.model}"
-    def age(self):
-        return 2024 - self.year
-car = Car("Toyota", "Camry")
-assert car.year == 2024
-assert car.description() == "2024 Toyota Camry"`,
+        code: `car = Car("Toyota", "Camry")
+assert car.year == 2024, "Default year should be 2024"
+assert car.description() == "2024 Toyota Camry", "Description should format correctly"`,
       },
       {
         name: 'test_car_custom_year',
-        code: `class Car:
-    def __init__(self, make, model, year=2024):
-        self.make = make
-        self.model = model
-        self.year = year
-    def description(self):
-        return f"{self.year} {self.make} {self.model}"
-    def age(self):
-        return 2024 - self.year
-old_car = Car("Honda", "Civic", 2015)
-assert old_car.age() == 9`,
+        code: `old_car = Car("Honda", "Civic", 2015)
+assert old_car.age() == 9, "Age should be 2024 - year"`,
       },
     ],
     hints: [
@@ -246,19 +202,10 @@ assert old_car.age() == 9`,
     tests: [
       {
         name: 'test_bank_account',
-        code: `class BankAccount:
-    interest_rate = 0.02
-    def __init__(self, owner, balance):
-        self.owner = owner
-        self.balance = balance
-    def apply_interest(self):
-        self.balance += self.balance * BankAccount.interest_rate
-    def __str__(self):
-        return f"Account: {self.owner}, Balance: \${self.balance:.2f}"
-acc = BankAccount("Alice", 1000)
+        code: `acc = BankAccount("Alice", 1000)
 acc.apply_interest()
-assert round(acc.balance, 2) == 1020.0
-assert "Alice" in str(acc)`,
+assert round(acc.balance, 2) == 1020.0, "Balance should increase by interest rate"
+assert "Alice" in str(acc), "String representation should include owner name"`,
       },
     ],
     hints: [
@@ -306,20 +253,12 @@ assert "Alice" in str(acc)`,
     tests: [
       {
         name: 'test_point_equality',
-        code: `class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
-    def __str__(self):
-        return f"Point({self.x}, {self.y})"
-p1 = Point(3, 4)
+        code: `p1 = Point(3, 4)
 p2 = Point(3, 4)
 p3 = Point(1, 2)
-assert p1 == p2
-assert p1 != p3
-assert str(p1) == "Point(3, 4)"`,
+assert p1 == p2, "Points with same coordinates should be equal"
+assert p1 != p3, "Points with different coordinates should not be equal"
+assert str(p1) == "Point(3, 4)", "String representation should format correctly"`,
       },
     ],
     hints: [

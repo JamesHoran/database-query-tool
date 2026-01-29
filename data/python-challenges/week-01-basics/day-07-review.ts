@@ -36,18 +36,8 @@ for i in range(1, 21):
     tests: [
       {
         name: 'test_fizzbuzz_output',
-        code: `result = []
-for i in range(1, 21):
-    if i % 3 == 0 and i % 5 == 0:
-        result.append("FizzBuzz")
-    elif i % 3 == 0:
-        result.append("Fizz")
-    elif i % 5 == 0:
-        result.append("Buzz")
-    else:
-        result.append(str(i))
-expected = ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz","16","17","Fizz","19","Buzz"]
-assert result == expected`,
+        code: `expected = ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz","16","17","Fizz","19","Buzz"]
+assert result == expected, "FizzBuzz output should match expected pattern"`,
       },
     ],
     hints: [
@@ -88,36 +78,15 @@ result = factorial(5)`,
     tests: [
       {
         name: 'test_factorial_zero',
-        code: `def factorial(n):
-    if n == 0:
-        return 1
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-assert factorial(0) == 1`,
+        code: `assert factorial(0) == 1, "0! should equal 1"`,
       },
       {
         name: 'test_factorial_five',
-        code: `def factorial(n):
-    if n == 0:
-        return 1
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-assert factorial(5) == 120`,
+        code: `assert factorial(5) == 120, "5! should equal 120"`,
       },
       {
         name: 'test_factorial_three',
-        code: `def factorial(n):
-    if n == 0:
-        return 1
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-assert factorial(3) == 6`,
+        code: `assert factorial(3) == 6, "3! should equal 6"`,
       },
     ],
     hints: [
@@ -156,26 +125,17 @@ result2 = is_palindrome("hello")`,
     tests: [
       {
         name: 'test_palindrome_true',
-        code: `def is_palindrome(word):
-    word_lower = word.lower()
-    return word_lower == word_lower[::-1]
-assert is_palindrome("racecar") == True
-assert is_palindrome("madam") == True`,
+        code: `assert is_palindrome("racecar") == True, "racecar is a palindrome"
+assert is_palindrome("madam") == True, "madam is a palindrome"`,
       },
       {
         name: 'test_palindrome_false',
-        code: `def is_palindrome(word):
-    word_lower = word.lower()
-    return word_lower == word_lower[::-1]
-assert is_palindrome("hello") == False
-assert is_palindrome("python") == False`,
+        code: `assert is_palindrome("hello") == False, "hello is not a palindrome"
+assert is_palindrome("python") == False, "python is not a palindrome"`,
       },
       {
         name: 'test_palindrome_case',
-        code: `def is_palindrome(word):
-    word_lower = word.lower()
-    return word_lower == word_lower[::-1]
-assert is_palindrome("RaceCar") == True`,
+        code: `assert is_palindrome("RaceCar") == True, "RaceCar is a palindrome (ignoring case)"`,
       },
     ],
     hints: [
@@ -220,18 +180,11 @@ result = list_stats([3, 7, 2, 9, 1])`,
     tests: [
       {
         name: 'test_list_stats',
-        code: `def list_stats(numbers):
-    return {
-        "sum": sum(numbers),
-        "min": min(numbers),
-        "max": max(numbers),
-        "avg": sum(numbers) / len(numbers)
-    }
-result = list_stats([3, 7, 2, 9, 1])
-assert result["sum"] == 22
-assert result["min"] == 1
-assert result["max"] == 9
-assert result["avg"] == 22 / 5`,
+        code: `result = list_stats([3, 7, 2, 9, 1])
+assert result["sum"] == 22, "Sum should be 22"
+assert result["min"] == 1, "Min should be 1"
+assert result["max"] == 9, "Max should be 9"
+assert result["avg"] == 22 / 5, "Average should be 4.4"`,
       },
     ],
     hints: [
@@ -273,27 +226,15 @@ result = word_count("hello world hello python world")`,
     tests: [
       {
         name: 'test_word_count',
-        code: `def word_count(text):
-    words = text.lower().split()
-    counts = {}
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
-    return counts
-result = word_count("hello world hello python world")
-assert result["hello"] == 2
-assert result["world"] == 2
-assert result["python"] == 1`,
+        code: `result = word_count("hello world hello python world")
+assert result["hello"] == 2, "hello should appear twice"
+assert result["world"] == 2, "world should appear twice"
+assert result["python"] == 1, "python should appear once"`,
       },
       {
         name: 'test_word_count_case',
-        code: `def word_count(text):
-    words = text.lower().split()
-    counts = {}
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
-    return counts
-result = word_count("Hello HELLO hello")
-assert result["hello"] == 3`,
+        code: `result = word_count("Hello HELLO hello")
+assert result["hello"] == 3, "All variations should be counted as hello"`,
       },
     ],
     hints: [
