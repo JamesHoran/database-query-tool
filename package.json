@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "PORT=3010 next start",
     "lint": "eslint",
     "pm2:dev": "pm2 start ecosystem.config.js --only dev",
     "pm2:prod": "pm2 start ecosystem.config.js --only prod",
@@ -16,13 +16,19 @@
     "pm2:list": "node scripts/pmlist.js",
     "pm2:clear": "bash scripts/clear-ports.sh",
     "test": "playwright test",
+    "test:file": "playwright test",
+    "test:ui": "xvfb-run -a pnpm exec playwright test --ui --ui-host=0.0.0.0",
+    "test:ui:prod": "xvfb-run -a pnpm exec playwright test --ui --ui-host=0.0.0.0",
+    "test:prod": "playwright test",
     "test:verbose": "playwright test --reporter=list",
-    "test:debug": "playwright test --debug",
-    "test:ui": "bash scripts/start-playwright-ui.sh",
-    "test:headed": "xvfb-run --auto-servernum --server-args='-screen 0 1280x720x24' playwright test --headed",
+    "test:watch": "PWTEST_WATCH=1 playwright test --reporter=list",
+    "test:debug": "xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' playwright test --debug --workers=1",
+    "test:headed": "xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' playwright test --headed",
+    "test:traces": "playwright test --reporter=html",
     "test:report": "playwright show-report",
-    "test:project": "playwright test --project=chromium",
-    "test:file": "playwright test"
+    "test:report-server": "cd playwright-report && python3 -m http.server 9326 --bind 0.0.0.0",
+    "test:review": "playwright test --reporter=html && npx playwright show-report",
+    "test:project": "playwright test --project=chromium"
   },
   "dependencies": {
     "@codemirror/lang-python": "^6.2.1",

@@ -36,14 +36,19 @@ export function SQLEditor({
   }, [handleKeyDown]);
 
   return (
-    <div className="border border-zinc-700 rounded-lg overflow-hidden bg-zinc-900">
+    <div className="border border-zinc-700 rounded-lg overflow-hidden bg-zinc-900" data-testid="sql-editor">
       <CodeMirror
         value={value}
         height="200px"
         minHeight="150px"
         extensions={disabled ? [] : [sql()]}
         theme={oneDark}
-        onChange={disabled ? undefined : onChange}
+        onChange={disabled ? undefined : (val) => {
+          console.log('[SQLEditor] onChange - raw val:', `"${val}"`);
+          console.log('[SQLEditor] onChange - char codes:', Array.from(val).map(c => `${c}(${c.charCodeAt(0)})`).join(' '));
+          console.log('[SQLEditor] onChange - reversed:', Array.from(val).reverse().join(''));
+          onChange(val);
+        }}
         placeholder={placeholder}
         editable={!disabled}
         basicSetup={{
@@ -71,9 +76,14 @@ export function SQLEditor({
       />
       <div className="flex flex-col sm:flex-row gap-2 p-2 sm:p-3 bg-zinc-800 border-t border-zinc-700">
         <button
-          onClick={onSubmit}
+          onClick={() => {
+            console.log('[SQLEditor] Run Query clicked - value:', `"${value}"`);
+            console.log('[SQLEditor] Run Query clicked - char codes:', Array.from(value).map(c => `${c}(${c.charCodeAt(0)})`).join(' '));
+            onSubmit?.();
+          }}
           disabled={disabled || !value.trim()}
           className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-zinc-700 disabled:text-zinc-500 disabled:cursor-not-allowed rounded-md text-white font-medium text-sm transition-colors"
+          data-testid="run-query-btn"
         >
           Run Query
           <span className="hidden sm:inline ml-2 text-zinc-300 text-xs">(Ctrl+Enter)</span>
