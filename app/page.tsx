@@ -8,7 +8,7 @@ const courseInfo = [
     stats: { challenges: 125, weeks: 5, xp: 1250 },
     color: 'blue',
     gradient: 'from-blue-400 to-purple-400',
-    path: '/course',
+    path: '/sql',
     topics: ['SELECT & WHERE', 'GROUP BY & Aggregation', 'JOINs', 'CTEs', 'Window Functions'],
   },
   {

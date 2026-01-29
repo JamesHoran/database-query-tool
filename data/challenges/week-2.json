@@ -19,12 +19,20 @@
     "tests": [
       {
         "description": "Query must use GROUP BY",
-        "mustContain": ["SELECT", "FROM", "GROUP BY"],
-        "expectedColumns": ["department", "COUNT(*)"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(*)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d1-c2",
@@ -46,12 +54,20 @@
     "tests": [
       {
         "description": "Query must use SUM with GROUP BY",
-        "mustContain": ["SELECT", "SUM", "GROUP BY"],
-        "expectedColumns": ["department", "SUM(salary)"],
+        "mustContain": [
+          "SELECT",
+          "SUM",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "SUM(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d1-c3",
@@ -73,12 +89,20 @@
     "tests": [
       {
         "description": "Query must use AVG with GROUP BY",
-        "mustContain": ["SELECT", "AVG", "GROUP BY"],
-        "expectedColumns": ["department", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "AVG",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d1-c4",
@@ -100,12 +124,24 @@
     "tests": [
       {
         "description": "Query must use multiple aggregates",
-        "mustContain": ["SELECT", "COUNT", "AVG", "SUM", "GROUP BY"],
-        "expectedColumns": ["department", "COUNT(*)", "AVG(salary)", "SUM(salary)"],
+        "mustContain": [
+          "SELECT",
+          "COUNT",
+          "AVG",
+          "SUM",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(*)",
+          "AVG(salary)",
+          "SUM(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d1-c5",
@@ -127,12 +163,22 @@
     "tests": [
       {
         "description": "Query must use MIN/MAX with GROUP BY",
-        "mustContain": ["SELECT", "MIN", "MAX", "GROUP BY"],
-        "expectedColumns": ["department", "MIN(salary)", "MAX(salary)"],
+        "mustContain": [
+          "SELECT",
+          "MIN",
+          "MAX",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "MIN(salary)",
+          "MAX(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d2-c1",
@@ -154,12 +200,20 @@
     "tests": [
       {
         "description": "Query must use HAVING clause",
-        "mustContain": ["SELECT", "GROUP BY", "HAVING"],
-        "expectedColumns": ["department", "COUNT(*)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "HAVING"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(*)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d2-c2",
@@ -181,12 +235,21 @@
     "tests": [
       {
         "description": "Query must use HAVING with AVG",
-        "mustContain": ["SELECT", "GROUP BY", "HAVING", "AVG"],
-        "expectedColumns": ["department", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "HAVING",
+          "AVG"
+        ],
+        "expectedColumns": [
+          "department",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d2-c3",
@@ -208,12 +271,21 @@
     "tests": [
       {
         "description": "Query must use WHERE and HAVING",
-        "mustContain": ["SELECT", "WHERE", "GROUP BY", "HAVING"],
-        "expectedColumns": ["department", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "WHERE",
+          "GROUP BY",
+          "HAVING"
+        ],
+        "expectedColumns": [
+          "department",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d2-c4",
@@ -235,12 +307,21 @@
     "tests": [
       {
         "description": "Query must use HAVING with SUM",
-        "mustContain": ["SELECT", "GROUP BY", "HAVING", "SUM"],
-        "expectedColumns": ["department", "SUM(salary)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "HAVING",
+          "SUM"
+        ],
+        "expectedColumns": [
+          "department",
+          "SUM(salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d2-c5",
@@ -262,12 +343,22 @@
     "tests": [
       {
         "description": "Query must use multiple HAVING conditions",
-        "mustContain": ["SELECT", "GROUP BY", "HAVING", "AND"],
-        "expectedColumns": ["department", "COUNT(*)", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "HAVING",
+          "AND"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(*)",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d3-c1",
@@ -289,12 +380,20 @@
     "tests": [
       {
         "description": "Query must use GROUP BY with ORDER BY",
-        "mustContain": ["SELECT", "GROUP BY", "ORDER BY"],
-        "expectedColumns": ["department", "COUNT(*)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(*)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d3-c2",
@@ -316,12 +415,20 @@
     "tests": [
       {
         "description": "Query must sort groups by multiple columns",
-        "mustContain": ["SELECT", "GROUP BY", "ORDER BY"],
-        "expectedColumns": ["department", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d3-c3",
@@ -343,12 +450,21 @@
     "tests": [
       {
         "description": "Query must use LIMIT with groups",
-        "mustContain": ["SELECT", "GROUP BY", "ORDER BY", "LIMIT"],
-        "expectedColumns": ["department", "SUM(salary)"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "ORDER BY",
+          "LIMIT"
+        ],
+        "expectedColumns": [
+          "department",
+          "SUM(salary)"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d3-c4",
@@ -370,12 +486,22 @@
     "tests": [
       {
         "description": "Query must use all clauses",
-        "mustContain": ["SELECT", "WHERE", "GROUP BY", "HAVING", "ORDER BY"],
-        "expectedColumns": ["department", "AVG(salary)"],
+        "mustContain": [
+          "SELECT",
+          "WHERE",
+          "GROUP BY",
+          "HAVING",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "AVG(salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w2-d3-c5",
@@ -397,12 +523,21 @@
     "tests": [
       {
         "description": "Query must use alias in ORDER BY",
-        "mustContain": ["SELECT", "AS", "GROUP BY", "ORDER BY"],
-        "expectedColumns": ["department", "avg_sal"],
+        "mustContain": [
+          "SELECT",
+          "AS",
+          "GROUP BY",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "avg_sal"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d4-c1",
@@ -424,12 +559,20 @@
     "tests": [
       {
         "description": "Query must use ROUND with aggregate",
-        "mustContain": ["SELECT", "ROUND", "GROUP BY"],
-        "expectedColumns": ["department", "ROUND(AVG(salary))"],
+        "mustContain": [
+          "SELECT",
+          "ROUND",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "ROUND(AVG(salary))"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d4-c2",
@@ -451,12 +594,20 @@
     "tests": [
       {
         "description": "Query must use ROUND with decimal parameter",
-        "mustContain": ["SELECT", "ROUND", "GROUP BY"],
-        "expectedColumns": ["department", "ROUND(AVG(salary), 1)"],
+        "mustContain": [
+          "SELECT",
+          "ROUND",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "ROUND(AVG(salary), 1)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d4-c3",
@@ -478,12 +629,20 @@
     "tests": [
       {
         "description": "Query must use ABS function",
-        "mustContain": ["SELECT", "ABS", "GROUP BY"],
-        "expectedColumns": ["department", "ABS(MAX(salary) - MIN(salary))"],
+        "mustContain": [
+          "SELECT",
+          "ABS",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "ABS(MAX(salary) - MIN(salary))"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w2-d4-c4",
@@ -505,12 +664,20 @@
     "tests": [
       {
         "description": "Query must use LENGTH function",
-        "mustContain": ["SELECT", "LENGTH", "GROUP BY"],
-        "expectedColumns": ["department", "LENGTH(department)"],
+        "mustContain": [
+          "SELECT",
+          "LENGTH",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "LENGTH(department)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d4-c5",
@@ -532,12 +699,20 @@
     "tests": [
       {
         "description": "Query must use UPPER function",
-        "mustContain": ["SELECT", "UPPER", "GROUP BY"],
-        "expectedColumns": ["UPPER(department)", "COUNT(*)"],
+        "mustContain": [
+          "SELECT",
+          "UPPER",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "UPPER(department)",
+          "COUNT(*)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d5-c1",
@@ -559,12 +734,19 @@
     "tests": [
       {
         "description": "Query must use COUNT with DISTINCT",
-        "mustContain": ["SELECT", "COUNT", "DISTINCT"],
-        "expectedColumns": ["COUNT(DISTINCT department)"],
+        "mustContain": [
+          "SELECT",
+          "COUNT",
+          "DISTINCT"
+        ],
+        "expectedColumns": [
+          "COUNT(DISTINCT department)"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w2-d5-c2",
@@ -586,12 +768,21 @@
     "tests": [
       {
         "description": "Query must use COUNT DISTINCT with GROUP BY",
-        "mustContain": ["SELECT", "COUNT", "DISTINCT", "GROUP BY"],
-        "expectedColumns": ["department", "COUNT(DISTINCT salary)"],
+        "mustContain": [
+          "SELECT",
+          "COUNT",
+          "DISTINCT",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "COUNT(DISTINCT salary)"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w2-d5-c3",
@@ -613,12 +804,21 @@
     "tests": [
       {
         "description": "Query must use CASE with aggregation",
-        "mustContain": ["SELECT", "CASE", "WHEN", "SUM"],
-        "expectedColumns": ["high_count", "normal_count"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "WHEN",
+          "SUM"
+        ],
+        "expectedColumns": [
+          "high_count",
+          "normal_count"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w2-d5-c4",
@@ -640,12 +840,21 @@
     "tests": [
       {
         "description": "Query must use CASE with GROUP BY",
-        "mustContain": ["SELECT", "CASE", "WHEN", "GROUP BY"],
-        "expectedColumns": ["department", "salary_level"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "WHEN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "salary_level"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w2-d5-c5",
@@ -667,11 +876,19 @@
     "tests": [
       {
         "description": "Query must calculate percentage",
-        "mustContain": ["SELECT", "SUM", "GROUP BY"],
-        "expectedColumns": ["department", "percent"],
+        "mustContain": [
+          "SELECT",
+          "SUM",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "percent"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   }
 ]

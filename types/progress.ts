@@ -3,6 +3,7 @@ export interface UserProgress {
   currentChallenge: string;
   startedAt: string;
   lastActivity: string;
+  totalXp: number;
 }
 
 export interface DayProgress {

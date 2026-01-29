@@ -17,12 +17,14 @@ interface Course {
   icon: React.ReactNode;
 }
 
-const courses: Record<CourseType, Course> = {
+type CourseKey = Exclude<CourseType, null>;
+
+const courses: Record<CourseKey, Course> = {
   sql: {
     id: 'sql',
     name: 'SQL Mastery',
     shortName: 'SQL',
-    path: '/course',
+    path: '/sql',
     weeks: 5,
     color: 'blue',
     icon: (
@@ -49,7 +51,7 @@ const courses: Record<CourseType, Course> = {
 
 function getActiveCourse(pathname: string): CourseType {
   if (pathname.startsWith('/python')) return 'python';
-  if (pathname.startsWith('/course') || pathname.startsWith('/challenge')) return 'sql';
+  if (pathname.startsWith('/sql') || pathname.startsWith('/challenge')) return 'sql';
   return null;
 }
 
@@ -253,7 +255,7 @@ export function Header() {
             <div className="pb-3 border-b border-zinc-800">
               <p className="text-xs text-zinc-500 px-4 py-1.5 mb-2 font-medium uppercase tracking-wide">Choose a Course</p>
               <Link
-                href="/course"
+                href="/sql"
                 onClick={closeMenu}
                 className="block mx-4 px-4 py-3 rounded-lg bg-blue-900/20 border border-blue-800/50 text-blue-400 hover:bg-blue-900/30 transition-colors font-medium"
               >
@@ -466,7 +468,7 @@ function CourseSelector() {
   return (
     <div className="flex items-center gap-2">
       <Link
-        href="/course"
+        href="/sql"
         className="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20"
       >
         SQL

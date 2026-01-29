@@ -51,6 +51,7 @@ export function useProgress() {
           currentChallenge: 'w1-d1-c1',
           startedAt: new Date().toISOString(),
           lastActivity: new Date().toISOString(),
+          totalXp: 0,
         };
         setProgress(initial);
         localStorage.setItem(PROGRESS_KEY, JSON.stringify(initial));
@@ -159,14 +160,20 @@ export function useProgress() {
     }
   }, [isAuthenticated]);
 
-  const markComplete = useCallback((challengeId: string) => {
+  const markComplete = useCallback((challengeId: string, xp: number = 10) => {
     if (!progress) return;
+
+    // Check if already completed
+    if (progress.completedChallenges.includes(challengeId)) {
+      return;
+    }
 
     const updated: UserProgress = {
       ...progress,
       completedChallenges: [
         ...new Set([...progress.completedChallenges, challengeId]),
       ],
+      totalXp: progress.totalXp + xp,
       lastActivity: new Date().toISOString(),
     };
 
@@ -200,12 +207,17 @@ export function useProgress() {
     return progress?.completedChallenges.length ?? 0;
   }, [progress]);
 
+  const getTotalXp = useCallback((): number => {
+    return progress?.totalXp ?? 0;
+  }, [progress]);
+
   const resetProgress = useCallback(async () => {
     const initial: UserProgress = {
       completedChallenges: [],
       currentChallenge: 'w1-d1-c1',
       startedAt: new Date().toISOString(),
       lastActivity: new Date().toISOString(),
+      totalXp: 0,
     };
 
     // Clear sync tracking on reset
@@ -248,6 +260,7 @@ export function useProgress() {
     isCompleted,
     getCompletionRate,
     getCompletedCount,
+    getTotalXp,
     resetProgress,
     getDayProgress,
     getWeekProgress,

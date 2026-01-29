@@ -41,6 +41,7 @@ export function ChallengePlayer({
     markComplete,
     getCompletionRate,
     getCompletedCount,
+    getTotalXp,
     loading: progressLoading,
     syncing,
   } = useProgress();
@@ -86,7 +87,7 @@ export function ChallengePlayer({
 
   const handleMarkComplete = () => {
     if (!challengeCompleted) {
-      markComplete(challenge.id);
+      markComplete(challenge.id, challenge.xp);
     }
   };
 
@@ -103,7 +104,7 @@ export function ChallengePlayer({
       {/* Challenge Header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-          <Link href="/course" className="text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
+          <Link href="/sql" className="text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
             ← Back to Course
           </Link>
         </div>
@@ -138,6 +139,7 @@ export function ChallengePlayer({
           <div className="text-xs sm:text-sm text-zinc-500 flex-shrink-0 sm:text-right">
             <div>Progress: {getCompletedCount()} / {allChallenges.length}</div>
             <div className="text-zinc-600">{getCompletionRate()}% complete</div>
+            <div className="text-amber-500">{getTotalXp()} total XP • +{challenge.xp} XP</div>
           </div>
         </div>
       </div>

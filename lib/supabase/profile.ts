@@ -151,6 +151,7 @@ export async function getUserProgress(): Promise<UserProgress | null> {
       currentChallenge: progressData.current_challenge || 'w1-d1-c1',
       startedAt: progressData.started_at || new Date().toISOString(),
       lastActivity: progressData.last_activity || new Date().toISOString(),
+      totalXp: 0, // TODO: Calculate from completed challenges
     };
   } catch (error) {
     console.error('Unexpected error fetching progress:', error);

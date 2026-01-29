@@ -78,6 +78,7 @@ export async function GET(request: NextRequest) {
         currentChallenge: 'w1-d1-c1',
         startedAt: new Date().toISOString(),
         lastActivity: new Date().toISOString(),
+        totalXp: 0,
       } satisfies UserProgress);
     }
 
@@ -88,6 +89,7 @@ export async function GET(request: NextRequest) {
       currentChallenge: dbProgress?.current_challenge || 'w1-d1-c1',
       startedAt: dbProgress?.started_at || new Date().toISOString(),
       lastActivity: dbProgress?.last_activity || new Date().toISOString(),
+      totalXp: 0, // TODO: Calculate from completed challenges
     };
 
     return NextResponse.json(userProgress);
@@ -154,6 +156,7 @@ export async function POST(request: NextRequest) {
       currentChallenge: dbProgress?.current_challenge || 'w1-d1-c1',
       startedAt: dbProgress?.started_at || new Date().toISOString(),
       lastActivity: dbProgress?.last_activity || new Date().toISOString(),
+      totalXp: 0, // TODO: Calculate from completed challenges
     };
 
     return NextResponse.json(userProgress);

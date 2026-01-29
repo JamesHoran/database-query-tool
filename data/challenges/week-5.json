@@ -19,12 +19,23 @@
     "tests": [
       {
         "description": "Query must generate sales summary",
-        "mustContain": ["SELECT", "JOIN", "GROUP BY", "ORDER BY"],
-        "expectedColumns": ["name", "total_sales", "avg_sale", "sale_count"],
+        "mustContain": [
+          "SELECT",
+          "JOIN",
+          "GROUP BY",
+          "ORDER BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "total_sales",
+          "avg_sale",
+          "sale_count"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d1-c2",
@@ -46,12 +57,21 @@
     "tests": [
       {
         "description": "Query must find top performers",
-        "mustContain": ["SELECT", "JOIN", "GROUP BY", "LIMIT"],
-        "expectedColumns": ["name", "total_revenue"],
+        "mustContain": [
+          "SELECT",
+          "JOIN",
+          "GROUP BY",
+          "LIMIT"
+        ],
+        "expectedColumns": [
+          "name",
+          "total_revenue"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d1-c3",
@@ -73,12 +93,21 @@
     "tests": [
       {
         "description": "Query must find duplicates",
-        "mustContain": ["SELECT", "GROUP BY", "HAVING"],
-        "expectedColumns": ["customer_id", "total_amount", "duplicate_count"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "HAVING"
+        ],
+        "expectedColumns": [
+          "customer_id",
+          "total_amount",
+          "duplicate_count"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d1-c4",
@@ -100,12 +129,20 @@
     "tests": [
       {
         "description": "Query must compare yearly sales",
-        "mustContain": ["SELECT", "strftime", "GROUP BY"],
-        "expectedColumns": ["year", "total_sales"],
+        "mustContain": [
+          "SELECT",
+          "strftime",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "year",
+          "total_sales"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d1-c5",
@@ -127,12 +164,20 @@
     "tests": [
       {
         "description": "Query must find low stock items",
-        "mustContain": ["SELECT", "FROM", "WHERE"],
-        "expectedColumns": ["name", "quantity"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE"
+        ],
+        "expectedColumns": [
+          "name",
+          "quantity"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "xp": 10
   },
   {
     "id": "w5-d2-c1",
@@ -154,12 +199,20 @@
     "tests": [
       {
         "description": "Query must analyze purchase patterns",
-        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "order_count"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "order_count"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d2-c2",
@@ -181,12 +234,21 @@
     "tests": [
       {
         "description": "Query must analyze tenure",
-        "mustContain": ["SELECT", "CASE", "WHEN"],
-        "expectedColumns": ["name", "years_employed", "experience_level"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "WHEN"
+        ],
+        "expectedColumns": [
+          "name",
+          "years_employed",
+          "experience_level"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d2-c3",
@@ -208,12 +270,22 @@
     "tests": [
       {
         "description": "Query must compare budget to spending",
-        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "spending", "budget", "variance"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "spending",
+          "budget",
+          "variance"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d2-c4",
@@ -235,12 +307,22 @@
     "tests": [
       {
         "description": "Query must find near-full courses",
-        "mustContain": ["SELECT", "FROM", "WHERE"],
-        "expectedColumns": ["name", "capacity", "enrolled", "percent_full"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "WHERE"
+        ],
+        "expectedColumns": [
+          "name",
+          "capacity",
+          "enrolled",
+          "percent_full"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d2-c5",
@@ -262,12 +344,21 @@
     "tests": [
       {
         "description": "Query must calculate commissions",
-        "mustContain": ["SELECT", "CASE", "GROUP BY"],
-        "expectedColumns": ["name", "total_sales", "commission"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "total_sales",
+          "commission"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d3-c1",
@@ -289,12 +380,20 @@
     "tests": [
       {
         "description": "Query must find customers without orders",
-        "mustContain": ["SELECT", "LEFT JOIN", "WHERE", "IS NULL"],
-        "expectedColumns": ["name"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "WHERE",
+          "IS NULL"
+        ],
+        "expectedColumns": [
+          "name"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d3-c2",
@@ -316,12 +415,19 @@
     "tests": [
       {
         "description": "Query must find consecutive day workers",
-        "mustContain": ["SELECT", "FROM", "INNER JOIN"],
-        "expectedColumns": ["employee_id"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "INNER JOIN"
+        ],
+        "expectedColumns": [
+          "employee_id"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d3-c3",
@@ -343,12 +449,20 @@
     "tests": [
       {
         "description": "Query must categorize salary bands",
-        "mustContain": ["SELECT", "CASE", "GROUP BY"],
-        "expectedColumns": ["salary_band", "employee_count"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "salary_band",
+          "employee_count"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d3-c4",
@@ -370,12 +484,22 @@
     "tests": [
       {
         "description": "Query must track project progress",
-        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "total_tasks", "completed_tasks", "percent_complete"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "total_tasks",
+          "completed_tasks",
+          "percent_complete"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d3-c5",
@@ -397,12 +521,22 @@
     "tests": [
       {
         "description": "Query must calculate CLV metrics",
-        "mustContain": ["SELECT", "LEFT JOIN", "GROUP BY"],
-        "expectedColumns": ["name", "total_orders", "total_spent", "avg_order_value"],
+        "mustContain": [
+          "SELECT",
+          "LEFT JOIN",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "name",
+          "total_orders",
+          "total_spent",
+          "avg_order_value"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d4-c1",
@@ -424,12 +558,21 @@
     "tests": [
       {
         "description": "Query must find 3rd highest salary",
-        "mustContain": ["SELECT", "FROM", "LIMIT", "OFFSET"],
-        "expectedColumns": ["name", "salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LIMIT",
+          "OFFSET"
+        ],
+        "expectedColumns": [
+          "name",
+          "salary"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d4-c2",
@@ -451,12 +594,20 @@
     "tests": [
       {
         "description": "Query must calculate median",
-        "mustContain": ["SELECT", "FROM", "LIMIT", "OFFSET"],
-        "expectedColumns": ["salary"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "LIMIT",
+          "OFFSET"
+        ],
+        "expectedColumns": [
+          "salary"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d4-c3",
@@ -478,12 +629,20 @@
     "tests": [
       {
         "description": "Query must calculate percentage of total",
-        "mustContain": ["SELECT", "GROUP BY"],
-        "expectedColumns": ["department", "dept_total", "percent"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY"
+        ],
+        "expectedColumns": [
+          "department",
+          "dept_total",
+          "percent"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d4-c4",
@@ -505,12 +664,21 @@
     "tests": [
       {
         "description": "Query must show multi-level aggregation",
-        "mustContain": ["SELECT", "GROUP BY", "OVER"],
-        "expectedColumns": ["name", "category_sales", "total_sales"],
+        "mustContain": [
+          "SELECT",
+          "GROUP BY",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "category_sales",
+          "total_sales"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d4-c5",
@@ -532,12 +700,22 @@
     "tests": [
       {
         "description": "Query must calculate growth rate",
-        "mustContain": ["SELECT", "LAG", "OVER"],
-        "expectedColumns": ["month", "revenue", "prev_revenue", "growth_percent"],
+        "mustContain": [
+          "SELECT",
+          "LAG",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "month",
+          "revenue",
+          "prev_revenue",
+          "growth_percent"
+        ],
         "expectedRowCount": 3
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d5-c1",
@@ -559,12 +737,22 @@
     "tests": [
       {
         "description": "Query must JOIN 4 tables",
-        "mustContain": ["SELECT", "FROM", "INNER JOIN"],
-        "expectedColumns": ["name", "order_date", "name", "quantity"],
+        "mustContain": [
+          "SELECT",
+          "FROM",
+          "INNER JOIN"
+        ],
+        "expectedColumns": [
+          "name",
+          "order_date",
+          "name",
+          "quantity"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "xp": 10
   },
   {
     "id": "w5-d5-c2",
@@ -586,12 +774,22 @@
     "tests": [
       {
         "description": "Query must use CTE with window function",
-        "mustContain": ["WITH", "ROW_NUMBER", "OVER"],
-        "expectedColumns": ["name", "category_id", "category_name", "total_sold"],
+        "mustContain": [
+          "WITH",
+          "ROW_NUMBER",
+          "OVER"
+        ],
+        "expectedColumns": [
+          "name",
+          "category_id",
+          "category_name",
+          "total_sold"
+        ],
         "expectedRowCount": 2
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d5-c3",
@@ -613,12 +811,21 @@
     "tests": [
       {
         "description": "Query must create pivot result",
-        "mustContain": ["SELECT", "CASE", "strftime"],
-        "expectedColumns": ["jan_total", "feb_total", "mar_total"],
+        "mustContain": [
+          "SELECT",
+          "CASE",
+          "strftime"
+        ],
+        "expectedColumns": [
+          "jan_total",
+          "feb_total",
+          "mar_total"
+        ],
         "expectedRowCount": 1
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d5-c4",
@@ -640,12 +847,22 @@
     "tests": [
       {
         "description": "Query must traverse hierarchy",
-        "mustContain": ["WITH", "RECURSIVE", "UNION ALL"],
-        "expectedColumns": ["id", "name", "manager_id", "level"],
+        "mustContain": [
+          "WITH",
+          "RECURSIVE",
+          "UNION ALL"
+        ],
+        "expectedColumns": [
+          "id",
+          "name",
+          "manager_id",
+          "level"
+        ],
         "expectedRowCount": 6
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   },
   {
     "id": "w5-d5-c5",
@@ -667,11 +884,18 @@
     "tests": [
       {
         "description": "Query must create dashboard summary",
-        "mustContain": ["SELECT", "UNION ALL"],
-        "expectedColumns": ["metric", "value"],
+        "mustContain": [
+          "SELECT",
+          "UNION ALL"
+        ],
+        "expectedColumns": [
+          "metric",
+          "value"
+        ],
         "expectedRowCount": 4
       }
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "xp": 10
   }
 ]
