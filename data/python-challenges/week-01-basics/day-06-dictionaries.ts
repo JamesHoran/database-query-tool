@@ -39,12 +39,7 @@ person["age"] = 31`,
     tests: [
       {
         name: 'test_dict_access',
-        code: `person = {"name": "Alice", "age": 30, "city": "NYC"}
-name_value = person["name"]
-is_city_in_dict = "city" in person
-person["email"] = "test@example.com"
-person["age"] = 31
-assert name_value == "Alice"
+        code: `assert name_value == "Alice"
 assert is_city_in_dict == True
 assert person["email"] == "test@example.com"
 assert person["age"] == 31`,
@@ -84,11 +79,7 @@ email_val = person.get("email", "unknown@example.com")`,
     tests: [
       {
         name: 'test_get_method',
-        code: `person = {"name": "Alice", "age": 30}
-name_val = person.get("name")
-phone_val = person.get("phone", "N/A")
-email_val = person.get("email", "unknown@example.com")
-assert name_val == "Alice"
+        code: `assert name_val == "Alice"
 assert phone_val == "N/A"
 assert email_val == "unknown@example.com"`,
       },
@@ -134,11 +125,7 @@ formatted = [f"{name}: {score}" for name, score in scores.items()]`,
     tests: [
       {
         name: 'test_dict_methods',
-        code: `scores = {"Alice": 95, "Bob": 87, "Charlie": 92}
-names = list(scores.keys())
-score_values = list(scores.values())
-formatted = [f"{name}: {score}" for name, score in scores.items()]
-assert set(names) == {"Alice", "Bob", "Charlie"}
+        code: `assert set(names) == {"Alice", "Bob", "Charlie"}
 assert set(score_values) == {95, 87, 92}
 assert "Alice: 95" in formatted`,
       },
@@ -178,14 +165,11 @@ lengths_dict = {word: len(word) for word in words}`,
     tests: [
       {
         name: 'test_squares_dict',
-        code: `squares_dict = {x: x**2 for x in range(1, 6)}
-assert squares_dict == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}`,
+        code: `assert squares_dict == {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}`,
       },
       {
         name: 'test_lengths_dict',
-        code: `words = ["apple", "banana", "cherry"]
-lengths_dict = {word: len(word) for word in words}
-assert lengths_dict == {"apple": 5, "banana": 6, "cherry": 6}`,
+        code: `assert lengths_dict == {"apple": 5, "banana": 6, "cherry": 6}`,
       },
     ],
     hints: [
@@ -232,16 +216,7 @@ students["Charlie"] = {"math": 82, "science": 85, "english": 88}`,
     tests: [
       {
         name: 'test_nested_dict',
-        code: `students = {
-    "Alice": {"math": 95, "science": 88, "english": 92},
-    "Bob": {"math": 87, "science": 90, "english": 85}
-}
-alice_math = students["Alice"]["math"]
-bob_science = students["Bob"]["science"]
-alice_scores = students["Alice"].values()
-alice_avg = sum(alice_scores) / len(alice_scores)
-students["Charlie"] = {"math": 82, "science": 85, "english": 88}
-assert alice_math == 95
+        code: `assert alice_math == 95
 assert bob_science == 90
 assert alice_avg == (95 + 88 + 92) / 3
 assert "Charlie" in students`,

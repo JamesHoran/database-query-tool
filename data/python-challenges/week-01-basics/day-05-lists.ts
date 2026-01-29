@@ -32,24 +32,17 @@ fruits[1] = "grape"`,
     tests: [
       {
         name: 'test_first_last',
-        code: `fruits = ["apple", "banana", "cherry"]
-first = fruits[0]
-last = fruits[-1]
-assert first == "apple"
+        code: `assert first == "apple"
 assert last == "cherry"`,
       },
       {
         name: 'test_append',
-        code: `fruits = ["apple", "banana", "cherry"]
-fruits.append("orange")
-assert "orange" in fruits
+        code: `assert "orange" in fruits
 assert len(fruits) == 4`,
       },
       {
         name: 'test_modify',
-        code: `fruits = ["apple", "banana", "cherry"]
-fruits[1] = "grape"
-assert fruits[1] == "grape"`,
+        code: `assert fruits[1] == "grape"`,
       },
     ],
     hints: [
@@ -88,12 +81,7 @@ every_other = numbers[::2]`,
     tests: [
       {
         name: 'test_slices',
-        code: `numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-first_three = numbers[:3]
-middle = numbers[2:5]
-last_two = numbers[-2:]
-every_other = numbers[::2]
-assert first_three == [0, 1, 2]
+        code: `assert first_three == [0, 1, 2]
 assert middle == [2, 3, 4]
 assert last_two == [8, 9]
 assert every_other == [0, 2, 4, 6, 8]`,
@@ -144,13 +132,7 @@ count_of_3 = numbers.count(3)`,
     tests: [
       {
         name: 'test_list_methods',
-        code: `numbers = [1, 2, 3, 4, 5, 3, 6, 7, 8, 9]
-numbers.append(10)
-numbers.insert(0, 0)
-numbers.remove(5)
-index_of_7 = numbers.index(7)
-count_of_3 = numbers.count(3)
-assert numbers[0] == 0
+        code: `assert numbers[0] == 0
 assert 5 not in numbers
 assert index_of_7 == 7
 assert count_of_3 == 2`,
@@ -201,20 +183,15 @@ upper_words = [word.upper() for word in words]`,
     tests: [
       {
         name: 'test_squares',
-        code: `squares = [x**2 for x in range(1, 6)]
-assert squares == [1, 4, 9, 16, 25]`,
+        code: `assert squares == [1, 4, 9, 16, 25]`,
       },
       {
         name: 'test_evens',
-        code: `nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-evens = [x for x in nums if x % 2 == 0]
-assert evens == [2, 4, 6, 8, 10]`,
+        code: `assert evens == [2, 4, 6, 8, 10]`,
       },
       {
         name: 'test_upper',
-        code: `words = ["hello", "world"]
-upper_words = [word.upper() for word in words]
-assert upper_words == ["HELLO", "WORLD"]`,
+        code: `assert upper_words == ["HELLO", "WORLD"]`,
       },
     ],
     hints: [
@@ -250,11 +227,7 @@ by_length = sorted(names, key=len)`,
     tests: [
       {
         name: 'test_sorted',
-        code: `names = ["Zoe", "Bob", "Alice", "Charlie", "David"]
-sorted_copy = sorted(names)
-reverse_sorted = sorted(names, reverse=True)
-by_length = sorted(names, key=len)
-assert sorted_copy == ["Alice", "Bob", "Charlie", "David", "Zoe"]
+        code: `assert sorted_copy == ["Alice", "Bob", "Charlie", "David", "Zoe"]
 assert reverse_sorted == ["Zoe", "David", "Charlie", "Bob", "Alice"]
 assert by_length == ["Bob", "Zoe", "Alice", "David", "Charlie"]`,
       },

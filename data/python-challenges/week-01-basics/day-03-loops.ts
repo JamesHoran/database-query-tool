@@ -23,19 +23,11 @@ for num in numbers:
     tests: [
       {
         name: 'test_total_sum',
-        code: `numbers = [1, 2, 3, 4, 5]
-total = 0
-for num in numbers:
-    total += num
-assert total == 15, f"Expected 15, got {total}"`,
+        code: `assert total == 15, f"Expected 15, got {total}"`,
       },
       {
         name: 'test_different_list',
-        code: `numbers = [10, 20, 30]
-total = 0
-for num in numbers:
-    total += num
-assert total == 60, f"Expected 60, got {total}"`,
+        code: `assert total == 60, f"Expected 60, got {total}"`,
       },
     ],
     hints: [
@@ -68,17 +60,11 @@ for i in range(5):
     tests: [
       {
         name: 'test_range_sum',
-        code: `sum_range = 0
-for i in range(5):
-    sum_range += i
-assert sum_range == 10, f"Expected 10, got {sum_range}"`,
+        code: `assert sum_range == 10, f"Expected 10, got {sum_range}"`,
       },
       {
         name: 'test_range_values',
-        code: `values = []
-for i in range(5):
-    values.append(i)
-assert values == [0, 1, 2, 3, 4]`,
+        code: `assert values == [0, 1, 2, 3, 4]`,
       },
     ],
     hints: [
@@ -114,21 +100,11 @@ while count > 0:
     tests: [
       {
         name: 'test_countdown_values',
-        code: `count = 5
-countdown = []
-while count > 0:
-    countdown.append(count)
-    count -= 1
-assert countdown == [5, 4, 3, 2, 1]`,
+        code: `assert countdown == [5, 4, 3, 2, 1]`,
       },
       {
         name: 'test_countdown_with_different_start',
-        code: `count = 3
-countdown = []
-while count > 0:
-    countdown.append(count)
-    count -= 1
-assert countdown == [3, 2, 1]`,
+        code: `assert countdown == [3, 2, 1]`,
       },
     ],
     hints: [
@@ -168,15 +144,7 @@ for num in numbers:
     tests: [
       {
         name: 'test_break_continue_result',
-        code: `numbers = [5, -2, 10, -5, 50, 150, 20]
-result = []
-for num in numbers:
-    if num < 0:
-        continue
-    if num > 100:
-        break
-    result.append(num)
-assert result == [5, 10, 50]`,
+        code: `assert result == [5, 10, 50]`,
       },
     ],
     hints: [
@@ -209,11 +177,7 @@ for index, fruit in enumerate(fruits):
     tests: [
       {
         name: 'test_enumerate_result',
-        code: `fruits = ["apple", "banana", "cherry"]
-result = []
-for index, fruit in enumerate(fruits):
-    result.append(f"{index}: {fruit}")
-assert result == ["0: apple", "1: banana", "2: cherry"]`,
+        code: `assert result == ["0: apple", "1: banana", "2: cherry"]`,
       },
     ],
     hints: [

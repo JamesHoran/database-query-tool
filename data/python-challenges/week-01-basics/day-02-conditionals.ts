@@ -25,19 +25,11 @@ if age >= 18:
     tests: [
       {
         name: 'test_can_vote_with_age_20',
-        code: `age = 20
-can_vote = False
-if age >= 18:
-    can_vote = True
-assert can_vote == True, "With age=20, can_vote should be True"`,
+        code: `assert can_vote == True, "With age=20, can_vote should be True"`,
       },
       {
         name: 'test_can_vote_with_age_15',
-        code: `age = 15
-can_vote = False
-if age >= 18:
-    can_vote = True
-assert can_vote == False, "With age=15, can_vote should be False"`,
+        code: `assert can_vote == False, "With age=15, can_vote should be False"`,
       },
     ],
     hints: [
@@ -74,23 +66,11 @@ else:
     tests: [
       {
         name: 'test_passing_score',
-        code: `score = 75
-message = ""
-if score >= 60:
-    message = "You passed!"
-else:
-    message = "You failed. Try again."
-assert message == "You passed!"`,
+        code: `assert message == "You passed!"`,
       },
       {
         name: 'test_failing_score',
-        code: `score = 45
-message = ""
-if score >= 60:
-    message = "You passed!"
-else:
-    message = "You failed. Try again."
-assert message == "You failed. Try again."`,
+        code: `assert message == "You failed. Try again."`,
       },
     ],
     hints: [
@@ -137,51 +117,15 @@ else:
     tests: [
       {
         name: 'test_grade_A',
-        code: `score = 92
-grade = ""
-if score >= 90:
-    grade = "A"
-elif score >= 80:
-    grade = "B"
-elif score >= 70:
-    grade = "C"
-elif score >= 60:
-    grade = "D"
-else:
-    grade = "F"
-assert grade == "A"`,
+        code: `assert grade == "A"`,
       },
       {
         name: 'test_grade_B',
-        code: `score = 85
-grade = ""
-if score >= 90:
-    grade = "A"
-elif score >= 80:
-    grade = "B"
-elif score >= 70:
-    grade = "C"
-elif score >= 60:
-    grade = "D"
-else:
-    grade = "F"
-assert grade == "B"`,
+        code: `assert grade == "B"`,
       },
       {
         name: 'test_grade_F',
-        code: `score = 45
-grade = ""
-if score >= 90:
-    grade = "A"
-elif score >= 80:
-    grade = "B"
-elif score >= 70:
-    grade = "C"
-elif score >= 60:
-    grade = "D"
-else:
-    grade = "F"
-assert grade == "F"`,
+        code: `assert grade == "F"`,
       },
     ],
     hints: [
