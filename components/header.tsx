@@ -234,24 +234,54 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 }
 
 function WeekQuickLinks() {
-  const weekColors = [
-    { color: 'blue', href: '/course#w1', label: '1' },
-    { color: 'purple', href: '/course#w2', label: '2' },
-    { color: 'emerald', href: '/course#w3', label: '3' },
-    { color: 'amber', href: '/course#w4', label: '4' },
-    { color: 'rose', href: '/course#w5', label: '5' },
+  const weekData = [
+    {
+      week: 1,
+      color: 'blue',
+      href: '/course#w1',
+      title: 'SQL Fundamentals',
+      description: 'SELECT, WHERE, ORDER BY, basic aggregation',
+    },
+    {
+      week: 2,
+      color: 'purple',
+      href: '/course#w2',
+      title: 'GROUP BY & Aggregation',
+      description: 'GROUP BY, HAVING, aggregate functions',
+    },
+    {
+      week: 3,
+      color: 'emerald',
+      href: '/course#w3',
+      title: 'JOINs & Multiple Tables',
+      description: 'INNER, LEFT, SELF JOINs',
+    },
+    {
+      week: 4,
+      color: 'amber',
+      href: '/course#w4',
+      title: 'Advanced SQL',
+      description: 'CTEs, Window Functions',
+    },
+    {
+      week: 5,
+      color: 'rose',
+      href: '/course#w5',
+      title: 'Advanced Practice',
+      description: 'Real-world scenarios',
+    },
   ];
 
   return (
     <>
-      {weekColors.map(({ color, href, label }) => (
+      {weekData.map(({ week, color, href, title, description }) => (
         <Link
-          key={label}
+          key={week}
           href={href}
-          className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold transition-all ${getWeekColorClass(color)}`}
-          title={`Week ${label}`}
+          className={`w-9 h-7 rounded-lg flex items-center justify-center text-xs font-semibold transition-all ${getWeekColorClass(color)}`}
+          title={`W${week}: ${title} - ${description}`}
         >
-          {label}
+          W{week}
         </Link>
       ))}
     </>

@@ -1,6 +1,7 @@
 import type { Challenge } from '@/types';
 
 function unescapeSqlString(str: string): string {
+  // JSON parses \\n as \n, so we need to unescape \n to actual newlines
   return str
     .replace(/\\n/g, '\n')
     .replace(/\\t/g, '\t')
@@ -16,9 +17,10 @@ export async function getAllChallenges(): Promise<Challenge[]> {
     const week4 = (await import('@/data/challenges/week-4.json')).default as any[];
     const week5 = (await import('@/data/challenges/week-5.json')).default as any[];
     const allChallenges = [...week1, ...week2, ...week3, ...week4, ...week5];
+    // Don't unescape here - Next.js serialization will re-escape it anyway
+    // Unescape on the client side instead
     return allChallenges.map(c => ({
       ...c,
-      seedData: unescapeSqlString(c.seedData),
       difficulty: c.difficulty as Challenge['difficulty'],
     })) as Challenge[];
   } catch (err) {
